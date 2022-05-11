@@ -23,9 +23,6 @@ Route::get('dashboard', [PostController::class, 'getDashboard'])->name('dashboar
 // logout
 Route::get('logout', [UserController::class, 'getLogout'])->name('logout');
 
-// profile update
-Route::get('account', [UserController::class, 'getAccount'])->name('account');
-
 // for creating post
 Route::post('/createpost', [PostController::class, 'postCreatePost'])->name('post.create')->middleware('auth');
 
@@ -37,3 +34,12 @@ Route::get('/editpost/{post_id}', [PostController::class, 'showcontent'])->name(
 
 // update post
 Route::post('/updatepost/{post_id}', [PostController::class, 'updatePost'])->name('updatepost');
+
+// profile access
+Route::get('account', [UserController::class, 'getAccount'])->name('account');
+
+// update profile
+Route::post('updateaccount', [UserController::class, 'postSaveAccount'])->name('account.save');
+
+// image file access
+Route::get('userimage/{filename}', [UserController::class, 'getUserImage'])->name('account.image');
