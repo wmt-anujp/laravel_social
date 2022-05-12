@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
-class Post extends Model
+class Like extends Model
 {
     use HasFactory;
     public function user()
@@ -14,8 +13,8 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function likes()
+    public function post()
     {
-        return $this->hasMany(Like::class, 'post_id');
+        return $this->belongsTo(Post::class);
     }
 }

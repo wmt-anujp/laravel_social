@@ -43,3 +43,6 @@ Route::post('updateaccount', [UserController::class, 'postSaveAccount'])->name('
 
 // image file access
 Route::get('userimage/{filename}', [UserController::class, 'getUserImage'])->name('account.image');
+
+// like
+Route::post('like', [PostController::class, 'postLikePost'])->name('like');

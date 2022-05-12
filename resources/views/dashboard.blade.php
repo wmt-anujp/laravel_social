@@ -36,8 +36,8 @@
                         <small>Posted by {{$post->user->name}} on {{$post->updated_at->format('d/m/Y h:i:s A')}}</small>
                     </div>
                     <div class="interaction">
-                        <a href="" class="btn btn-sm btn-secondary">Like</a> |
-                        <a href="" class="btn btn-secondary btn-sm">Dislike</a>
+                        <a href="#" class="btn btn-sm btn-secondary like">Like</a> |
+                        <a href="#" class="btn btn-secondary btn-sm like">Dislike</a>
                         @if (Auth::user()==$post->user)
                             |
                             <a href="{{route('editpost',['post_id'=>$post->id])}}" class="btn btn-secondary btn-sm">Edit</a> |
@@ -73,6 +73,10 @@
           </div>
         </div>
       </div> --}}
+    <script>
+        var token = '{{ csrf_token() }}';
+        var urlLike = '{{ route('like') }}';
+    </script>
 @endsection
 </body>
 </html>
