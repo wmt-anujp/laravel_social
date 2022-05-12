@@ -73,7 +73,7 @@ class UserController extends Controller
         ]);
         $user = Auth::user();
         $user->name = $request['name'];
-        $user->update();
+        User::where('id', $user->id)->update(['name' => $user->name]);
         $file = $request->file('image');
         $filename = $request['name'] . '-' . $user->id . '.jpg';
         if ($file) {
