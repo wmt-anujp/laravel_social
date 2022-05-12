@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Like;
 use App\Models\Post;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
@@ -38,32 +39,34 @@ class PostController extends Controller
         return redirect()->route('dashboard')->with(['message' => 'Successfully Deleted']);
     }
 
-    public function showcontent($post_id)
-    {
-        // $post = Post::where('id', $post_id)->first();
-        $post = Post::find($post_id);
-        if (Auth::user() != $post->user) {
-            return redirect()->back();
-        }
-        return view('editpost', ['body' => $post]);
-    }
+    // public function showcontent($post_id)
+    // {
+    //     $post = Post::where('id', $post_id)->first();
+    //     $post = Post::find($post_id);
+    //     if (Auth::user() != $post->user) {
+    //         return redirect()->back();
+    //     }
+    //     return view('editpost', ['body' => $post]);
+    // }
 
-    public function updatePost(Request $request, $post_id)
+    public function updatePost(Request $request)
     {
-        $post = Post::where('id', $post_id)->first();
-        if (Auth::user() != $post->user) {
-            return redirect()->back();
-        }
+        // $post = Post::where('id', $postid)->first();
         $request->validate([
             'body' => 'required | max:1000'
         ]);
-
-        $post->body = $request->input('body');
-        $message = 'There was an error while updating';
+        $post = Post::find($request['postId']);
+        // if (Auth::user() != $post->user) {
+        //     return redirect()->back();
+        // }
+        $post->body = $request['body'];
+        // $post->update();
+        $updatemessage = 'There was an error while updating';
         if ($request->user()->posts()->save($post)) {
-            $message = 'Post was updated successfully';
+            $updatemessage = 'Post was updated successfully';
         }
-        return redirect()->route('dashboard')->with(['message' => $message]);
+        // return response()->json(['new-body' => $post->body], 200);
+        return redirect()->route('dashboard')->with(['message' => $updatemessage]);
     }
 
     public function postLikePost(Request $request)
@@ -75,8 +78,9 @@ class PostController extends Controller
         if (!$post) {
             return null;
         }
-        $user = Auth::user();
-        $like = $user->likes()->where('post_id', $post_id)->first();
+        $user = User::with('liked');
+        dd($user);
+        $like = $user->liked()->where('post_id', $post_id)->first();
         if ($like) {
             $already_like = $like->like;
             $update = true;

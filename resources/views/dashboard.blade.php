@@ -30,17 +30,17 @@
         <div class="col-md-6 col-md-3-offset">
             <header class="my-3" style="color: lightgreen"><h3>What other people say</h3></header>
             @foreach ($posts as $post)
-                <article class="post" >
+                <article class="post" data-anuj={{ $post->id }}>
                     <p><h5 style="color: lightpink">Post Description:</h5>{{$post->body}}</p>
                     <div class="info">
                         <small>Posted by {{$post->user->name}} on {{$post->updated_at->format('d/m/Y h:i:s A')}}</small>
                     </div>
                     <div class="interaction">
-                        <a href="#" class="btn btn-sm btn-secondary like">Like</a> |
-                        <a href="#" class="btn btn-secondary btn-sm like">Dislike</a>
+                        <a href="#" class="btn btn-sm btn-secondary like">{{Auth::user()->liked()->where('post_id',$post->id)->first() ? Auth::user()->liked()->where('post_id',$post->id)->first()->like == 1 ? 'You have already liked this Post':'Like': 'Like'}}</a> |
+                        <a href="#" class="btn btn-secondary btn-sm">{{Auth::user()->liked()->where('post_id',$post->id)->first() ? Auth::user()->liked()->where('post_id',$post->id)->first()->like == 0 ? 'You dont\'t like this Post':'Dislike': 'Dislike'}}</a>
                         @if (Auth::user()==$post->user)
                             |
-                            <a href="{{route('editpost',['post_id'=>$post->id])}}" class="btn btn-secondary btn-sm">Edit</a> |
+                            <a href="#" class="btn btn-secondary btn-sm edit">Edit</a> |
                             <a href="{{route('post.delete',['post_id'=>$post->id])}}" class="btn btn-secondary btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
                         @endif
                     </div>
@@ -50,8 +50,8 @@
     </section>
 
 
-    {{-- edit modal --}}
-    {{-- <div class="modal fade" tabindex="-1" id="editmodal">
+    {{-- edit modal starts--}}
+    <div class="modal fade" tabindex="-1" id="editmodal">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -59,7 +59,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form action="">
+              <form method="POST">
                   <div class="form-group">
                       <label for="post-body">Edit the Post</label>
                       <textarea class="form-control" name="post-body" id="post-body" rows="5"></textarea>
@@ -72,11 +72,15 @@
             </div>
           </div>
         </div>
-      </div> --}}
+      </div>
+      {{-- edit modal ends --}}
+
     <script>
         var token = '{{ csrf_token() }}';
+        var urlEdit='{{route('edit')}}';
         var urlLike = '{{ route('like') }}';
     </script>
+
 @endsection
 </body>
 </html>

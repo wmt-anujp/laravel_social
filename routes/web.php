@@ -30,10 +30,11 @@ Route::post('/createpost', [PostController::class, 'postCreatePost'])->name('pos
 Route::get('/delete-post/{post_id}', [PostController::class, 'getDeletePost'])->name('post.delete')->middleware('auth');
 
 // show content in update post
-Route::get('/editpost/{post_id}', [PostController::class, 'showcontent'])->name('editpost');
+// Route::get('/editpost/{post_id}', [PostController::class, 'showcontent'])->name('editpost');
 
 // update post
-Route::post('/updatepost/{post_id}', [PostController::class, 'updatePost'])->name('updatepost');
+// Route::post('/updatepost/{post_id}', [PostController::class, 'updatePost'])->name('updatepost');
+Route::post('edit', [PostController::class, 'updatePost'])->name('edit');
 
 // profile access
 Route::get('account', [UserController::class, 'getAccount'])->name('account');
