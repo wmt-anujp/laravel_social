@@ -9,7 +9,7 @@
         {{-- signup starts --}}
         <div class="col-md-6 my-4">
             <h3>Sign Up</h3>
-            <form action="{{route('signup')}}" method="POST">
+            <form action="{{route('signup')}}" method="POST" id="signup">
                 @csrf
                 <div class="form-group my-4 {{$errors->has('email') ? 'has-error' : '' }}">
                     <label for="email">Email</label>
@@ -39,7 +39,7 @@
         {{-- login starts --}}
         <div class="col-md-6 my-4">
             <h3>Log In</h3>
-            <form action="{{route('signin')}}" method="POST">
+            <form action="{{route('signin')}}" method="POST" id="login">
                 @csrf
                 <div class="form-group my-4 {{$errors->has('email') ? 'has-error' : '' }}">
                     <label for="email">Email</label>

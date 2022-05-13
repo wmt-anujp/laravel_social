@@ -53,20 +53,20 @@ class PostController extends Controller
     {
         // $post = Post::where('id', $postid)->first();
         $request->validate([
-            'body' => 'required | max:1000'
+            'edit' => 'required | max:1000'
         ]);
         $post = Post::find($request['postId']);
         // if (Auth::user() != $post->user) {
         //     return redirect()->back();
         // }
         $post->body = $request['body'];
-        // $post->update();
-        $updatemessage = 'There was an error while updating';
-        if ($request->user()->posts()->save($post)) {
-            $updatemessage = 'Post was updated successfully';
-        }
-        // return response()->json(['new-body' => $post->body], 200);
-        return redirect()->route('dashboard')->with(['message' => $updatemessage]);
+        $post->update();
+        // $updatemessage = 'There was an error while updating';
+        // if ($request->user()->posts()->save($post)) {
+        //     $updatemessage = 'Post was updated successfully';
+        // }
+        return response()->json(['new-body' => $post->body], 200);
+        // return redirect()->route('dashboard')->with(json(['new-body' => $post->body], 200]));
     }
 
     public function postLikePost(Request $request)

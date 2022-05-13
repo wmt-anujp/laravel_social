@@ -2,15 +2,11 @@ var postId = 0;
 var postBodyElement = null;
 $(document).ready(function () {
     $(".edit").click(function (event) {
-        // console.log(event);
         event.preventDefault();
-        postBodyElement = event.target.parentNode.parentNode.childNodes[3];
-        // console.log(postBodyElement);
+        postBodyElement = event.target.parentNode.parentNode.childNodes[1];
         var postBody = postBodyElement.textContent;
-        // console.log(postBody);
         postId = event.target.parentNode.parentNode.dataset["anuj"];
-        // console.log(postId);
-        $("#post-body").val(postBody);
+        $("#edit").val(postBody);
         $("#editmodal").modal("show");
     });
 
@@ -19,20 +15,17 @@ $(document).ready(function () {
             method: "POST",
             url: urlEdit,
             data: {
-                body: $("#post-body").val(),
+                body: $("#edit").val(),
                 postId: postId,
                 _token: token,
             },
         }).done(function (msg) {
+            // console.log(msg["new-body"]);
             $(postBodyElement).text(msg["new-body"]);
             $("#editmodal").modal("hide");
         });
     });
 });
-
-// $(".like").click(function (event) {
-//     // console.log("hello");
-// });
 
 $(".like").click(function (event) {
     event.preventDefault();

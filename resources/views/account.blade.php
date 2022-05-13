@@ -8,7 +8,7 @@
 <section class="row new-post">
     <div class="col-md-6 col-md-offset-3">
         <header class="mt-4"><h3>Your Account</h3></header>
-        <form action="{{ route('account.save') }}" class="my-4" method="post" enctype="multipart/form-data">
+        <form action="{{ route('account.save') }}" class="my-4" method="post" id="account" enctype="multipart/form-data">
             <div class="form-group my-2">
                 @csrf
                 <label for="name">Name</label>

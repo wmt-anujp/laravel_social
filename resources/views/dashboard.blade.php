@@ -11,10 +11,11 @@
 @extends('layouts.master')
 @include('includes.message-block')
 @section('content')
+    {{-- Create POST starts --}}
     <section class="row new post">
         <div class="col-md-6 col-md-offset-3">
             <header class="my-4" style="color: lightgreen"><h3>What do you have to say?</h3></header>
-                <form action="{{route('post.create')}}" method="post" id="">
+                <form action="{{route('post.create')}}" method="post" id="createpost">
                     @csrf
                     <div class="form-group">
                         <textarea class="form-control" name="body" id="new-post" rows="5" placeholder="Write here to Post!"></textarea>
@@ -26,12 +27,15 @@
                 </form>
         </div>
     </section>
+    {{-- Create Post ENDS --}}
+
+    {{-- Post Display Starts --}}
     <section class="row_posts">
         <div class="col-md-6 col-md-3-offset">
             <header class="my-3" style="color: lightgreen"><h3>What other people say</h3></header>
             @foreach ($posts as $post)
                 <article class="post" data-anuj={{ $post->id }}>
-                    <p><h5 style="color: lightpink">Post Description:</h5>{{$post->body}}</p>
+                    <p>{{$post->body}}</p>
                     <div class="info">
                         <small>Posted by {{$post->user->name}} on {{$post->updated_at->format('d/m/Y h:i:s A')}}</small>
                     </div>
@@ -48,7 +52,7 @@
             @endforeach
         </div>
     </section>
-
+    {{-- Post Display Ends --}}
 
     {{-- edit modal starts--}}
     <div class="modal fade" tabindex="-1" id="editmodal">
@@ -59,10 +63,12 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form method="POST">
+              <form method="POST" id="posteditform">
+                  @csrf
+                  {{-- <input type="hidden" id="id" name="id" /> --}}
                   <div class="form-group">
-                      <label for="post-body">Edit the Post</label>
-                      <textarea class="form-control" name="post-body" id="post-body" rows="5"></textarea>
+                      <label for="edit">Edit the Post</label>
+                      <textarea class="form-control" name="edit" id="edit" rows="5"></textarea>
                   </div>
               </form>
             </div>
@@ -78,9 +84,18 @@
     <script>
         var token = '{{ csrf_token() }}';
         var urlEdit='{{route('edit')}}';
-        var urlLike = '{{ route('like') }}';
+        var urlLike = "{{ route('like') }}";
     </script>
 
+
+{{-- <script>
+    function posteditfunction(id) { 
+        $.get('post/'+id, function(post){
+            $("#edit").val(post_id);
+            $("#posteditmodal").modal("hide");
+        })
+     }
+</script> --}}
 @endsection
 </body>
 </html>
