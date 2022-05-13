@@ -18,7 +18,7 @@ $(document).ready(function () {
             },
             password: {
                 required: true,
-                minlength: 8,
+                minlength: 6,
             },
         },
         messages: {
@@ -48,7 +48,7 @@ $(document).ready(function () {
             },
             password: {
                 required: true,
-                minlength: 8,
+                minlength: 6,
             },
         },
         messages: {
@@ -84,7 +84,7 @@ $(document).ready(function () {
         },
     });
 
-    $validator.addMethod;
+    // $validator.addMethod;
     "filesize",
         function (value, element, param) {
             return (
@@ -124,19 +124,33 @@ $(document).ready(function () {
 
     $("#posteditform").validate({
         rules: {
-            edit: {
+            body: {
                 required: true,
-                maxlength: true,
+                maxlength: 1000,
             },
         },
         messages: {
-            edit: {
+            body: {
                 required: "Please enter some text to post",
                 maxlength: "Maximum length for post is 1000",
             },
         },
         submitHandler: function (form) {
-            form.submit();
+            // form.submit();
+            console.log;
+            $.ajax({
+                method: "POST",
+                url: urlEdit,
+                data: {
+                    body: $("#body").val(),
+                    postId: postId,
+                    _token: token,
+                },
+            }).done(function (msg) {
+                // console.log(msg["new-body"]);
+                $(postBodyElement).text(msg["new-body"]);
+                $("#editmodal").modal("hide");
+            });
         },
     });
 });

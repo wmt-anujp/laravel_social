@@ -19,6 +19,11 @@ class UserController extends Controller
         return view('welcome');
     }
 
+    public function userLogin()
+    {
+        return view('login');
+    }
+
     public function postSignUp(Request $request)
     {
         $request->validate([

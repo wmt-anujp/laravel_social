@@ -40,8 +40,9 @@
                         <small>Posted by {{$post->user->name}} on {{$post->updated_at->format('d/m/Y h:i:s A')}}</small>
                     </div>
                     <div class="interaction">
-                        <a href="#" class="btn btn-sm btn-secondary like">{{Auth::user()->liked()->where('post_id',$post->id)->first() ? Auth::user()->liked()->where('post_id',$post->id)->first()->like == 1 ? 'You have already liked this Post':'Like': 'Like'}}</a> |
-                        <a href="#" class="btn btn-secondary btn-sm">{{Auth::user()->liked()->where('post_id',$post->id)->first() ? Auth::user()->liked()->where('post_id',$post->id)->first()->like == 0 ? 'You dont\'t like this Post':'Dislike': 'Dislike'}}</a>
+                        <a href="#" class="btn btn-sm btn-secondary like">{{Auth::user()->liked()->where('post_id',$post->id)->first() ? Auth::user()->liked()->where('post_id',$post->id)->first()->like == 1 ? 'You have already liked this Post':'Like': 'Like'}}</a>
+                         |
+                        <a href="#" class="btn btn-secondary btn-sm like">{{Auth::user()->liked()->where('post_id',$post->id)->first() ? Auth::user()->liked()->where('post_id',$post->id)->first()->like == 0 ? 'You dont\'t like this Post':'Dislike': 'Dislike'}}</a>
                         @if (Auth::user()==$post->user)
                             |
                             <a href="#" class="btn btn-secondary btn-sm edit">Edit</a> |
@@ -67,25 +68,19 @@
                   @csrf
                   {{-- <input type="hidden" id="id" name="id" /> --}}
                   <div class="form-group">
-                      <label for="edit">Edit the Post</label>
-                      <textarea class="form-control" name="edit" id="edit" rows="5"></textarea>
+                      <label for="body">Edit the Post</label>
+                      <textarea class="form-control" name="body" id="body" rows="5"></textarea>
                   </div>
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" id="modalsave">Save changes</button>
+              <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="modalsave">Save changes</button>
             </div>
           </div>
         </div>
       </div>
       {{-- edit modal ends --}}
-
-    <script>
-        var token = '{{ csrf_token() }}';
-        var urlEdit='{{route('edit')}}';
-        var urlLike = "{{ route('like') }}";
-    </script>
 
 
 {{-- <script>
@@ -96,6 +91,19 @@
         })
      }
 </script> --}}
+
+@endsection
+@section('pagejs')
+    <script>
+        var token = '{{ csrf_token() }}';
+        var urlEdit='{{route('edit')}}';
+        var urlLike = '{{ route('like') }}';
+    </script>
 @endsection
 </body>
 </html>
+Date: 13/05/2022
+Project: WMT Training
+-solved edit post section using ajax request.
+-solved the like dislike of post.
+-made changes in validation while updating the post.

@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
@@ -15,6 +16,7 @@ Route::post('postsignup', [UserController::class, 'postSignUp'])->name('signup')
 // Route::get('postsignup', [UserController::class, 'getdata'])->name('register');
 
 // for login
+Route::get('login', [UserController::class, 'userLogin'])->name('login');
 Route::post('postsignin', [UserController::class, 'postSignIn'])->name('signin');
 
 // for dashboard
@@ -46,4 +48,4 @@ Route::post('updateaccount', [UserController::class, 'postSaveAccount'])->name('
 Route::get('userimage/{filename}', [UserController::class, 'getUserImage'])->name('account.image');
 
 // like
-Route::post('like', [PostController::class, 'postLikePost'])->name('like');
+Route::post('like', [PostController::class, 'postLike'])->name('like');

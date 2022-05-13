@@ -19,14 +19,17 @@
     integrity="sha512-XZEy8UQ9rngkxQVugAdOuBRDmJ5N4vCuNXCh8KlniZgDKTvf7zl75QBtaVG1lEhMFe2a2DuA22nZYY+qsI2/xA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <link rel="stylesheet" href="{{URL::to('src/css/main.css')}}">
-    <script src="{{URL::to('src/js/app.js')}}"></script>
-    <script src="{{URL::to('src/js/Formvalidate.js')}}"></script>
+    {{-- <link rel="stylesheet" href="{{URL::to('src/css/main.css')}}"> --}}
+    
+
 </head>
 <body>
     @include('includes.header')
     <div class="container">
         @yield('content')
+        @yield('pagejs')
+        <script src="{{URL::to('src/js/app.js')}}"></script>
+        <script src="{{URL::to('src/js/Formvalidate.js')}}"></script>
     </div>
 </body>
 </html>
