@@ -102,8 +102,3 @@
 @endsection
 </body>
 </html>
-Date: 13/05/2022
-Project: WMT Training
--solved edit post section using ajax request.
--solved the like dislike of post.
--made changes in validation while updating the post.

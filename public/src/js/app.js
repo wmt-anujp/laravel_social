@@ -11,19 +11,19 @@ $(document).ready(function () {
     });
 
     $("#modalsave").click(function () {
-        // $.ajax({
-        //     method: "POST",
-        //     url: urlEdit,
-        //     data: {
-        //         body: $("#edit").val(),
-        //         postId: postId,
-        //         _token: token,
-        //     },
-        // }).done(function (msg) {
-        //     // console.log(msg["new-body"]);
-        //     $(postBodyElement).text(msg["new-body"]);
-        //     $("#editmodal").modal("hide");
-        // });
+        $.ajax({
+            method: "POST",
+            url: urlEdit,
+            data: {
+                body: $("#body").val(),
+                postId: postId,
+                _token: token,
+            },
+        }).done(function (msg) {
+            // console.log(msg["new-body"]);
+            $(postBodyElement).text(msg["new-body"]);
+            $("#editmodal").modal("hide");
+        });
     });
 });
 
