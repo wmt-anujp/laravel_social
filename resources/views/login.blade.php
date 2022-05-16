@@ -32,17 +32,19 @@
                 <div class="form-group my-4 {{$errors->has('password') ? 'has-error' : '' }}">
                     <label for="password">Password</label>
                     <input class="form-control" type="password" name="password" id="password" value="{{Request::old('password')}}">
-                    {{-- <span style="color: red">
-                        @error('password')
-                            {{$message}}
-                        @enderror
-                    </span> --}}
+                    @if ($errors->has('email'))
+                        <p><span class="text-danger">{{$errors->first('email')}}*</span></p>
+                    @endif
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+            <div class="mt-3">
+                <a href="{{route('signup')}}">Don't Have an Account?</a>
+            </div>
         </div>
     </div>
     {{-- login ends --}}
+    
 @endsection
 </body>
 </html>

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\UserController;
+use App\Models\Author;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +20,30 @@ Route::get('/', function () {
     return view('signup');
 });
 
+// signup
+Route::get('signup', [UserController::class, 'signup'])->name('signup');
 Route::post('signup', [UserController::class, 'usersignup'])->name('signup');
+
+// login
+Route::get('login', [UserController::class, 'userLogin'])->name('login');
+Route::post('signin', [UserController::class, 'usersignin'])->name('signin');
+
+// logout
+Route::get('logout', [UserController::class, 'getLogout'])->name('logout');
+
+Route::middleware('auth')->group(function () {
+    // dashboard
+    Route::get('dashboard', [UserController::class, 'getdashboard'])->name('dashboard');
+
+    // account
+    Route::get('account', [UserController::class, 'getaccount'])->name('account');
+
+    // navbar author access
+    Route::get('authors/authorlist', [AuthorController::class, 'authorspage'])->name('addauthor');
+
+    // addauthor button access
+    Route::get('addauthor', [AuthorController::class, 'addauthorform'])->name('addauthorform');
+
+    // adding author to database
+    Route::post('addnewauthor', [AuthorController::class, 'addnewauthor'])->name('addnewauthor');
+});
