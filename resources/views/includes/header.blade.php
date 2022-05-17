@@ -20,7 +20,7 @@
                 <a class="nav-link" aria-current="page" href="{{route('dashboard')}}">Dashboard</a>
               </li>
               <li class="nav-item">
-                <a href="" class="nav-link" aria-current="page">Books</a>
+                <a href="{{route('bookslist')}}" class="nav-link" aria-current="page">Books</a>
               </li>
               <li class="nav-item">
                 <a href="{{route('addauthor')}}" class="nav-link" aria-current="page">Author</a>

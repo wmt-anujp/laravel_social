@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserController;
 use App\Models\Author;
 use Illuminate\Support\Facades\Route;
@@ -39,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('account', [UserController::class, 'getaccount'])->name('account');
 
     // navbar author access
-    Route::get('authors/authorlist', [AuthorController::class, 'authorspage'])->name('addauthor');
+    Route::get('authorlist', [AuthorController::class, 'authorspage'])->name('addauthor');
 
     // addauthor button access
     Route::get('addauthor', [AuthorController::class, 'addauthorform'])->name('addauthorform');
@@ -49,4 +50,16 @@ Route::middleware('auth')->group(function () {
 
     // for author delete
     Route::get('deleteauthor/{authrdelid}', [AuthorController::class, 'authordelete'])->name('deleteauthor');
+
+    // showing author details modal
+    Route::post('authors/authordetails', [AuthorController::class, 'authordetails'])->name('authordetails');
+
+    //navbar access of books
+    Route::get('bookslist', [BookController::class, 'booklist'])->name('bookslist');
+
+    // addbook form access
+    Route::get('addbookform', [BookController::class, 'addbookform'])->name('addbookform');
+
+    // adding book to database
+    Route::post('addnewbook', [BookController::class, 'addnewbook'])->name('addnewbook');
 });

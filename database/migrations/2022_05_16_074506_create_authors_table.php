@@ -15,6 +15,7 @@ class CreateAuthorsTable extends Migration
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->increments('id');
+            $table->bigInteger('user_id')->unsigned();
             $table->string('auth_fname', 100);
             $table->string('auth_lname', 100);
             $table->date('auth_dob');
@@ -22,7 +23,7 @@ class CreateAuthorsTable extends Migration
             $table->text('auth_address', 300);
             $table->bigInteger('auth_mobile');
             $table->text('auth_desc');
-            $table->bigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->boolean('auth_status');
             $table->timestamps();
         });

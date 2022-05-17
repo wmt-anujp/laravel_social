@@ -41,4 +41,12 @@ class AuthorController extends Controller
         Author::find($id)->delete();
         return back()->with('success', 'Author was Deleted Successfully');
     }
+
+    public function authordetails(Request $request)
+    {
+        echo "Anuj";
+        $auth_id = $request['authorid'];
+        $author = Author::find($auth_id);
+        return response()->json($author);
+    }
 }

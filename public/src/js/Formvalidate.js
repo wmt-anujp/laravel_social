@@ -16,6 +16,10 @@ $(document).ready(function () {
                 required: true,
                 minlength: 6,
             },
+            cpassword: {
+                required: true,
+                equalTo: "#password",
+            },
         },
         messages: {
             email: {
@@ -23,8 +27,13 @@ $(document).ready(function () {
                 email: "Please enter valid email id",
             },
             password: {
-                required: "Please create password",
+                required: "Please Create password",
                 minlength: "Password must of 8 characters",
+            },
+            cpassword: {
+                required: "Please Enter Above Password Correctly",
+                equalTo:
+                    "Confirm Password should match the above entered password",
             },
         },
         submitHandler: function (form) {
@@ -154,6 +163,73 @@ $(document).ready(function () {
                 maxlength: "Maximum 300 characters allowed",
             },
         },
+        submitHandler: function (form) {
+            form.submit();
+        },
+    });
+
+    $("#add_book_form").validate({
+        rules: {
+            b_title: {
+                required: true,
+            },
+            b_pages: {
+                required: true,
+                number: true,
+            },
+            b_lang: {
+                required: true,
+            },
+            "b_author[]": {
+                required: true,
+            },
+            b_img: {
+                required: true,
+            },
+            b_isbn: {
+                required: true,
+                maxlength: 13,
+            },
+            b_desc: {
+                required: true,
+                maxlength: 300,
+            },
+            b_price: {
+                required: true,
+                number: true,
+            },
+        },
+        messages: {
+            b_title: {
+                required: "Please Enter Book Title",
+            },
+            b_pages: {
+                required: "Please Enter Number of Pages in Book",
+                number: "Pages Should be in numbers only",
+            },
+            b_lang: {
+                required: "Please Enter Book Language",
+            },
+            "b_author[]": {
+                required: "Please select Author Name of Book",
+            },
+            b_img: {
+                required: "Please Select Cover Image of Book",
+            },
+            b_isbn: {
+                required: "Please Enter ISBN Number of Book",
+                maxlength: "Length of ISBN number should be 13 digit",
+            },
+            b_desc: {
+                required: "Please Enter Description of Book",
+                maxlength: 300,
+            },
+            b_price: {
+                required: "Please Enter Book Price",
+                number: "Book Price Should be in number only",
+            },
+        },
+
         submitHandler: function (form) {
             form.submit();
         },

@@ -36,8 +36,11 @@ class UserController extends Controller
         $user = new User();
         $user->email = $email;
         $user->password = $password;
-
         $user->save();
+
+        User::create([
+            'key' => ' value'
+        ]);
         Auth::login($user);
         return redirect()->route('dashboard');
     }

@@ -5,7 +5,7 @@
 @endsection
 @include('includes/message-block')
 @section('content')
-<div class="row mt-5">
+<div class="row">
     <div class="col mb-5">
         <div class="card mt-5 mb-5 rounded-5 shadow-lg">
             <h2 class="card-b_img header rounded-5 p-3 text-center bg-secondary text-white">Add Authors</h2>
