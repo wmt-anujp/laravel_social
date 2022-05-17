@@ -39,13 +39,21 @@
                                    <td class="border-1 border-light">{{$authr->auth_gen}}</td>
                                    <td class="border-1 border-light">{{$authr->auth_address}}</td>
                                    @if (Auth::user()->id==$authr->user_id)
+                                    @if ($authr->auth_status==1)
                                        <td class="border-1 border-light">
-                                        <input data-id="{{$authr->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Inactive" {{ $authr->auth_status ? 'checked' : '' }}>
-                                       </td>
+                                           <button class="btn btn-sm btn-outline-success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Inactive">Active</button>
+                                        {{-- <input data-id="{{$authr->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Inactive" {{ $authr->auth_status ? 'checked' : '' }}> --}}
+                                        </td>
+                                        @else
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-secondary toggle-class">Inactive</button>
+                                        </td>
+                                    @endif
                                        <td class="text-center border-1 border-light">
                                         <div class="d-flex flex-row justify-content-evenly">
-                                            <span><a href="" class="btn btn-sm btn-info">Update</a></span>
-                                            <span><a href="" class="btn btn-sm btn-danger">Delete</a></span>
+                                            <span><a href="" class="btn btn-sm btn-secondary">Edit</a></span>
+                                            <span><a href="{{route('deleteauthor',['authrdelid'=>$authr->id])}}" class="btn btn-sm btn-danger">Delete</a></span>
+                                            <span><a href="" class="btn btn-sm btn-info">Author Details</a></span>
                                         </div>
                                     </td>
                                     @else

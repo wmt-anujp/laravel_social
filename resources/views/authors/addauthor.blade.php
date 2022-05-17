@@ -102,6 +102,3 @@
     </div>
 </div>
 @endsection
-Date: 16/05/2022
-Project: WMT Training
--implemented admin signup and login with validation, home page, list of authors, add new author and access denied if different user logs-in in laravel LMS.

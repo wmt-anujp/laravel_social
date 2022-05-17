@@ -46,4 +46,7 @@ Route::middleware('auth')->group(function () {
 
     // adding author to database
     Route::post('addnewauthor', [AuthorController::class, 'addnewauthor'])->name('addnewauthor');
+
+    // for author delete
+    Route::get('deleteauthor/{authrdelid}', [AuthorController::class, 'authordelete'])->name('deleteauthor');
 });
