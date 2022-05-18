@@ -22,8 +22,7 @@
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="b_pages" class="mb-1">Book Pages</label>
-                        <input type="text" class="form-control" id="b_pages" placeholder="Enter No. Book Pages"
-                            name="b_pages">
+                        <input type="text" class="form-control" id="b_pages" placeholder="Enter No. Book Pages" name="b_pages" onkeypress="return(event.charCode>47 && event.charCode<58)">
                             @if ($errors->has('b_pages'))
                             <span class="text-danger">*{{ $errors->first('b_pages') }}</span>
                         @endif
@@ -73,8 +72,7 @@
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="b_price" class="mb-1">Book Price</label>
-                        <input type="text" class="form-control" id="b_price" placeholder="Enter Book Price"
-                            name="b_price">
+                        <input type="number" class="form-control" id="b_price" placeholder="Enter Book Price" name="b_price" onkeypress="return(event.charCode>47 && event.charCode<58) || (event.charCode==46)">
                         @if ($errors->has('b_price'))
                             <span class="text-danger">*{{ $errors->first('b_price') }}</span>
                         @endif
@@ -88,7 +86,7 @@
                             </div>
                             <div class="col-2">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="b_status"  value="1" name="b_status" >
+                                    <input class="form-check-input" type="checkbox" role="switch" id="b_status"  value="1" name="b_status">
                                     <label class="form-check-label" for="flexSwitchCheckChecked">Active</label>
                                 </div>
                             </div>

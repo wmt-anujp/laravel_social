@@ -33,7 +33,7 @@ class AuthorController extends Controller
         $author->user_id = Auth::user()->id;
         $author->auth_status = $request->a_status;
         $author->save();
-        return redirect()->route('addauthor')->with('Success', 'Author was added Successfully');
+        return redirect()->route('addauthor')->with('success', 'Author was added Successfully');
     }
 
     public function authordelete($id)

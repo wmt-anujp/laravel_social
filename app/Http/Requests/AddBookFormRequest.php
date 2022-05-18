@@ -24,7 +24,7 @@ class AddBookFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'b_title' => 'required',
+            'b_title' => 'required|max:100',
             'b_pages' => 'required|numeric',
             'b_lang' => 'required|regex:/^[\pL\s\-]+$/u',
             'b_author' => 'required',
@@ -38,6 +38,7 @@ class AddBookFormRequest extends FormRequest
     {
         return [
             'b_title.required' => 'Please Enter Book Title',
+            'b_title.max' => 'Maximum 100 Characters are allowed',
             'b_pages.required' => 'Please Enter Number of Page of Book',
             'b_pages.numeric' => 'Book Pages must be in digits',
             'b_lang.required' => 'Please Enter Book Language',
