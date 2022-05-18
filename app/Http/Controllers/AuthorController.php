@@ -44,7 +44,7 @@ class AuthorController extends Controller
 
     public function authordetails(Request $request)
     {
-        echo "Anuj";
+        // echo "Anuj";
         $auth_id = $request['authorid'];
         $author = Author::find($auth_id);
         return response()->json($author);

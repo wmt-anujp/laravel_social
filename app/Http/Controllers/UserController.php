@@ -32,17 +32,13 @@ class UserController extends Controller
         ]);
         $email = $request->input('email');
         $password = Hash::make($request->input('password'));
-
-        // $user = new User();
-        // $user->email = $email;
-        // $user->password = $password;
-        // $user->save();
-
-        User::create([
-            'email' => $email,
-            'password' => $password,
-        ]);
-        // Auth::login($user);
+        // $user = $request->all();
+        $user = new User();
+        $user->email = $email;
+        $user->password = $password;
+        $user->save();
+        // User::create($user);
+        Auth::login($user);
         return redirect()->route('dashboard');
     }
 

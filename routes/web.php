@@ -62,4 +62,7 @@ Route::middleware('auth')->group(function () {
 
     // adding book to database
     Route::post('addnewbook', [BookController::class, 'addnewbook'])->name('addnewbook');
+
+    // delete book
+    Route::get('deletebook/{bookdelid}', [BookController::class, 'bookdelete'])->name('deletebook');
 });

@@ -34,6 +34,7 @@ class BookController extends Controller
         $filename = $file->getClientOriginalName();
         $file->storeAs($folder, $filename);
         $book->book_title = $request->b_title;
+        // $book->book_author = $request->b_author;
         $book->book_pages = $request->b_pages;
         $book->book_language = $request->b_lang;
         $book->book_image = $filename;
@@ -45,5 +46,22 @@ class BookController extends Controller
         $book->save();
         $book->authors()->attach($request->b_author);
         return redirect()->route('bookslist')->with('success', 'Book was added successfully');
+    }
+
+    public function bookdelete($id)
+    {
+        $book = Book::find($id);
+        // dd($book);
+        $folder = 'public/bookimg/';
+        if ($book->book_image != '' && $book->book_image != null) {
+            $file_old = $folder . $book->book_image;
+            if (Storage::exists($file_old)) {
+                Storage::delete($file_old);
+            } else {
+                echo "<script>alert('File not found')</script>";
+            }
+        }
+        $book->delete();
+        return back()->with('success', 'Book was deleted successfully');
     }
 }

@@ -8,7 +8,7 @@
     <head>
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-6 offset-3 text-center mt-5">
             <h3 class="mt-5">List of Books</h3>
         </div>
@@ -36,6 +36,38 @@
                         </tr>
                       </thead>
                       <tbody>
+                          @foreach ($book as $b=>$books)
+                              <tr class="text-center">
+                                <td class="border-1 border-light">{{$b+1}}</td>
+                                <td style="width: 100px" class="border-1 border-light"><a href="#" data-anuj={{$books->id}} class="text-decoration-none text-light bookdisplay"><img src="{{asset(Storage::disk('local')->url('public/bookimg/'.$books->book_image))}}" alt="book image" width="100" height="100"></a></td>
+                                <td>{{$books->book_title}}</td>
+                                <td>
+                                    @foreach ($books->authors as $a)
+                                        {!!Str::ucfirst($a->auth_fname)." ".Str::ucfirst($a->auth_lname)."<br>"!!}
+                                   @endforeach
+                                </td>
+                                <td>{{$books->book_price}}</td>
+                                <td>{{$books->book_isbn}}</td>
+                                @if (Auth::user()->id==$books->user_id)
+                                    @if ($books->book_status==1)
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Inactive">Active</button>
+                                    </td>
+                                    @else
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-secondary toggle-class">Inactive</button>
+                                        </td>
+                                    @endif
+                                @endif
+                                <td>
+                                    <div class="d-flex flex-row justify-content-evenly">
+                                        <span><a href="#" class="btn btn-sm btn-secondary">Edit</a></span>
+                                        <span><a href="{{route('deletebook',['bookdelid'=>$books->id])}}" class="btn btn-sm btn-danger">Delete</a></span>
+                                        <span><a href="#" class="btn btn-sm btn-info bookdetails">Book Details</a></span>
+                                    </div>
+                                </td>
+                              </tr>
+                          @endforeach
                       </tbody>
                 </table>
             </div>

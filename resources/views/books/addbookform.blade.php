@@ -5,7 +5,7 @@
 @endsection
 @include('includes/header')
 @section('content')
-<div class="row">
+<div class="row mt-5">
     <div class="col mt-5 mb-5">
         <div class="card rounded-5 mt-5 mb-5 shadow-lg">
             <h2 class="card-b_img header rounded-5 p-3 text-center bg-secondary text-white">Add Book</h2>
