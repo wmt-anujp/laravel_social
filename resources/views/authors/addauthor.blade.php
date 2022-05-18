@@ -5,8 +5,8 @@
 @endsection
 @include('includes/message-block')
 @section('content')
-<div class="row">
-    <div class="col mb-5">
+<div class="row mt-5">
+    <div class="col mt-5 mb-5">
         <div class="card mt-5 mb-5 rounded-5 shadow-lg">
             <h2 class="card-b_img header rounded-5 p-3 text-center bg-secondary text-white">Add Authors</h2>
             <div class="card-body">
@@ -28,7 +28,8 @@
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="a_dob" class="mb-1">Author's DOB</label>
-                        <input type="date" class="form-control" id="a_dob" name="a_dob" placeholder="Enter Author's Date of Birth">
+                        <input type="date" class="form-control" id="a_dob" name="a_dob" max="2022-12-31">
+                        {{-- <input id="EndDate" class="form-control" name="a_dob" type="date" max="2022-12-31"> --}}
                         @if ($errors->has('a_dob'))
                             <span class="text-danger">*{{ $errors->first('a_dob') }}</span>
                         @endif
@@ -101,4 +102,17 @@
         </div>
     </div>
 </div>
+
+@section('js')
+<script>
+$(document).ready(function(){
+    $("#EndDate").datepicker({ 
+        numberOfMonths: 2,
+        onSelect: function(selected) {
+           $("#StartDate").datepicker("option","maxDate", selected)
+        }
+    });  
+});
+</script>
+@endsection
 @endsection

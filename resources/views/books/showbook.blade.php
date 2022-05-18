@@ -39,7 +39,7 @@
                           @foreach ($book as $b=>$books)
                               <tr class="text-center">
                                 <td class="border-1 border-light">{{$b+1}}</td>
-                                <td style="width: 100px" class="border-1 border-light"><a href="#" data-anuj={{$books->id}} class="text-decoration-none text-light bookdisplay"><img src="{{asset(Storage::disk('local')->url('public/bookimg/'.$books->book_image))}}" alt="book image" width="100" height="100"></a></td>
+                                <td style="width: 100px" class="border-1 border-light"><p id="random" data-anuj={{$books->id}} class="text-decoration-none text-light"><img src="{{asset(Storage::disk('local')->url('public/bookimg/'.$books->book_image))}}" alt="book image" width="100" height="100"></p></td>
                                 <td>{{$books->book_title}}</td>
                                 <td>
                                     @foreach ($books->authors as $a)
@@ -50,22 +50,25 @@
                                 <td>{{$books->book_isbn}}</td>
                                 @if (Auth::user()->id==$books->user_id)
                                     @if ($books->book_status==1)
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Inactive">Active</button>
+                                        </td>
+                                        @else
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-secondary toggle-class">Inactive</button>
+                                            </td>
+                                    @endif
                                     <td>
-                                        <button class="btn btn-sm btn-outline-success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Inactive">Active</button>
+                                        <div class="d-flex flex-row justify-content-evenly">
+                                            <span><a href="#" class="btn btn-sm btn-secondary">Edit</a></span>
+                                            <span><a href="{{route('deletebook',['bookdelid'=>$books->id])}}" class="btn btn-sm btn-danger">Delete</a></span>
+                                            <span><a href="{{route('bookdetails')}}" class="btn btn-sm btn-info bookdetails">Book Details</a></span>
+                                        </div>
                                     </td>
                                     @else
-                                        <td>
-                                            <button class="btn btn-sm btn-outline-secondary toggle-class">Inactive</button>
-                                        </td>
-                                    @endif
+                                        <td>Access Denied</td>
+                                        <td>Access Denied</td>
                                 @endif
-                                <td>
-                                    <div class="d-flex flex-row justify-content-evenly">
-                                        <span><a href="#" class="btn btn-sm btn-secondary">Edit</a></span>
-                                        <span><a href="{{route('deletebook',['bookdelid'=>$books->id])}}" class="btn btn-sm btn-danger">Delete</a></span>
-                                        <span><a href="#" class="btn btn-sm btn-info bookdetails">Book Details</a></span>
-                                    </div>
-                                </td>
                               </tr>
                           @endforeach
                       </tbody>
@@ -74,10 +77,114 @@
         </div>
     </div>
 
-    @section('js')
-        <script type="text/javascript">
-            $("#showbook").DataTable();
-        </script>
-    @endsection
+{{-- book details modal starts--}}
+ <div class="modal fade" id="bookModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Book Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex justify-content-center">
+               <table class="table table-striped table-dark table-hover">
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            <img src="" alt="Book Image" class="book_img border border-2 border-light" width="200" height="200">
+                        </td>
+                    </tr>
+                    <tr>
+                       <td>Book Title</td>
+                       <td class="book_title"></td>
+                   </tr>
+                   <tr>
+                       <td>Book Pages</td>
+                       <td class="book_pages"></td>
+                   </tr>
+                   <tr>
+                       <td>Book Language</td>
+                       <td class="book_lang"></td>
+                   </tr>
+                   <tr>
+                       <td>Book ISBN</td>
+                       <td class="book_isbn"></td>
+                   </tr>
+                   <tr>
+                       <td>Book Description</td>
+                       <td class="book_desc"></td>
+                   </tr>
+                   <tr>
+                       <td>Book Price</td>
+                       <td class="book_price"></td>
+                   </tr>
+                   <tr>
+                       <td>Book Status</td>
+                       <td class="book_status"></td>
+                   </tr>
+               </table>
 
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{-- book details modal ends --}}
+
+@section('js')
+    <script type="text/javascript">
+        $("#showbook").DataTable();
+
+        $('#showbook').DataTable({
+        "columnDefs": [
+            { "orderable": false, "targets": [0, 4, 5, 6] },
+            { "orderable": true, "targets": [1, 2, 3] }
+        ]
+        });
+        $('#showbook').dataTable({
+            "aaSorting": []
+        });
+    </script>
+
+<script type="text/javascript">
+    $(document).ready( function () {
+        // book full details
+        var detailsurl="{{route('bookdetails')}}"
+        var status=""
+        var bookimagepath="{{asset(Storage::disk('local')->url('public/bookimg/'))}}"+"/"
+        $(".bookdetails").click(function (event) {
+            // console.log(bookimagepath);
+            event.preventDefault();
+            bookID=$('#random').attr("data-anuj");
+            console.log(bookID);
+            $.ajax({
+                type: "POST",
+                url: detailsurl,
+                headers:{
+                'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    bookid:bookID
+                },
+                success: function (response) {
+                    console.log(response);
+                    $("#book_title").html(data['book_title']);
+                    $('#book_pages').html(data['book_pages']);
+                    $('#book_lang').html(data['book_language']);
+                    $('#book_isbn').html(data['book_isbn']);
+                    $('#book_desc').html(data['book_desc']);
+                    $('#book_price').html(data['book_price']);
+                    if(data['book_status']==1){
+                        status="Active"
+                    }
+                    else{
+                        status="Inactive"
+                    }
+                    $('#book_status').html(data['book_status']);
+                    $("#bookModal").modal("show");
+                }
+            });
+        })
+    });
+@endsection
 @endsection

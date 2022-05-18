@@ -58,7 +58,7 @@
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="b_isbn" class="mb-1">Book ISBN</label>
-                        <input type="text" class="form-control" id="b_isbn" placeholder="Enter Book ISBN" name="b_isbn">
+                        <input type="text" class="form-control" id="b_isbn" placeholder="Enter Book ISBN" name="b_isbn" onkeypress="return(event.charCode>47 && event.charCode<58)">
                         @if ($errors->has('b_isbn'))
                             <span class="text-danger">*{{ $errors->first('b_isbn') }}</span>
                         @endif

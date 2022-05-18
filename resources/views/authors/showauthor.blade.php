@@ -54,12 +54,12 @@
                                         </td>
                                     @endif
                                        <td class="text-center border-1 border-light">
-                                        <div class="d-flex flex-row justify-content-evenly">
-                                            <span><a href="" class="btn btn-sm btn-secondary">Edit</a></span>
-                                            <span><a href="{{route('deleteauthor',['authrdelid'=>$authr->id])}}" class="btn btn-sm btn-danger">Delete</a></span>
-                                            <span><a href="#" class="btn btn-sm btn-info authordetails">Author Details</a></span>
-                                        </div>
-                                    </td>
+                                            <div class="d-flex flex-row justify-content-evenly">
+                                                <span><a href="" class="btn btn-sm btn-secondary">Edit</a></span>
+                                                <span><a href="{{route('deleteauthor',['authrdelid'=>$authr->id])}}" class="btn btn-sm btn-danger">Delete</a></span>
+                                                <span><a href="{{route('authordetails')}}" class="btn btn-sm btn-info authordetails">Author Details</a></span>
+                                            </div>
+                                        </td>
                                     @else
                                     <td class="border-1 border-light">Access Denied</td>
                                     <td class="border-1 border-light">Access Denied</td>
@@ -144,7 +144,6 @@ $(document).ready( function () {
     var status="";
     $('.authordetails').click(function (event) {
         event.preventDefault();
-        $("#Modal").modal("show");
         authorID=$('#random').attr("data-anuj");
         // console.log(authorID);
         $.ajax({

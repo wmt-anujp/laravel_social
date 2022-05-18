@@ -39,7 +39,7 @@ class UserController extends Controller
         $user->save();
         // User::create($user);
         Auth::login($user);
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with('success', 'You have successfully signed up');
     }
 
     public function usersignin(Request $request)
@@ -51,9 +51,9 @@ class UserController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
-            return redirect()->route('dashboard');
+            return redirect()->route('dashboard')->with('success', 'Login Successfull');
         } else {
-            return redirect()->back();
+            return redirect()->back()->with('error', 'Please enter valid credentials');
         }
     }
 

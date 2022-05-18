@@ -64,4 +64,13 @@ class BookController extends Controller
         $book->delete();
         return back()->with('success', 'Book was deleted successfully');
     }
+
+    public function bookdetails(Request $request)
+    {
+        echo "panchal";
+        $book_id = $request['bookid'];
+        echo ($book_id);
+        $book = Author::find($book_id);
+        return response()->json($book);
+    }
 }
