@@ -133,17 +133,24 @@
 
 @section('js')
     <script type="text/javascript">
-        $("#showbook").DataTable();
+        // $("#showbook").DataTable();
 
         $('#showbook').DataTable({
-        "columnDefs": [
-            { "orderable": false, "targets": [0, 4, 5, 6] },
-            { "orderable": true, "targets": [1, 2, 3] }
-        ]
-        });
-        $('#showbook').dataTable({
-            "aaSorting": []
-        });
+        // 'columns': [
+        //     { data: 'id' }, // index - 0
+        //     { data: 'book_image' }, // index - 1
+        //     { data: 'book_title' }, // index - 2
+        //     { data: 'user_id' }, // index - 3
+        //     { data: 'book_price' } // index - 4
+        //     { data: 'book_isbn' } // index - 5
+        //     { data: 'book_status' } // index - 6
+        //     { data: 'Action' } // index - 7
+        // ],
+        // "columnDefs": [{
+        //     // "targets": [6,7]
+        //     // "orderable":false,
+        // }]
+    });
     </script>
 
 <script type="text/javascript">

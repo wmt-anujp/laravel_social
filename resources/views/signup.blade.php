@@ -40,3 +40,8 @@
         {{-- signup ends --}}
     </div>
 @endsection
+{{-- @section('js')
+<script language="javascript" type="text/javascript">
+    window.history.forward();
+</script>
+@endsection --}}
