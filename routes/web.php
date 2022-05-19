@@ -68,5 +68,5 @@ Route::middleware('auth')->group(function () {
     Route::get('deletebook/{bookdelid}', [BookController::class, 'bookdelete'])->name('deletebook');
 
     // full book details
-    Route::get('bookdetails', [BookController::class, 'bookdetails'])->name('bookdetails');
+    Route::post('bookdetails', [BookController::class, 'bookdetails'])->name('bookdetails');
 });

@@ -33,7 +33,7 @@
                           <th class="border-1 border-light">Status</th>
                           <th class="border-1 border-light">Action</th>
                         </tr>
-                      </thead>
+                    </thead>
                         <tbody>
                             @foreach ($author as $a=>$authr)
                                 <tr class="text-center">
@@ -130,14 +130,14 @@
     $('#showauthor').DataTable();
         
     // author full details
-    var detailsurl="{{route('authordetails')}}";
+    var adetailsurl="{{route('authordetails')}}";
     var status="";
     $('.authordetails').click(function (event) {
         event.preventDefault();
         authorID=$(this).attr("data-aid");
         console.log(authorID);
         $.ajax({
-            url:detailsurl,
+            url:adetailsurl,
             method:"POST",
             headers:{
                 'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')

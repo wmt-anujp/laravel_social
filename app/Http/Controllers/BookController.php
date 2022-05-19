@@ -67,10 +67,8 @@ class BookController extends Controller
 
     public function bookdetails(Request $request)
     {
-        echo "panchal";
         $book_id = $request['bookid'];
-        echo ($book_id);
-        $book = Author::find($book_id);
+        $book = Book::find($book_id);
         return response()->json($book);
     }
 }
