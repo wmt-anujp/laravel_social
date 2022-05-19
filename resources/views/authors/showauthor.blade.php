@@ -38,7 +38,7 @@
                             @foreach ($author as $a=>$authr)
                                 <tr class="text-center">
                                    <td class="border-1 border-light">{{$a+1}}</td>
-                                   <td class="border-1 border-light"><p id="random" data-anuj={{$authr->id}}>{{ucfirst($authr->auth_fname)}} {{ucfirst($authr->auth_lname)}}</p></td>
+                                   <td class="border-1 border-light"><span>{{ucfirst($authr->auth_fname)}} {{ucfirst($authr->auth_lname)}}</span></td>
                                    <td class="border-1 border-light">{{\Carbon\Carbon::createFromTimestamp(strtotime($authr->auth_dob))->format('d-m-Y')}}</td>
                                    <td class="border-1 border-light">{{$authr->auth_gen}}</td>
                                    <td class="border-1 border-light">{{$authr->auth_address}}</td>
@@ -55,9 +55,9 @@
                                     @endif
                                        <td class="text-center border-1 border-light">
                                             <div class="d-flex flex-row justify-content-evenly">
-                                                <span><a href="" class="btn btn-sm btn-secondary">Edit</a></span>
-                                                <span><a href="{{route('deleteauthor',['authrdelid'=>$authr->id])}}" class="btn btn-sm btn-danger">Delete</a></span>
-                                                <span><a href="{{route('authordetails')}}" class="btn btn-sm btn-info authordetails">Author Details</a></span>
+                                                <a href="" class="btn btn-sm btn-secondary">Edit</a>
+                                                <a href="{{route('deleteauthor',['authrdelid'=>$authr->id])}}" class="btn btn-sm btn-danger">Delete</a>
+                                                <a class="btn btn-sm btn-info authordetails" data-aid={{$authr->id}}>Author Details</a>
                                             </div>
                                         </td>
                                     @else
@@ -74,7 +74,7 @@
     {{-- list of authors ends --}}
 
     {{-- modal for displaying author details starts --}}
-    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="detailsmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
@@ -126,26 +126,16 @@
     </div>
     {{-- modal for displaying author details ends --}}
 
-@section('js')
 <script type="text/javascript">
     $('#showauthor').DataTable();
-</script>
-
-<script type="text/javascript">
-$(document).ready( function () {
-    // $.ajaxsetup({
-    //     headers:{
-    //         'X-CSRF-TOKEN':$('meta[name="csrf-token"]').attr('content')
-    //     }
-    // });
         
     // author full details
     var detailsurl="{{route('authordetails')}}";
     var status="";
     $('.authordetails').click(function (event) {
         event.preventDefault();
-        authorID=$('#random').attr("data-anuj");
-        // console.log(authorID);
+        authorID=$(this).attr("data-aid");
+        console.log(authorID);
         $.ajax({
             url:detailsurl,
             method:"POST",
@@ -156,7 +146,6 @@ $(document).ready( function () {
                 authorid:authorID,
             },
             success:function(data){
-                // console.log('success:',data['auth_fname']);
                 $("#fname").html(data['auth_fname']);
                 $("#lname").html(data['auth_lname']);
                 $('#dob').html($.date(data['auth_dob']));
@@ -170,12 +159,25 @@ $(document).ready( function () {
                 else{
                     status="Inactive"
                 }
-                $(".status").html(status);
-                $("#Modal").modal("show");
+                $("#status").html(status);
+                $("#detailsmodal").modal("show");
             }
-        })
+        });
+        $.date = function(dateObject) {
+            var d = new Date(dateObject);
+            var day = d.getDate();
+            var month = d.getMonth() + 1;
+            var year = d.getFullYear();
+            if (day < 10) {
+                day = "0" + day;
+            }
+            if (month < 10) {
+                month = "0" + month;
+            }
+            var date = day + "/" + month + "/" + year;
+
+            return date;
+        };
     });
-});
 </script>
-@endsection
 @endsection

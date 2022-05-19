@@ -43,6 +43,7 @@ class UserController extends Controller
             'password' => $password,
         ]);
         Auth::login($user);
+        Session::put('logged', $email);
         return redirect()->route('dashboard')->with('success', 'You have successfully signed up');
     }
 
@@ -56,6 +57,7 @@ class UserController extends Controller
         $password = $request->input('password');
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             return redirect()->route('dashboard')->with('success', 'Login Successfull');
+            Session::put('logged', $email);
         } else {
             return redirect()->back()->with('error', 'Please enter valid credentials');
         }

@@ -29,7 +29,6 @@
                     <div class="mb-3 mt-3">
                         <label for="a_dob" class="mb-1">Author's DOB</label>
                         <input type="date" class="form-control" id="a_dob" name="a_dob" max="2022-12-31">
-                        {{-- <input id="EndDate" class="form-control" name="a_dob" type="date" max="2022-12-31"> --}}
                         @if ($errors->has('a_dob'))
                             <span class="text-danger">*{{ $errors->first('a_dob') }}</span>
                         @endif
@@ -65,7 +64,7 @@
 
                     <div class="mb-3 mt-3">
                         <label for="a_mobile_no" class="mb-1">Author's Mobile No</label>
-                        <input type="text" class="form-control" id="a_mobile_no" name="a_mobile_no" placeholder="Enter Author's Mobile No">
+                        <input type="text" class="form-control" id="a_mobile_no" name="a_mobile_no" placeholder="Enter Author's Mobile No" maxlength="13" minlength="10">
                         @if ($errors->has('a_mobile_no'))
                             <span class="text-danger">*{{ $errors->first('a_mobile_no') }}</span>
                         @endif
@@ -106,12 +105,13 @@
 @section('js')
 <script>
 $(document).ready(function(){
-    $("#EndDate").datepicker({ 
-        numberOfMonths: 2,
-        onSelect: function(selected) {
-           $("#StartDate").datepicker("option","maxDate", selected)
+    $('#add_author_form').validate();
+
+    $("[type=date]").datepicker({
+        onclose:function(){
+            $(this).valid();
         }
-    });  
+    })
 });
 </script>
 @endsection

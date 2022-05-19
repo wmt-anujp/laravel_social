@@ -4,8 +4,11 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Facades\Auth;
 
-class PreventBackHistory
+class access
 {
     /**
      * Handle an incoming request.
@@ -16,9 +19,10 @@ class PreventBackHistory
      */
     public function handle(Request $request, Closure $next)
     {
-        $response = $next($request);
-        return $response->header('Cache-Control', 'nocache, no-store, max-age=0, must-revalidate')
-            ->header('Pragma', 'no-cache')
-            ->header('Expires', 'Sat, 26 Jul 1990 00:00:00 GMT');
+        if ($request->session()->exists('logged')) {
+            return redirect()->route('dashboard');
+        } else {
+            return $next($request);
+        }
     }
 }
