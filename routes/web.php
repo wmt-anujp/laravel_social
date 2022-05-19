@@ -27,7 +27,7 @@ Route::get('signup', [UserController::class, 'signup'])->name('signup')->middlew
 Route::post('signup', [UserController::class, 'usersignup'])->name('signup');
 
 // login
-Route::get('login', [UserController::class, 'userLogin'])->name('login')->middleware('access');
+Route::get('login', [UserController::class, 'userLogin'])->name('login');
 Route::post('signin', [UserController::class, 'usersignin'])->name('signin');
 
 // logout
@@ -57,6 +57,9 @@ Route::middleware('auth')->group(function () {
 
     // author edit form
     Route::get('editauthor/{uaid}', [AuthorController::class, 'editauthorform'])->name('editauthorform');
+
+    // author edit in database
+    Route::post('editauthor/{uaid}', [AuthorController::class, 'editauthor'])->name('editauthor');
 
     //navbar access of books
     Route::get('bookslist', [BookController::class, 'booklist'])->name('bookslist');

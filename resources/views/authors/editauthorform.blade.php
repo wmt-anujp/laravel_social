@@ -10,7 +10,7 @@
         <div class="card mt-5 mb-5 rounded-5 shadow-lg">
             <h2 class="card-b_img header rounded-5 p-3 text-center bg-secondary text-white">Edit Author's Details</h2>
             <div class="card-body">
-                <form action="{{route('addnewauthor')}}" id="add_author_form" method="POST">
+                <form action="{{route('editauthor',['uaid'=>$author->id])}}" id="add_author_form" method="POST">
                     @csrf
                     <div class="mb-3 mt-3">
                         <label for="a_fname" class="mb-1">Author's First Name</label>
@@ -25,6 +25,7 @@
                         @if ($errors->has('a_lname'))
                             <span class="text-danger">*{{ $errors->first('a_lname') }}</span>
                         @endif
+                        {{$author->id}}
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="a_dob" class="mb-1">Author's DOB</label>
