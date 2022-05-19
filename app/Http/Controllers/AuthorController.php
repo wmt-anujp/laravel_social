@@ -48,4 +48,10 @@ class AuthorController extends Controller
         $author = Author::find($auth_id);
         return response()->json($author);
     }
+
+    public function editauthorform($id)
+    {
+        $author = Author::find($id);
+        return view('authors/editauthorform', ['author' => $author]);
+    }
 }

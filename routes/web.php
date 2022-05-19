@@ -55,6 +55,9 @@ Route::middleware('auth')->group(function () {
     // showing author details modal
     Route::post('authors/authordetails', [AuthorController::class, 'authordetails'])->name('authordetails');
 
+    // author edit form
+    Route::get('editauthor/{uaid}', [AuthorController::class, 'editauthorform'])->name('editauthorform');
+
     //navbar access of books
     Route::get('bookslist', [BookController::class, 'booklist'])->name('bookslist');
 

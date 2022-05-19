@@ -55,7 +55,7 @@
                                     @endif
                                        <td class="text-center border-1 border-light">
                                             <div class="d-flex flex-row justify-content-evenly">
-                                                <a href="" class="btn btn-sm btn-secondary">Edit</a>
+                                                <a href="{{route('editauthorform',['uaid'=>$authr->id])}}" class="btn btn-sm btn-secondary">Edit</a>
                                                 <a href="{{route('deleteauthor',['authrdelid'=>$authr->id])}}" class="btn btn-sm btn-danger">Delete</a>
                                                 <a class="btn btn-sm btn-info authordetails" data-aid={{$authr->id}}>Author Details</a>
                                             </div>
