@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Author;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddAuthorFormRequest;
+use App\Http\Requests\EditAuthorFormRequest;
 
 class AuthorController extends Controller
 {
@@ -53,5 +54,25 @@ class AuthorController extends Controller
     {
         $author = Author::find($id);
         return view('authors/editauthorform', ['author' => $author]);
+    }
+
+    public function editauthor(EditAuthorFormRequest $request, $id)
+    {
+        if ($request->a_status == 1) {
+            $status = 1;
+        } else {
+            $status = 0;
+        }
+        $author = Author::find($id);
+        $author->auth_fname = $request->a_fname;
+        $author->auth_lname = $request->a_lname;
+        $author->auth_dob = $request->a_dob;
+        $author->auth_gen = $request->a_gen;
+        $author->auth_address = $request->a_address;
+        $author->auth_mobile = $request->a_mobile_no;
+        $author->auth_desc = $request->a_desc;
+        $author->auth_status = $status;
+        $author->update();
+        return redirect()->route('addauthor')->with('success', 'Author Details was updated successfully');
     }
 }

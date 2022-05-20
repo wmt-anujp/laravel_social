@@ -22,7 +22,7 @@ class access
         if ($request->session()->exists('logged')) {
             return redirect()->route('dashboard');
         } else {
-            return view('signup');
+            return $next($request);
         }
     }
 }
