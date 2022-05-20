@@ -60,14 +60,14 @@
                                     @endif
                                     <td class="border-1 border-light">
                                         <div class="d-flex flex-row justify-content-evenly">
-                                            <a href="#" class="btn btn-sm btn-secondary">Edit</a>
+                                            <a href="{{route('bookdetailsform',['ubid'=>$books->id])}}" class="btn btn-sm btn-secondary">Edit</a>
                                             <a href="{{route('deletebook',['bookdelid'=>$books->id])}}" class="btn btn-sm btn-danger">Delete</a>
                                             <a class="btn btn-sm btn-info bookdetails" data-bid={{$books->id}}>Book Details</a>
                                         </div>
                                     </td>
                                     @else
-                                        <td>Access Denied</td>
-                                        <td>Access Denied</td>
+                                        <td class="border-1 border-light">Access Denied</td>
+                                        <td class="border-1 border-light">Access Denied</td>
                                 @endif
                               </tr>
                           @endforeach

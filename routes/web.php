@@ -75,4 +75,10 @@ Route::middleware('auth')->group(function () {
 
     // full book details
     Route::post('bookdetails', [BookController::class, 'bookdetails'])->name('bookdetails');
+
+    // book edit form
+    Route::get('editbook/{ubid}', [BookController::class, 'editbookform'])->name('bookdetailsform');
+
+    // book edit in database
+    Route::post('editbook/{ubid}', [BookController::class, 'editbook'])->name('editbook');
 });

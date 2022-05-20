@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Book;
 use App\Models\Author;
-use App\Http\Requests\AddAuthorFormRequest;
 use App\Http\Requests\AddBookFormRequest;
+use App\Http\Requests\EditBookFormRequest;
 use Illuminate\Support\Facades\Storage;
 
 class BookController extends Controller
@@ -70,5 +70,30 @@ class BookController extends Controller
         $book_id = $request['bookid'];
         $book = Book::find($book_id);
         return response()->json($book);
+    }
+
+    public function editbookform($id)
+    {
+        $book = Book::find($id);
+        $author = Author::all();
+        return view('books/editbookform', array('book' => $book, 'author' => $author));
+    }
+
+    public function editbook(EditBookFormRequest $request, $id)
+    {
+        if ($request->b_status == 1) {
+            $status = 1;
+        } else {
+            $status = 0;
+        }
+        $imagefolder = "public/bookimg/";
+        $book = Book::find($id);
+        if (isset($book)) {
+            $oldfilepath = $imagefolder . $book->book_image;
+            // echo "<script>console.log('$oldfilepath')</script>";
+            if (Storage::exists($oldfilepath)) {
+                Storage::delete($oldfilepath);
+            }
+        }
     }
 }
