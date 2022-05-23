@@ -49,6 +49,7 @@ class PostController extends Controller
     //     return view('editpost', ['body' => $post]);
     // }
 
+    // POST UPDATE STARTS
     public function updatePost(Request $request)
     {
         // $post = Post::where('id', $postid)->first();
@@ -56,9 +57,9 @@ class PostController extends Controller
             'body' => 'required | max:1000'
         ]);
         $post = Post::find($request['postId']);
-        // if (Auth::user() != $post->user) {
-        //     return redirect()->back();
-        // }
+        if (Auth::user() != $post->user) {
+            return redirect()->back();
+        }
         $post->body = $request['body'];
         $post->update();
         // $updatemessage = 'There was an error while updating';
@@ -68,10 +69,11 @@ class PostController extends Controller
         return response()->json(['new-body' => $post->body], 200);
         // return redirect()->route('dashboard')->with(json(['new-body' => $post->body], 200]));
     }
+    // POST UPDATE ENDS
 
+    // post like starts
     public function postLike(Request $request)
     {
-        // dd("dfdfdf");
         $post_id = $request['postId'];
         $is_like = $request['isLike'] === 'true';
         $update = false;
@@ -85,7 +87,6 @@ class PostController extends Controller
         // exit();
         //$like =  User::has('liked')->where('post_id', $post_id)->first();
         $like =  Like::select('*')->where('post_id', $post_id)->where('user_id', Auth::user()->id)->first();
-        // dd($user);
         //dd($like);
         $user = Like::updateOrCreate(['post_id' => $post->id, 'user_id' => Auth::user()->id], [
             'like' => $is_like
@@ -116,4 +117,5 @@ class PostController extends Controller
         }
         return null;
     }
+    // post like ends
 }

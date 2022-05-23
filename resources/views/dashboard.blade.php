@@ -35,18 +35,19 @@
             <header class="my-3" style="color: lightgreen"><h3>What other people say</h3></header>
             @foreach ($posts as $post)
                 <article class="post" data-anuj={{ $post->id }}>
+                    <h4 class="mt-4" style="color: blueviolet">Description:</h4>
                     <p>{{$post->body}}</p>
                     <div class="info">
                         <small>Posted by {{$post->user->name}} on {{$post->updated_at->format('d/m/Y h:i:s A')}}</small>
                     </div>
                     <div class="interaction">
-                        <a href="#" class="btn btn-sm btn-secondary like">{{Auth::user()->liked()->where('post_id',$post->id)->first() ? Auth::user()->liked()->where('post_id',$post->id)->first()->like == 1 ? 'You have already liked this Post':'Like': 'Like'}}</a>
+                        <a href="" class="btn btn-sm btn-primary like">{{Auth::user()->liked()->where('post_id',$post->id)->first() ? Auth::user()->liked()->where('post_id',$post->id)->first()->like == 1 ? 'You liked this Post':'Like': 'Like'}}</a>
                          |
-                        <a href="#" class="btn btn-secondary btn-sm like">{{Auth::user()->liked()->where('post_id',$post->id)->first() ? Auth::user()->liked()->where('post_id',$post->id)->first()->like == 0 ? 'You dont\'t like this Post':'Dislike': 'Dislike'}}</a>
+                        <a href="" class="btn btn-secondary btn-sm like">{{Auth::user()->liked()->where('post_id',$post->id)->first() ? Auth::user()->liked()->where('post_id',$post->id)->first()->like == 0 ? 'You disliked this Post':'Dislike': 'Dislike'}}</a>
                         @if (Auth::user()==$post->user)
                             |
-                            <a href="#" class="btn btn-secondary btn-sm edit">Edit</a> |
-                            <a href="{{route('post.delete',['post_id'=>$post->id])}}" class="btn btn-secondary btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                            <a href="" class="btn btn-sm btn-success edit">Edit</a> |
+                            <a href="{{route('post.delete',['post_id'=>$post->id])}}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
                         @endif
                     </div>
                 </article>
