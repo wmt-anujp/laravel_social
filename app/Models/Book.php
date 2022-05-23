@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory;
-    public $imagefolder = "public/bookimg/";
+    public $imagefolder = "bookimg/";
     public function authors()
     {
         return $this->belongsToMany(Author::class);
