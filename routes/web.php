@@ -18,4 +18,10 @@ Route::get('/', function () {
     return view('signup');
 });
 
-Route::get('signup', [UserController::class, 'usersignup'])->name('signup');
+// new account route
+Route::get('signup', [UserController::class, 'signuppage'])->name('signuppage');
+Route::post('signup', [UserController::class, 'usersignup'])->name('usersignup');
+
+// login
+Route::get('login', [UserController::class, 'loginpage'])->name('loginpage');
+Route::post('login', [UserController::class, 'userlogin'])->name('login');

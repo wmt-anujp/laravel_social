@@ -185,7 +185,7 @@ input:not(:placeholder-shown) {
         </form>
     </div>
     <div class="box">
-        <p>Don't have an account? <a class="signup" href="">Sign Up</a></p>
+        <p>Don't have an account? <a class="signup" href={{route('signup')}}>Sign Up</a></p>
     </div>
 </div>
 @endsection
