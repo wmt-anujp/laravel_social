@@ -153,9 +153,9 @@
     // BOOK full details
     var bdetailsurl="{{route('bookdetails')}}"
     var status=""
-    // var bookimagepath="{{asset(Storage::disk('local')->url('public/bookimg/'))}}"+"/"
+    
     $(".bookdetails").click(function(event) {
-            event.preventDefault();
+            // event.preventDefault();
             bookID=$(this).attr("data-bid");
             // console.log(bookID);
             $.ajax({
@@ -169,9 +169,10 @@
                 },
                 success: function (data) {
                     var filenames=data['book_image'];
-                    console.log(filenames);
+                    var bookimagepath="{{asset(Storage::disk('local')->url(''))}}";
+                    console.log(bookimagepath+'/app/'+filenames);
                     // const path=filenames[filenames.length-1];
-                    $('#book_img').attr('src','filenames');
+                    $('#book_img').attr('src',bookimagepath+'/'+filenames);
                     $('#book_title').html(data['book_title']);
                     $('#book_pages').html(data['book_pages']);
                     $('#book_lang').html(data['book_language']);
