@@ -110,4 +110,12 @@ class BookController extends Controller
         $book->authors()->sync($request->b_author);
         return redirect()->route('bookslist')->with('success', 'Book Details Updated Successfully');
     }
+
+    public function bookstatus(Request $request)
+    {
+        $book = Book::find($request->book_id);
+        $book->book_status = $request->status;
+        $book->save();
+        return response()->json(['success' => 'Status change successfully.']);
+    }
 }

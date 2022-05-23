@@ -49,15 +49,16 @@
                                 <td class="border-1 border-light">{{$books->book_price}}</td>
                                 <td class="border-1 border-light">{{$books->book_isbn}}</td>
                                 @if (Auth::user()->id==$books->user_id)
-                                    @if ($books->book_status==1)
+                                    {{-- @if ($books->book_status==1) --}}
                                         <td class="border-1 border-light">
-                                            <button class="btn btn-sm btn-outline-success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Inactive">Active</button>
+                                            {{-- <button class="btn btn-sm btn-outline-success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Inactive">Active</button> --}}
+                                            <input data-id="{{$books->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Inactive" {{ $books->book_status ? 'checked' : '' }}>
                                         </td>
-                                        @else
+                                        {{-- @else
                                             <td class="border-1 border-light">
                                                 <button class="btn btn-sm btn-outline-secondary toggle-class">Inactive</button>
-                                            </td>
-                                    @endif
+                                            </td> --}}
+                                    {{-- @endif --}}
                                     <td class="border-1 border-light">
                                         <div class="d-flex flex-row justify-content-evenly">
                                             <a href="{{route('bookdetailsform',['ubid'=>$books->id])}}" class="btn btn-sm btn-secondary">Edit</a>
@@ -186,5 +187,22 @@
                 }
             });
         });
+
+        // book status change starts
+        $('.toggle-class').change(function() {
+        var status = $(this).prop('checked') == true ? 1 : 0;
+        var book_id = $(this).data('id');
+        console.log(status,book_id);
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url:"{{route('bstatus')}}",
+            data:{'status':status,'book_id':book_id},
+            success:function(data){
+                console.log(data.success)
+            }
+        });
+        });
+        // book status change ends
 </script>
 @endsection

@@ -28,7 +28,7 @@
             </ul>
           </div>
           {{-- <a class="btn btn-info mx-3" href="{{route('account')}}">Account</a> --}}
-          <a class="btn btn-danger" href="{{route('logout')}}">Logout</a>
+          <a class="btn btn-danger" href={{route('logout')}}>Logout</a>
         </div>
       </nav>
 </header>
