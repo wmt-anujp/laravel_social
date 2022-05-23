@@ -61,6 +61,9 @@ Route::middleware('auth')->group(function () {
     // author edit in database
     Route::post('editauthor/{uaid}', [AuthorController::class, 'editauthor'])->name('editauthor');
 
+    // author status change
+    Route::get('authorstatus', [AuthorController::class, 'authorstatus'])->name('astatus');
+
     //navbar access of books
     Route::get('bookslist', [BookController::class, 'booklist'])->name('bookslist');
 

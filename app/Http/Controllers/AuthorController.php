@@ -75,4 +75,12 @@ class AuthorController extends Controller
         $author->update();
         return redirect()->route('addauthor')->with('success', 'Author Details was updated successfully');
     }
+
+    public function authorstatus(Request $request)
+    {
+        $author = Author::find($request->author_id);
+        $author->auth_status = $request->status;
+        $author->save();
+        return response()->json(['success' => "Status changed successfully"]);
+    }
 }

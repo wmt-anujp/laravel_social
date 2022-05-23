@@ -43,16 +43,16 @@
                                    <td class="border-1 border-light">{{$authr->auth_gen}}</td>
                                    <td class="border-1 border-light">{{$authr->auth_address}}</td>
                                    @if (Auth::user()->id==$authr->user_id)
-                                    @if ($authr->auth_status==1)
+                                    {{-- @if ($authr->auth_status==1) --}}
                                        <td class="border-1 border-light">
-                                           <button class="btn btn-sm btn-outline-success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Inactive">Active</button>
-                                        {{-- <input data-id="{{$authr->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Inactive" {{ $authr->auth_status ? 'checked' : '' }}> --}}
+                                           {{-- <button class="btn btn-sm btn-outline-success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Inactive">Active</button> --}}
+                                        <input data-id="{{$authr->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="Inactive" {{ $authr->auth_status ? 'checked' : '' }}>
                                         </td>
-                                        @else
+                                        {{-- @else
                                         <td>
                                             <button class="btn btn-sm btn-outline-secondary toggle-class">Inactive</button>
-                                        </td>
-                                    @endif
+                                        </td> --}}
+                                    {{-- @endif --}}
                                        <td class="text-center border-1 border-light">
                                             <div class="d-flex flex-row justify-content-evenly">
                                                 <a href="{{route('editauthorform',['uaid'=>$authr->id])}}" class="btn btn-sm btn-secondary">Edit</a>
@@ -179,5 +179,21 @@
             return date;
         };
     });
+
+    // Author status starts
+    $('.toggle-class').change(function () {
+        var status=$(this).prop('checked')==true ? 1 : 0;
+        var author_id=$(this).data('id');
+        $.ajax({
+            type:"GET",
+            dataType:"json",
+            url:"{{route('astatus')}}",
+            data:{'status':status,'author_id':author_id},
+            success:function(data){
+                console.log(data.success)
+            }
+        });
+    });
+    // Author status ends
 </script>
 @endsection
