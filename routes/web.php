@@ -23,11 +23,11 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // signup
-Route::get('signup', [UserController::class, 'signup'])->name('signup')->middleware('access');
+Route::get('signup', [UserController::class, 'signup'])->name('signup')->middleware('checklogin');
 Route::post('signup', [UserController::class, 'usersignup'])->name('signup');
 
 // login
-Route::get('login', [UserController::class, 'userLogin'])->name('login');
+Route::get('login', [UserController::class, 'userLogin'])->name('login')->middleware('checklogin');
 Route::post('signin', [UserController::class, 'usersignin'])->name('signin');
 
 // logout

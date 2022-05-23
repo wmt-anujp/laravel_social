@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
-// use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -19,11 +16,7 @@ class UserController extends Controller
         return view('signup');
     }
 
-    public function userLogin()
-    {
-        return view('login');
-    }
-
+    // new signup
     public function usersignup(Request $request)
     {
         $request->validate([
@@ -47,6 +40,11 @@ class UserController extends Controller
         return redirect()->route('dashboard')->with('success', 'You have successfully signed up');
     }
 
+    public function userLogin()
+    {
+        return view('login');
+    }
+
     public function usersignin(Request $request)
     {
         $request->validate([
@@ -56,11 +54,10 @@ class UserController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
-            return redirect()->route('dashboard')->with('success', 'Login Successfull');
             Session::put('logged', $email);
-        } else {
-            return redirect()->back()->with('error', 'Please enter valid credentials');
+            return redirect()->route('dashboard')->with('success', 'Login Successfull');
         }
+        return redirect()->back()->with('error', 'Please enter valid credentials');
     }
 
     public function getdashboard()
@@ -71,8 +68,8 @@ class UserController extends Controller
     public function getLogout()
     {
         Auth::logout();
-        session::flush();
-        return redirect()->route('signup');
+        Session::flush();
+        return redirect()->route('login');
     }
 
     public function getAccount()

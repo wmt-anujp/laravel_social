@@ -3,10 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class access
+class checkUserLogin
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,9 @@ class access
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Session::has("logged")) {
+        if (Auth::check()) {
             return redirect('dashboard');
-        } else {
-            return $next($request);
         }
+        return $next($request);
     }
 }
