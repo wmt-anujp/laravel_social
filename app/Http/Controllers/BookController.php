@@ -95,5 +95,19 @@ class BookController extends Controller
                 Storage::delete($oldfilepath);
             }
         }
+        $files = $request->file('b_img');
+        $filename = $files->getClientOriginalName();
+        $files->storeAs($imagefolder, $filename);
+        $book->book_title = $request->b_title;
+        $book->book_pages = $request->b_pages;
+        $book->book_language = $request->b_lang;
+        $book->book_image = $filename;
+        $book->book_isbn = $request->b_isbn;
+        $book->book_desc = $request->b_desc;
+        $book->book_price = $request->b_price;
+        $book->book_status = $status;
+        $book->update();
+        $book->authors()->sync($request->b_author);
+        return redirect()->route('bookslist')->with('success', 'Book Details Updated Successfully');
     }
 }
