@@ -50,8 +50,7 @@
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="b_img" class="mb-1">Book Image</label>
-                        <input type="file" class="form-control" id="b_img" placeholder="Upload Image of Book"
-                            name="b_img">
+                        <input type="file" class="form-control" id="b_img" name="b_img">
                         @if ($errors->has('b_img'))
                             <span class="text-danger">*{{ $errors->first('b_img') }}</span>
                         @endif

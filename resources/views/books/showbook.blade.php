@@ -39,7 +39,7 @@
                           @foreach ($book as $b=>$books)
                           <tr class="text-center">
                                 <td class="border-1 border-light">{{$b+1}}</td>
-                                <td style="width: 100px" class="border-1 border-light"><span><img src="{{asset(Storage::disk('local')->url('public/bookimg/'.$books->book_image))}}" alt="book image" width="100" height="100"></span></td>
+                                <td style="width: 100px" class="border-1 border-light"><span><img src="{{asset(Storage::disk('local')->url($books->book_image))}}" alt="book image" width="100" height="100"></span></td>
                                 <td class="border-1 border-light">{{$books->book_title}}</td>
                                 <td>
                                     @foreach ($books->authors as $a)
@@ -153,11 +153,11 @@
     // BOOK full details
     var bdetailsurl="{{route('bookdetails')}}"
     var status=""
-    var bookimagepath="{{asset(Storage::disk('local')->url('public/bookimg/'))}}"+"/"
+    // var bookimagepath="{{asset(Storage::disk('local')->url('public/bookimg/'))}}"+"/"
     $(".bookdetails").click(function(event) {
             event.preventDefault();
             bookID=$(this).attr("data-bid");
-            console.log(bookID);
+            // console.log(bookID);
             $.ajax({
                 url:bdetailsurl,
                 method: "POST",
@@ -168,8 +168,10 @@
                     bookid:bookID,
                 },
                 success: function (data) {
-                    console.log(data);
-                    $('#book_img').attr('src',bookimagepath+data['book_image']);
+                    var filenames=data['book_image'];
+                    console.log(filenames);
+                    // const path=filenames[filenames.length-1];
+                    $('#book_img').attr('src','filenames');
                     $('#book_title').html(data['book_title']);
                     $('#book_pages').html(data['book_pages']);
                     $('#book_lang').html(data['book_language']);

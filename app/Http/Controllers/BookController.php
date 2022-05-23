@@ -26,15 +26,15 @@ class BookController extends Controller
     public function addnewbook(AddBookFormRequest $request)
     {
         $book = new Book();
+
         $file = $request->file('b_img');
-        $folder = 'public/bookimg/';
-        if (!Storage::exists($folder)) {
-            Storage::makeDirectory($folder, 0777, true, true);
-        }
+        // $folder = 'public/bookimg/';
+        // if (!Storage::exists($folder)) {
+        //     Storage::makeDirectory($folder, 0777, true, true);
+        // }
         $filename = $file->getClientOriginalName();
-        $file->storeAs($folder, $filename);
+        // $file->storeAs($filename);
         $book->book_title = $request->b_title;
-        // $book->book_author = $request->b_author;
         $book->book_pages = $request->b_pages;
         $book->book_language = $request->b_lang;
         $book->book_image = $filename;
