@@ -13,7 +13,7 @@ class LoginFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,18 @@ class LoginFormRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email' => 'required|email',
+            'password' => 'required|min:8',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'email.required' => 'Please Enter Email',
+            'email.email' => 'Please Enter Valid Email',
+            'password.required' => 'Please Enter Password',
+            'password.min' => 'Password must be 8 characters long',
         ];
     }
 }

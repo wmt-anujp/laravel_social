@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginFormRequest;
 use App\Http\Requests\SignUpFormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,16 @@ class UserController extends Controller
     public function signuppage()
     {
         return view('signup');
+    }
+
+    public function loginpage()
+    {
+        return view('login');
+    }
+
+    public function getdashboard()
+    {
+        return view('dashboard');
     }
 
     public function usersignup(SignUpFormRequest $request)
@@ -39,13 +50,23 @@ class UserController extends Controller
         return redirect()->route('dashboard')->with('success', 'Your Account has been created');
     }
 
-    public function loginpage()
+    public function userlogin(LoginFormRequest $request)
     {
-        return view('login');
+        $email = $request->input('email');
+        $password = $request->input('password');
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            Session::put('logged', $email);
+            return redirect()->route('dashboard')->with('success', 'You are logged in successfully');
+        }
+        return redirect()->back()->with('error', 'Please enter valid credentials');
     }
 
-    public function getdashboard()
+    public function logout()
     {
-        return view('dashboard');
+        // if (Auth::check()) {
+        Auth::logout();
+        Session::flush();
+        return redirect()->route('userlogin');
+        // }
     }
 }

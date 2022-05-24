@@ -172,20 +172,28 @@ input:not(:placeholder-shown) {
 <div class="container">
     <div class="box">
         <div class="heading"></div>
-        <form class="login-form" action="" method="POST">
+        <h5 class="mb-1">Login Account</h5>
+        <form class="login-form" action="{{route('userlogin')}}" method="POST">
+          @csrf
             <div class="field">
-                <input id="username" type="text" placeholder="Phone number, username, or email" />
-                <label for="username">Phone number, username, or email</label>
+                <input id="email" type="email" name="email" placeholder="Enter Your Email">
+                <label for="username">Enter Your Email</label>
+                @if ($errors->has('email'))
+                  <span class="text-danger">*{{ $errors->first('email') }}</span>
+                @endif
             </div>
             <div class="field">
-                <input id="password" type="password" placeholder="password" />
+                <input id="password" type="password" placeholder="password" name="password">
                 <label for="password">Password</label>
+                @if ($errors->has('password'))
+                  <span class="text-danger">*{{ $errors->first('password') }}</span>
+                @endif
             </div>
-            <button class="login-button" title="login">Log In</button>
+            <button class="login-button" title="Log In">Log In</button>
         </form>
     </div>
     <div class="box">
-        <p>Don't have an account? <a class="signup" href={{route('signup')}}>Sign Up</a></p>
+        <p>Don't have an account? <a class="signup" href={{route('signuppage')}}>Sign Up</a></p>
     </div>
 </div>
 @endsection

@@ -28,11 +28,10 @@
                             </div>
                             <div class="col-8">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="">Account</a></li>
-                                    <li><a class="dropdown-item" href="">Logout</a></li>
+                                    <li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
                                 </ul>
                             </div>
                         </div>

@@ -84,27 +84,14 @@ label {
   /* padding-top: 4px; */
 }
 
-/* hiding placeholder in all browsers */
-
 /* input::placeholder {
   visibility: hidden;
 } */
-
-/* hiding  placeholder in mozilla */
-.login-form ::-moz-placeholder {
-  color: transparent;
-}
 
 /* label final position */
 input:not(:placeholder-shown) + label {
   transform: translateY(0);
   font-size: 11px;
-}
-
-/* input padding increases if placeholder is not shown */
-input:not(:placeholder-shown) {
-  padding-top: 14px;
-  padding-bottom: 2px;
 }
 
 .login-button {
@@ -206,7 +193,7 @@ input:not(:placeholder-shown) {
                       @endif
                   </div>
                     <div class="field">
-                        <label for="dob" class="form-label">DoB</label>
+                        <label for="dob" class="form-label">Date of Birth</label>
                         <input type="date" class="form-control border-1" id="dob" name="dob" min="1925-01-01" max="2005-01-01" value="{{old('dob')}}" .>
                         @if ($errors->has('dob'))
                             <span class="text-danger">*{{ $errors->first('dob') }}</span>
