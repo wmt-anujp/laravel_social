@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -29,25 +30,24 @@ class UserController extends Controller
 
     public function usersignup(SignUpFormRequest $request)
     {
-        $name = $request->input('name');
-        $username = $request->input('username');
-        $email = $request->input('email');
-        $password = Hash::make($request->input('password'));
-        $dob = $request->input('dob');
-        $file = $request->file('profile');
-        $filename = $file->getClientOriginalName();
         $user = new User();
-        $user = User::create([
-            'name' => $name,
-            'username' => $username,
-            'email' => $email,
-            'password' => $password,
-            'dob' => $dob,
-            'profile_photo' => $filename,
-        ]);
+        $user->name = $request->input('name');
+        $user->username = $request->input('username');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('password'));
+        $user->dob = $request->dob;
+        $files = $request->file('profile');
+        $folder = 'public/profile';
+        $filename = $files->getClientOriginalName();
+        if (!Storage::exists($folder)) {
+            Storage::makeDirectory($folder, 0775, true, true);
+        }
+        $files->storeAs($folder, $filename);
+        $user->profile_photo = $filename;
+        $user->save();
         Auth::login($user);
-        Session::put('logged', $email);
-        return redirect()->route('dashboard')->with('success', 'Your Account has been created');
+        return redirect()->route('dashboard')->with('success', 'Your account has been created successfully');
+        // dd($user);
     }
 
     public function userlogin(LoginFormRequest $request)
@@ -70,3 +70,11 @@ class UserController extends Controller
         }
     }
 }
+// $user = User::create([
+        //     'name' => $name,
+        //     'username' => $username,
+        //     'email' => $email,
+        //     'password' => $password,
+        //     'dob' => $dob,
+        //     'profile_photo' => $filename,
+        // ]);

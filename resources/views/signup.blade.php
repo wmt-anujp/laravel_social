@@ -191,7 +191,7 @@ input:not(:placeholder-shown) + label {
                       @if ($errors->has('cpassword'))
                           <span class="text-danger">*{{ $errors->first('cpassword') }}</span>
                       @endif
-                  </div>
+                    </div>
                     <div class="field">
                         <label for="dob" class="form-label">Date of Birth</label>
                         <input type="date" class="form-control border-1" id="dob" name="dob" min="1925-01-01" max="2005-01-01" value="{{old('dob')}}" .>
@@ -201,12 +201,12 @@ input:not(:placeholder-shown) + label {
                     </div>
                     <div class="field">
                         <label for="profile" class="form-label">Profile Picture</label>
-                        <input type="file" class="form-control border-1" id="profile" placeholder="Upload profile picture" name="profile">
+                        <input type="file" class="form-control border-1" id="profile" name="profile">
                         @if ($errors->has('profile'))
                             <span class="text-danger">*{{ $errors->first('profile') }}</span>
                         @endif
                     </div>
-                    <button class="login-button" title="login">Sign Up</button>
+                    <button type="submit" class="login-button" title="login">Sign Up</button>
                 </form>
             </div>
         {{-- </div> --}}

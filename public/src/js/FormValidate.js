@@ -26,7 +26,7 @@ $(document).ready(function () {
             username: {
                 required: true,
                 maxlength: 15,
-                RegExp: "^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$",
+                // RegExp: "^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$",
             },
             email: {
                 required: true,
@@ -57,7 +57,7 @@ $(document).ready(function () {
             username: {
                 required: "Please Enter Username",
                 maxlength: "Username must be less than 15 characters",
-                RegExp: "Please follow the username format",
+                // RegExp: "Please follow the username format",
             },
             email: {
                 required: "Please Enter Email",
