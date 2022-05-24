@@ -32,4 +32,7 @@ Route::get('logout', [UserController::class, 'logout'])->name('logout');
 Route::middleware('auth')->group(function () {
     // dashboard
     Route::get('dashboard', [UserController::class, 'getdashboard'])->name('dashboard');
+
+    // user account details
+    Route::get('useraccount', [UserController::class, 'getuseraccount'])->name('useraccount');
 });

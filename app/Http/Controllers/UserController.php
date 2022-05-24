@@ -69,6 +69,11 @@ class UserController extends Controller
             return redirect()->route('userlogin');
         }
     }
+
+    public function getuseraccount()
+    {
+        return view('useraccount', ['user' => Auth::user()]);
+    }
 }
 // $user = User::create([
         //     'name' => $name,
