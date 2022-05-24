@@ -182,7 +182,7 @@ input:not(:placeholder-shown) {
                         @endif
                     </div>
                     <div class="field">
-                        <input id="username" type="text" class="form-control border-1" name="username" placeholder="Enter Username">
+                        <input id="username" type="text" class="form-control border-1" name="username" placeholder="Enter Username" value="{{old('username')}}">
                         @if ($errors->has('username'))
                             <span class="text-danger">*{{ $errors->first('username') }}</span>
                         @endif

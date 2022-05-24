@@ -23,15 +23,16 @@ class UserController extends Controller
         $email = $request->input('email');
         $password = Hash::make($request->input('password'));
         $dob = $request->input('dob');
-        $profileimg = $request->file('profile');
-        // $user = new User();
+        $file = $request->file('profile');
+        $filename = $file->getClientOriginalName();
+        $user = new User();
         $user = User::create([
             'name' => $name,
             'username' => $username,
             'email' => $email,
             'password' => $password,
             'dob' => $dob,
-            'profile_photo' => $profileimg,
+            'profile_photo' => $filename,
         ]);
         Auth::login($user);
         Session::put('logged', $email);
