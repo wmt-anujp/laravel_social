@@ -63,10 +63,10 @@ class UserController extends Controller
 
     public function logout()
     {
-        // if (Auth::check()) {
-        Auth::logout();
-        Session::flush();
-        return redirect()->route('userlogin');
-        // }
+        if (Auth::check()) {
+            Auth::logout();
+            Session::flush();
+            return redirect()->route('userlogin');
+        }
     }
 }
