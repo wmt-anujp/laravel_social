@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Login
+    Sign Up
 @endsection
 @section('content')
 <head>
@@ -173,52 +173,50 @@ input:not(:placeholder-shown) {
         {{-- <div class="px-3"> --}}
             <h5 class="mb-1">Create Account.</h5>
             <div>
-                <form class="login-form" action="{{route('usersignup')}}" method="POST">
+                <form class="login-form" action="{{route('usersignup')}}" method="POST" id="signup" enctype="multipart/form-data">
                     @csrf
                     <div class="field">
-                        {{-- <label for="name" class="form-label">Name</label> --}}
-                        <input type="text" class="form-control border-1" name="name" id="name" placeholder="Enter Your Name" value="{{old('name')}}" required>
+                        <input type="text" class="form-control border-1" name="name" id="name" placeholder="Enter Your Name" value="{{old('name')}}">
                         @if ($errors->has('name'))
                             <span class="text-danger">*{{ $errors->first('name') }}</span>
                         @endif
                     </div>
                     <div class="field">
-                        <input id="username" type="text" class="form-control border-1" name="username" placeholder="Enter Username" required>
-                        {{-- <label for="username">Phone number, username, or email</label> --}}
+                        <input id="username" type="text" class="form-control border-1" name="username" placeholder="Enter Username">
                         @if ($errors->has('username'))
-                            <span class="text-danger">*{{ $errors->first('uname') }}</span>
+                            <span class="text-danger">*{{ $errors->first('username') }}</span>
                         @endif
                     </div>
                     <div class="field">
-                        <input type="email" name="email" id="email" class="form-control border-1" placeholder="Enter Your Email" required>
+                        <input type="email" name="email" id="email" class="form-control border-1" placeholder="Enter Your Email">
                         @if ($errors->has('email'))
                             <span class="text-danger">*{{ $errors->first('email') }}</span>
                         @endif
                     </div>
                     <div class="field">
-                        <input type="password" id="password" class="form-control border-1" name="password" placeholder="Password" required>
+                        <input type="password" id="password" class="form-control border-1" name="password" placeholder="Password">
                         @if ($errors->has('password'))
                             <span class="text-danger">*{{ $errors->first('password') }}</span>
                         @endif
                     </div>
                     <div class="field">
+                      <input type="password" class="form-control border-1" id="cpassword" placeholder="Confirm Password" name="cpassword">
+                      @if ($errors->has('cpassword'))
+                          <span class="text-danger">*{{ $errors->first('cpassword') }}</span>
+                      @endif
+                  </div>
+                    <div class="field">
                         <label for="dob" class="form-label">DoB</label>
-                        <input type="date" class="form-control border-1" id="dob" name="dob" min="1925-01-01" max="2005-01-01" value="{{old('dob')}}" required>
+                        <input type="date" class="form-control border-1" id="dob" name="dob" min="1925-01-01" max="2005-01-01" value="{{old('dob')}}" .>
                         @if ($errors->has('dob'))
                             <span class="text-danger">*{{ $errors->first('dob') }}</span>
                         @endif
                     </div>
                     <div class="field">
                         <label for="profile" class="form-label">Profile Picture</label>
-                        <input type="file" class="form-control border-1" id="profile" placeholder="Upload profile picture" name="profile" required>
+                        <input type="file" class="form-control border-1" id="profile" placeholder="Upload profile picture" name="profile">
                         @if ($errors->has('profile'))
                             <span class="text-danger">*{{ $errors->first('profile') }}</span>
-                        @endif
-                    </div>
-                    <div class="field">
-                        <input type="password" class="form-control border-1" id="cpassword" placeholder="Confirm Password" name="cpassword" required>
-                        @if ($errors->has('cpassword'))
-                            <span class="text-danger">*{{ $errors->first('cpassword') }}</span>
                         @endif
                     </div>
                     <button class="login-button" title="login">Sign Up</button>

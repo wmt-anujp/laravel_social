@@ -36,6 +36,8 @@
 </head>
 
 <body>
+    @include('includes/toastr')
+    @include('includes/message-block')
     <div class="container">
         @yield('content')
     </div>

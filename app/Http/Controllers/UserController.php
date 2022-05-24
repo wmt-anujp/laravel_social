@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -32,10 +33,18 @@ class UserController extends Controller
             'dob' => $dob,
             'profile_photo' => $profileimg,
         ]);
+        Auth::login($user);
+        Session::put('logged', $email);
+        return redirect()->route('dashboard')->with('success', 'Your Account has been created');
     }
 
     public function loginpage()
     {
         return view('login');
+    }
+
+    public function getdashboard()
+    {
+        return view('dashboard');
     }
 }

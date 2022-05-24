@@ -19,9 +19,14 @@ Route::get('/', function () {
 });
 
 // new account route
-Route::get('signup', [UserController::class, 'signuppage'])->name('signuppage');
+Route::get('signup', [UserController::class, 'signuppage'])->name('signuppage')->middleware('access');
 Route::post('signup', [UserController::class, 'usersignup'])->name('usersignup');
 
 // login
-Route::get('login', [UserController::class, 'loginpage'])->name('loginpage');
+Route::get('login', [UserController::class, 'loginpage'])->name('loginpage')->middleware('access');
 Route::post('login', [UserController::class, 'userlogin'])->name('login');
+
+Route::middleware('auth')->group(function () {
+    // dashboard
+    Route::get('dashboard', [UserController::class, 'getdashboard'])->name('dashboard');
+});
