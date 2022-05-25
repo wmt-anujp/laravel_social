@@ -79,6 +79,10 @@ class UserController extends Controller
     {
         return view('editaccount', ['user' => Auth::user()]);
     }
+
+    public function editaccount()
+    {
+    }
 }
 // $user = User::create([
         //     'name' => $name,

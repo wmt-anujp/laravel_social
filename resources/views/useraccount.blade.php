@@ -23,8 +23,7 @@
                         </p>
                         <p><i class="fa-solid fa-envelope text-primary"></i><span class="card-text ms-2">{{$user->email}}</span>
                         </p>
-                        <p><a href="{{route('editaccountform')}}" class="btn btn-primary mt-4"><i
-                            class="fa-solid fa-pen-to-square me-2"></i>Edit Profile</a></p>
+                        <p><a href="{{route('editaccountform')}}" class="btn btn-primary mt-4"><i class="fa-solid fa-pen-to-square me-2"></i>Edit Profile</a></p>
                     </div>
                 </div>
             </div>

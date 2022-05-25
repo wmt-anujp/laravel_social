@@ -7,7 +7,7 @@
 <section class="row justify-content-center mt-5">
     <div class="col-md-6 col-md-offset-3 mt-5">
         <header class="mt-3 text-center"><h3>Update Account</h3></header>
-        <form action="" method="post" id="account" class="mt-5" enctype="multipart/form-data">
+        <form action="{{route('editaccount')}}" method="post" id="account" class="mt-5" enctype="multipart/form-data">
             @csrf
             <div class="form-group mb-4">
                 <label for="name">Name</label>
@@ -18,10 +18,10 @@
             </div>
 
             <div class="form-group mb-4">
-                <label for="name">Username</label>
-                <input type="text" name="uname" class="form-control" value="{{ $user->uname }}" id="uname">
-                @if ($errors->has('uname'))
-                    <span class="text-danger">*{{ $errors->first('uname') }}</span>
+                <label for="username">Username</label>
+                <input type="text" name="username" class="form-control" value="{{ $user->username }}" id="uname">
+                @if ($errors->has('username'))
+                    <span class="text-danger">*{{ $errors->first('username') }}</span>
                 @endif
             </div>
 
@@ -45,8 +45,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary me-2">Update Account</button>
-            <a class="btn btn-danger" href="{{ route('account') }}">Cancel</a>
-
+            <a class="btn btn-danger" href="{{ route('editaccountform') }}">Cancel</a>
         </form>
     </div>
 </section>
