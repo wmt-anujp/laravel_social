@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Storage;
 class User extends Authenticatable
 {
     use HasFactory, HasApiTokens, Notifiable;
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
     public $profilephoto = "profile/";
 
     // MUTATORS
@@ -24,6 +30,6 @@ class User extends Authenticatable
     // Accessors
     public function getProfilePhotoAttribute($image)
     {
-        return $image = Storage::disk('local')->url($image);
+        return Storage::disk('local')->url($image);
     }
 }

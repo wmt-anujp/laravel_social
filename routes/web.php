@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,5 +44,14 @@ Route::middleware('auth')->group(function () {
     // edit account in database
     Route::post('editaccount', [UserController::class, 'editaccount'])->name('editaccount');
 
-    Route::get('add_post', [PostController::class, 'addnewpost'])->name('addpost');
+    // your posts section
+    Route::get('your_posts', [PostController::class, 'yourpost'])->name('yourposts');
+
+    // add post form
+    Route::get('add_post', [PostController::class, 'addpostform'])->name('add_post');
+
+    // add new post database
+    Route::post('addpost', [PostController::class, 'addnewpost'])->name('addnewpost');
+
+    // 
 });

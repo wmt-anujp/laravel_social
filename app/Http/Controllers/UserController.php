@@ -90,10 +90,11 @@ class UserController extends Controller
         $files = $request->file('profile');
         $folder = 'public/profile';
         $old_file = Auth::user()->profile_photo;
+        // dd($old_file);
         $oldfiledelete = explode('/', $old_file);
         // dd($oldfiledelete[2] . '/' . $oldfiledelete[3]);
-        if (Storage::exists('storage/' . $oldfiledelete[2] . '/' . $oldfiledelete[3])) {
-            Storage::delete($oldfiledelete[3]);
+        if (Storage::exists('public/' . $oldfiledelete[2] . '/' . $oldfiledelete[3])) {
+            Storage::delete('public/' . $oldfiledelete[2] . '/' . $oldfiledelete[3]);
         }
         $filename = $files->getClientOriginalName();
         if (Storage::exists($folder)) {

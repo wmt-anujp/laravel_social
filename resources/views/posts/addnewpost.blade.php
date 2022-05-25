@@ -9,27 +9,19 @@
     <div class="row mt-5">
         <div class="col mt-5">
             <h3 class="text-center">Add Post</h3>
-            <form action="{{route('addpost')}}" method="POST" id="addpost" enctype="multipart/form-data">
+            <form action="{{route('addnewpost')}}" method="POST" id="addpost" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3 mt-3">
-                    <label for="title" class="form-label">Post Title</label>
-                    <input type="text" class="form-control border-1 rounded-0" name="title" id="title" placeholder="Enter Post Title" value="{{old('title')}}">
-                    @if ($errors->has('title'))
-                        <span class="text-danger">*{{ $errors->first('title') }}</span>
-                    @endif
-                </div>
-
-                <div class="mb-3 mt-3">
-                    <label for="desc" class="form-label">Description</label>
-                    <textarea name="desc" class="form-control border-1 rounded-0" id="desc" cols="30" rows="2">{{old('desc')}}</textarea>
-                    @if ($errors->has('desc'))
-                        <span class="text-danger">*{{ $errors->first('desc') }}</span>
+                    <label for="caption" class="form-label">Caption</label>
+                    <textarea name="caption" class="form-control border-1" placeholder="Enter Some Caption for Your Post" id="caption" cols="30" rows="2">{{old('caption')}}</textarea>
+                    @if ($errors->has('caption'))
+                        <span class="text-danger">*{{ $errors->first('caption') }}</span>
                     @endif
                 </div>
 
                 <div class="mb-3 mt-3">
                     <label for="post_image" class="form-label">Post Image</label>
-                    <input type="file" class="form-control border-1 rounded-0" name="post_image" id="post_image">
+                    <input type="file" class="form-control border-1" name="post_image" id="post_image">
                     @if ($errors->has('post_image'))
                         <span class="text-danger">*{{ $errors->first('post_image') }}</span>
                     @endif
@@ -39,8 +31,8 @@
                     <label for="post_country" class="form-label">Select Country</label>
                     <select name="post_country" id="post_country" class="form-select">
                         <option value="" selected disabled>Select Country</option>
-                        @foreach ($country as $c)
-                            <option value="{{$c->id}}">{{$c->country_name}}</option>
+                        @foreach ($country as $cntry)
+                            <option value="{{$cntry->id}}">{{$cntry->country_name}}</option>
                         @endforeach
                     </select>
                     @if ($errors->has('post_country'))
