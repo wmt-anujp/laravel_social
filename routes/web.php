@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,4 +42,6 @@ Route::middleware('auth')->group(function () {
 
     // edit account in database
     Route::post('editaccount', [UserController::class, 'editaccount'])->name('editaccount');
+
+    Route::get('add_post', [PostController::class, 'addnewpost'])->name('addpost');
 });
