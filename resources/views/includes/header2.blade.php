@@ -11,7 +11,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-5">
                     <li class="nav-item me-4">
-                        <a href="" class="nav-link {{(request()->is('welcome')) ? 'active' : '' }}">Dashboard</a>
+                        <a href="{{route('dashboard')}}" class="nav-link {{(request()->is('welcome')) ? 'active' : '' }}">Dashboard</a>
                     </li>
                     <li class="nav-item me-4">
                         <a href="" class="nav-link {{(request()->is('home')) ? 'active' : ''}}">Your Posts</a>

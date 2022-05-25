@@ -21,9 +21,9 @@ class User extends Authenticatable
         $this->attributes['profile_photo'] = $this->profilephoto . $image;
     }
 
+    // Accessors
     public function getProfilePhotoAttribute($image)
     {
-        $image = Storage::disk('local')->url($image);
-        return $image;
+        return $image = Storage::disk('local')->url($image);
     }
 }

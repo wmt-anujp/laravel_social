@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('useraccount', [UserController::class, 'getuseraccount'])->name('useraccount');
 
     // edit account page
-    Route::get('editaccountform', [UserController::class, 'geteditaccountform'])->name('editaccountform');
+    Route::get('edit_account', [UserController::class, 'geteditaccountform'])->name('editaccountform');
 
     // edit account in database
     Route::post('editaccount', [UserController::class, 'editaccount'])->name('editaccount');

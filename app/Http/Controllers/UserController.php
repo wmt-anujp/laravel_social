@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EditAccountFormRequest;
 use App\Http\Requests\LoginFormRequest;
 use App\Http\Requests\SignUpFormRequest;
 use Illuminate\Http\Request;
@@ -80,8 +81,28 @@ class UserController extends Controller
         return view('editaccount', ['user' => Auth::user()]);
     }
 
-    public function editaccount()
+    public function editaccount(EditAccountFormRequest $request)
     {
+        $user = Auth::user();
+        $user->name = $request->input('name');
+        $user->username = $request->input('username');
+        $user->email = $request->input('email');
+        $files = $request->file('profile');
+        $folder = 'public/profile';
+        $old_file = Auth::user()->profile_photo;
+        $oldfiledelete = explode('/', $old_file);
+        // dd($oldfiledelete[2] . '/' . $oldfiledelete[3]);
+        if (Storage::exists('storage/' . $oldfiledelete[2] . '/' . $oldfiledelete[3])) {
+            Storage::delete($oldfiledelete[3]);
+        }
+        $filename = $files->getClientOriginalName();
+        if (Storage::exists($folder)) {
+            Storage::makeDirectory($folder, 0775, true, true);
+        }
+        $files->storeAs($folder, $filename);
+        $user->profile_photo = $filename;
+        $user->update();
+        return redirect()->route('useraccount')->with('success', 'Profile Updated');
     }
 }
 // $user = User::create([
