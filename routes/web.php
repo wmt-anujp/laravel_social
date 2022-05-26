@@ -65,6 +65,9 @@ Route::middleware('auth')->group(function () {
     // edit post in database
     Route::post('postedit/{epid}', [PostController::class, 'postedit'])->name('postedit');
 
-    // comment
-    Route::post('comment', [PostController::class, 'addcomment'])->name('comment');
+    // comment access
+    Route::get('add_comment/{cid}', [PostController::class, 'getcomment'])->name('add_comment');
+
+    // comment 
+    Route::post('comment', [PostController::class, 'addComments'])->name('comment');
 });

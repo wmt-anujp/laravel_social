@@ -195,7 +195,7 @@ $(document).ready(function () {
                 required: true,
                 extension:
                     "jpg|jpeg|png|gif|mp4|ogg|ogv|avi|mpeg|mov|wmv|flv|mkv",
-                filesize: 12,
+                filesize: 15,
             },
             post_country: {
                 required: true,
@@ -210,7 +210,7 @@ $(document).ready(function () {
                 required: "Please upload Profile Image",
                 extension:
                     "Only image or video type jpg,jpeg,png,gif,mp4,ogg,ogv,avi,mpe?g,mov,wmv,flv,mkv is allowed!!",
-                filesize: "File Size Must be less than 12MB",
+                filesize: "File Size Must be less than 15MB",
             },
             post_country: {
                 required: "Please select Post Country",

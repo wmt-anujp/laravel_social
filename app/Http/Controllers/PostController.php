@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddCommentRequest;
 use App\Http\Requests\AddPostFormRequest;
 use App\Http\Requests\EditPostFormRequest;
+use App\Models\Comment;
 use App\Models\Country;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -80,9 +82,36 @@ class PostController extends Controller
         return redirect()->route('getpostdetails', ['pid' => $post->id])->with('success', 'Post was Updated');
     }
 
-    public function addcomment(Request $request, $id)
+    public function addComments(AddCommentRequest $request)
     {
-        $post = Post::find($id);
-        dd($post);
+        // dd('hello from comment');
+        // dd($post);
+        $comment = new Comment();
+        // $comment = Post::find($id);
+        // $comment['post_id'] = $this->Post::user()->id;
+        // $comment = $this->post()->id;
+        $comment['post_id'] = $request['post_id'];
+        $comment['user_id'] = Auth::user()->id;
+        $comment['comment_body'] = $request->input('comment');
+        // dd($comment);
+        $comment->save();
+        return redirect()->route('yourposts');
     }
+
+    // public function getcomment($id)
+    // {
+    //     $post = Post::find($id);
+    //     return view('posts.addcomment', ['post' => $post]);
+    // }
+
+    // public function addcomment(Request $request)
+    // {
+    //     $comment = new Comment();
+    //     $comment['user_id'] = Auth::user()->id;
+    //     $comment['post_id'] = $request->input('post_id');
+    //     $comment['comment_body'] = $request->input('comment');
+    //     // dd($comment);
+    //     $comment->save();
+    //     return redirect()->route('yourposts');
+    // }
 }

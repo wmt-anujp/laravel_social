@@ -24,25 +24,28 @@
     </div>
 
     <div class="row g-5 mt-5 justify-content-center">
-        {{-- <div class="col-12">
+        <div class="col-12">
             <form action="" method="get">
                 @csrf
                <div class="row">
-                    <div class="col-10">
-                        <select name="filter" id="filter" class="form-select">
+                    <div class="col-2">
+                        <select name="filter" id="filter" class="form-select" style="width: 150px">
                             <option value="all">All Post</option>
                             <option value="image">Image</option>
                             <option value="video">Video</option>
                         </select>
                     </div>
                     <div class="col-2">
-                        <button type="submit" class="btn btn-primary">Filter</button>
+                        <button type="submit" class="btn btn-primary">Show</button>
                     </div>
                </div>
             </form>
-        </div> --}}
+        </div>
         @foreach ($post as $pst)
                 <div class="col-12 col-md-3">
+                    @if ()
+                        
+                    @endif
                     <a href="{{route('getpostdetails',['pid'=>$pst->id])}}"  class="show-post">
                         <img src="{{$pst->media_path}}" alt="Posts" width="200" height="200">
                     </a>

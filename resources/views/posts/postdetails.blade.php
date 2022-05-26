@@ -30,12 +30,12 @@
                                             <input name="_method" type="hidden" value="DELETE" style="display: inline !important;">
                                             <button type="submit" class="btn btn-sm btn-danger me-3" style="display: inline !important;" data-toggle="tooltip" title='Delete'><i class="fa-solid fa-trash-can"></i></button>
                                         </form>
-                                        <a href="" class="btn btn-sm btn-secondary" id="comment"><i class="fa-solid fa-comment"></i></a>
+                                        <a href="{{route('add_comment',['cid'=>$post->id])}}" class="btn btn-sm btn-secondary" id="comment" data-anuj={{$post->id}}><i class="fa-solid fa-comment"></i></a>
                                     </div>
-                                    <div class="mt-3">
+                                    {{-- <div class="mt-3">
                                         <a href="" class="btn btn-sm btn-primary like">Like</a>
                                         <a href="" class="btn btn-secondary btn-sm like">Dislike</a>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -44,9 +44,10 @@
                     <form action="{{route('comment')}}" method="POST" id="comment">
                         @csrf
                         <div class="form-group">
-                            <label for="body">Comment</label>
-                            <textarea class="form-control" name="body" id="body" rows="2" placeholder="Comment Here"></textarea>
-                            <button type="submit" class="btn btn-primary mt-2" id="modalsave">Comment</button>
+                            <input type="hidden" name="post_id" value="{{$post->id}}">
+                            <label for="comment">Comment</label>
+                            <textarea class="form-control" name="comment" id="comment" rows="2" placeholder="Comment Here"></textarea>
+                            <button type="submit" class="btn btn-primary mt-2">Comment</button>
                         </div>
                     </form>
                 </div>
@@ -55,7 +56,7 @@
     </div>
 
     {{-- comment modal --}}
-    <div class="modal fade" tabindex="-1" id="commentmodal">
+    {{-- <div class="modal fade" tabindex="-1" id="commentmodal">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -63,9 +64,8 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form action="{{route('comment',[''])}}" method="POST" id="comment">
+              <form action="{{route('comment')}}" method="POST" id="comment">
                   @csrf
-                  {{-- <input type="hidden" id="id" name="id" /> --}}
                   <div class="form-group">
                       <textarea class="form-control" name="body" id="body" rows="5"></textarea>
                   </div>
@@ -77,7 +77,7 @@
             </div>
           </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 @section('js')
