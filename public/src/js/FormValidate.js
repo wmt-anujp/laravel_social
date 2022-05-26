@@ -187,11 +187,7 @@ $(document).ready(function () {
     });
     $("#addpost").validate({
         rules: {
-            title: {
-                required: true,
-                maxlength: 120,
-            },
-            desc: {
+            caption: {
                 required: true,
                 maxlength: 300,
             },
@@ -199,18 +195,14 @@ $(document).ready(function () {
                 required: true,
                 extension:
                     "jpg|jpeg|png|gif|mp4|ogg|ogv|avi|mpeg|mov|wmv|flv|mkv",
-                filesize: 3,
+                filesize: 12,
             },
             post_country: {
                 required: true,
             },
         },
         messages: {
-            title: {
-                required: "Please Enter Post Title",
-                maxlength: "Maximum 120 characters allowed",
-            },
-            desc: {
+            caption: {
                 required: "Please Enter Description",
                 maxlength: "Maximum 300 characters allowed",
             },
@@ -218,7 +210,7 @@ $(document).ready(function () {
                 required: "Please upload Profile Image",
                 extension:
                     "Only image or video type jpg,jpeg,png,gif,mp4,ogg,ogv,avi,mpe?g,mov,wmv,flv,mkv is allowed!!",
-                filesize: "File Size Must be less than 5MB",
+                filesize: "File Size Must be less than 12MB",
             },
             post_country: {
                 required: "Please select Post Country",

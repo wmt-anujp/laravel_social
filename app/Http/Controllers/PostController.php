@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddPostFormRequest;
+use App\Http\Requests\EditPostFormRequest;
 use App\Models\Country;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -39,5 +40,43 @@ class PostController extends Controller
         $post->media_path = $filename;
         $post->save();
         return redirect()->route('yourposts')->with('success', 'Post Created Successfully');
+    }
+
+    public function getpostdetails($id)
+    {
+        $post = Post::find($id);
+        return view('posts.postdetails', ['post' => $post]);
+    }
+
+    public function deletepost($id)
+    {
+        $post = Post::find($id);
+        if (isset($post)) {
+            $old_post = $post->media_path;
+            // dd($old_post);
+            $old_post_delete = explode("/", $old_post);
+            // dd($old_post_delete);
+            if (Storage::exists('public/' . $old_post_delete[2] . "/" . $old_post_delete[3] . "/" . $old_post_delete[4])) {
+                Storage::delete('public/' . $old_post_delete[2] . "/" . $old_post_delete[3] . "/" . $old_post_delete[4]);
+            }
+        }
+        $post->delete();
+        return redirect()->route('yourposts')->with('success', "Post Deleted");
+    }
+
+    public function getpostedit($id)
+    {
+        $post = Post::find($id);
+        $country = Country::all();
+        return view('posts.editpost', array('post' => $post, 'country' => $country));
+    }
+
+    public function postedit(EditPostFormRequest $request, $id)
+    {
+        $post = Post::find($id);
+        $post->post_caption = $request->input('caption');
+        $post->country_id = $request->post_country;
+        $post->update();
+        return redirect()->route('getpostdetails', ['pid' => $post->id])->with('success', 'Post was Updated');
     }
 }

@@ -43,7 +43,7 @@
         </div> --}}
         @foreach ($post as $pst)
                 <div class="col-12 col-md-3">
-                    <a href=""  class="show-post">
+                    <a href="{{route('getpostdetails',['pid'=>$pst->id])}}"  class="show-post">
                         <img src="{{$pst->media_path}}" alt="Posts" width="200" height="200">
                     </a>
                 </div>

@@ -53,5 +53,15 @@ Route::middleware('auth')->group(function () {
     // add new post database
     Route::post('addpost', [PostController::class, 'addnewpost'])->name('addnewpost');
 
-    // 
+    // show post details
+    Route::get('postdetails/{pid}', [PostController::class, 'getpostdetails'])->name('getpostdetails');
+
+    // delete user post
+    Route::delete('deletepost/{dpid}', [PostController::class, 'deletepost'])->name('delpost');
+
+    // edit post
+    Route::get('post_edit/{epid}', [PostController::class, 'getpostedit'])->name('post_edit');
+
+    // edit post in database
+    Route::post('postedit/{epid}', [PostController::class, 'postedit'])->name('postedit');
 });
