@@ -30,6 +30,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
     <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png">
+    <script src="{{URL::to('src/js/app.js')}}"></script>
     <script src="{{URL::to('src/js/FormValidate.js')}}"></script>
 </head>
 

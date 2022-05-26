@@ -22,20 +22,67 @@
                                 <div class="card-body">
                                     <p class="card-text"><span class="post-caption" style="color: green">Caption: </span>{{$post->post_caption}}</p>
                                     <p class="card-text"><span class="post-creation" style="color: green">Posted At: </span>{{$post->created_at->format('d/m/Y h:i:s A')}}</p>
-                                    <div class="">
-                                        <span><a href="{{route('post_edit',['epid'=>$post->id])}}" class="btn btn-sm btn-primary me-3">Edit Post</a></span>
+                                    <div>
+                                        <span><a href="{{route('post_edit',['epid'=>$post->id])}}" class="btn btn-sm btn-primary me-3"><i class="fa-solid fa-pencil"></i></a></span>
                                         {{-- <span><a href="{{route('delpost',['dpid'=>$post->id])}}" class="btn btn-sm btn-danger">Delete</a></span> --}}
                                         <form method="POST" action="{{route('delpost',['dpid'=>$post->id])}}" style="display:inline !important;">
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE" style="display: inline !important;">
-                                            <button type="submit" class="btn btn-sm btn-danger" style="display: inline !important;" data-toggle="tooltip" title='Delete'>Delete Post</button>
+                                            <button type="submit" class="btn btn-sm btn-danger me-3" style="display: inline !important;" data-toggle="tooltip" title='Delete'><i class="fa-solid fa-trash-can"></i></button>
                                         </form>
+                                        <a href="" class="btn btn-sm btn-secondary" id="comment"><i class="fa-solid fa-comment"></i></a>
+                                    </div>
+                                    <div class="mt-3">
+                                        <a href="" class="btn btn-sm btn-primary like">Like</a>
+                                        <a href="" class="btn btn-secondary btn-sm like">Dislike</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                 </div>
+                <div>
+                    <form action="{{route('comment')}}" method="POST" id="comment">
+                        @csrf
+                        <div class="form-group">
+                            <label for="body">Comment</label>
+                            <textarea class="form-control" name="body" id="body" rows="2" placeholder="Comment Here"></textarea>
+                            <button type="submit" class="btn btn-primary mt-2" id="modalsave">Comment</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+
+    {{-- comment modal --}}
+    <div class="modal fade" tabindex="-1" id="commentmodal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Comment</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="{{route('comment',[''])}}" method="POST" id="comment">
+                  @csrf
+                  {{-- <input type="hidden" id="id" name="id" /> --}}
+                  <div class="form-group">
+                      <textarea class="form-control" name="body" id="body" rows="5"></textarea>
+                  </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" id="modalsave">Comment</button>
+            </div>
+          </div>
+        </div>
+    </div>
+@endsection
+
+@section('js')
+    <script>
+        var token='{{csrf_token()}}'
+        var urlcomment='{{route('comment')}}'
+    </script>
 @endsection

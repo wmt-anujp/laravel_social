@@ -79,4 +79,10 @@ class PostController extends Controller
         $post->update();
         return redirect()->route('getpostdetails', ['pid' => $post->id])->with('success', 'Post was Updated');
     }
+
+    public function addcomment(Request $request, $id)
+    {
+        $post = Post::find($id);
+        dd($post);
+    }
 }
