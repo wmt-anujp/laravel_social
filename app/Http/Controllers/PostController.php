@@ -14,24 +14,31 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
-    public function yourpost()
+    public function yourpost(Request $request)
     {
         $post = Post::orderBy('created_at', 'desc')->where('user_id', Auth::user()->id)->get();
-        // $post->last()->media_path;
+        return view('posts.yourpost', array('user' => Auth::user(), 'post' => $post));
+    }
+
+    public function specificpost(Request $request)
+    {
+        // dd($id);
+        // $post = Post::orderBy('created_at', 'desc')->where('user_id', Auth::user()->id)->get();
+        // $post = Post::all('media_path');
         // foreach ($post as $pst) {
-        //     $pst[0]->media_path;
+        //     dd($pst->media_path);
+        //     if ($id == 2) {
+        //     }
         // }
-        // dd($pst);
-        // dd($post[0]);
-        // $path = $post->media_path;
-        // $tempextension = explode("/", $path);
-        // $finalextension = explode('.', $tempextension[4]);
-        // if ($finalextension[1] == "mp4" || $finalextension[1] == "ogg" || $finalextension[1] == "ogv" || $finalextension[1] == "avi" || $finalextension[1] == "mpeg" || $finalextension[1] == "mov" || $finalextension[1] == "wmv" || $finalextension[1] == "flv" || $finalextension[1] == "mkv") {
-        //     $media = 1;
-        // } else {
-        //     $media = 2;
-        // }
-        // dd($media_type);
+        $user = Auth::user();
+
+        if ($request->filter == 'all') {
+            $post = Post::orderBy('created_at', 'desc')->where('user_id', $user->id)->get();
+        } elseif ($request->filter == "image") {
+            $post = Post::orderBy('created_at', 'desc')->where('user_id', Auth::user()->id)->where('media_type', 2)->get();
+        } else {
+            $post = Post::orderBy('created_at', 'desc')->where('user_id', $user->id)->where('media_type', 1)->get();
+        }
         return view('posts.yourpost', array('user' => Auth::user(), 'post' => $post));
     }
 
@@ -55,6 +62,12 @@ class PostController extends Controller
         }
         $files->storeAs($folder, $filename);
         $post->media_path = $filename;
+
+        if (substr($files->getMimeType(), 0, 5) == 'image') {
+            $post->media_type = 2;
+        } else {
+            $post->media_type = 1;
+        }
         $post->save();
         return redirect()->route('yourposts')->with('success', 'Post Created Successfully');
     }
@@ -97,6 +110,26 @@ class PostController extends Controller
         $post = Post::find($id);
         $post->post_caption = $request->input('caption');
         $post->country_id = $request->post_country;
+        $files = $request->file('post_image');
+        $folder = "public/posts/User-" . Auth::user()->id . "_" . Auth::user()->username . '/';
+        $filename = $files->getClientOriginalName();
+        if (!Storage::exists($folder)) {
+            Storage::makeDirectory($folder, 0775, true, true);
+        }
+        $old_post = $post->media_path;
+        // dd($old_post);
+        $old_post_delete = explode("/", $old_post);
+        // dd($old_post_delete);
+        if (Storage::exists('public/' . $old_post_delete[2] . "/" . $old_post_delete[3] . "/" . $old_post_delete[4])) {
+            Storage::delete('public/' . $old_post_delete[2] . "/" . $old_post_delete[3] . "/" . $old_post_delete[4]);
+        }
+        $files->storeAs($folder, $filename);
+        if (substr($files->getMimeType(), 0, 5) == 'image') {
+            $post->media_type = 2;
+        } else {
+            $post->media_type = 1;
+        }
+        $post->media_path = $filename;
         $post->update();
         return redirect()->route('getpostdetails', ['pid' => $post->id])->with('success', 'Post was Updated');
     }
@@ -113,21 +146,4 @@ class PostController extends Controller
         $comment->save();
         return back();
     }
-
-    // public function getcomment($id)
-    // {
-    //     $post = Post::find($id);
-    //     return view('posts.addcomment', ['post' => $post]);
-    // }
-
-    // public function addcomment(Request $request)
-    // {
-    //     $comment = new Comment();
-    //     $comment['user_id'] = Auth::user()->id;
-    //     $comment['post_id'] = $request->input('post_id');
-    //     $comment['comment_body'] = $request->input('comment');
-    //     // dd($comment);
-    //     $comment->save();
-    //     return redirect()->route('yourposts');
-    // }
 }

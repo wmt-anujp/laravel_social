@@ -15,8 +15,13 @@
                     <h3 class="text-center card-header">Post Details</h3>
                         <div class="row g-0">
                             <div class="col-md-5 showposts">
-                                {{-- {{dd($post->id)}}; --}}
-                                <img src="{{$post->media_path}}" alt="post" width="200" height="200">
+                                @if ($post->media_type==1)
+                                    <video autoplay loop muted width="200" height="200">
+                                        <source src="{{$post->media_path}}">
+                                    </video>
+                                @elseif($post->media_type==2)
+                                    <img src="{{$post->media_path}}" alt="post" width="200" height="200">
+                                @endif
                             </div>
                             <div class="col-md-7">
                                 <div class="card-body">
@@ -31,10 +36,10 @@
                                             <button type="submit" class="btn btn-sm btn-danger me-3" style="display: inline !important;" data-toggle="tooltip" title='Delete'><i class="fa-solid fa-trash-can"></i></button>
                                         </form>
                                     </div>
-                                    {{-- <div class="mt-3">
-                                        <a href="" class="btn btn-sm btn-primary like">Like</a>
-                                        <a href="" class="btn btn-secondary btn-sm like">Dislike</a>
-                                    </div> --}}
+                                    <div class="mt-3">
+                                        <a href="" class="btn btn-sm btn-primary like" data-pid={{$post->id}} data-uid={{Auth::user()->id}} title="Like">Like</a>
+                                        <a href="" class="btn btn-secondary btn-sm like" title="Dislike">Dislike</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -92,5 +97,6 @@
     <script>
         var token='{{csrf_token()}}'
         var urlcomment='{{route('comment')}}'
+        var urllike='{{route('like')}}'
     </script>
 @endsection

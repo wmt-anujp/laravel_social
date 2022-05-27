@@ -20,6 +20,14 @@
                 </div>
 
                 <div class="mb-3 mt-3">
+                    <label for="post_image" class="form-label">Post Image</label>
+                    <input type="file" class="form-control border-1" name="post_image" id="post_image">
+                    @if ($errors->has('post_image'))
+                        <span class="text-danger">*{{ $errors->first('post_image') }}</span>
+                    @endif
+                </div>
+
+                <div class="mb-3 mt-3">
                     <label for="post_country" class="form-label">Select Country</label>
                     <select name="post_country" id="post_country" class="form-select">
                         <option selected disabled>Select Country</option>

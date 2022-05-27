@@ -25,10 +25,11 @@
 
     <div class="row g-5 mt-5 justify-content-center">
         <div class="col-12">
-            <form action="" method="get">
+            <form action="{{route('specificpost')}}" method="POST">
                 @csrf
-               <div class="row">
+                <div class="row">
                     <div class="col-2">
+                        {{-- <a href="{{route('specificpost')}}" class="btn btn-sm btn-secondary" type="submit">Videos</a> --}}
                         <select name="filter" id="filter" class="form-select" style="width: 150px">
                             <option value="all">All Post</option>
                             <option value="image">Image</option>
@@ -41,10 +42,8 @@
                </div>
             </form>
         </div>
-        @foreach ($post as $pst)
-                <div class="col-12 col-md-3">
                     {{-- {{dd($media)}} --}}
-                    @php
+                    {{-- @php
                     $path = $pst->media_path;
                     $tempextension = explode("/", $path);
                     $finalextension = explode('.', $tempextension[4]);
@@ -53,19 +52,23 @@
                     } else {
                         $media = 2;
                     }
-                    @endphp
-                    @if ($media==1)
+                    @endphp --}}
+        @foreach ($post as $pst)
+                @if ($pst->media_type==1)
+                    <div class="col-12 col-md-3">
                         <a href="{{route('getpostdetails',['pid'=>$pst->id])}}" class="show-post">
                             <video autoplay loop muted width="200" height="200">
                                 <source src="{{$pst->media_path}}">
                             </video>
                         </a>
-                    @else
+                    </div>
+                @elseif($pst->media_type==2)
+                    <div class="col-12 col-md-3">
                         <a href="{{route('getpostdetails',['pid'=>$pst->id])}}"  class="show-post">
                             <img src="{{$pst->media_path}}" alt="Posts" width="200" height="200">
                         </a>
-                    @endif
-                </div>
+                    </div>
+                @endif
         @endforeach
     </div> 
 </div>

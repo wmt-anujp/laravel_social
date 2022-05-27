@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::post('editaccount', [UserController::class, 'editaccount'])->name('editaccount');
 
     // your posts section
-    Route::get('your_posts', [PostController::class, 'yourpost'])->name('yourposts');
+    Route::get('your_post', [PostController::class, 'yourpost'])->name('yourposts');
 
     // add post form
     Route::get('add_post', [PostController::class, 'addpostform'])->name('add_post');
@@ -65,9 +65,12 @@ Route::middleware('auth')->group(function () {
     // edit post in database
     Route::post('postedit/{epid}', [PostController::class, 'postedit'])->name('postedit');
 
-    // comment access
-    Route::get('add_comment/{cid}', [PostController::class, 'getcomment'])->name('add_comment');
-
     // comment 
     Route::post('comment', [PostController::class, 'addComments'])->name('comment');
+
+    // specific post
+    Route::post('your_post', [PostController::class, 'specificpost'])->name('specificpost');
+
+    // like dislike
+    Route::post('like', [PostController::class, 'postlike'])->name('like');
 });

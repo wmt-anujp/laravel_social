@@ -43,6 +43,7 @@
     @include('includes/header')
     <div class="container">
         @yield('content')
+        @yield('js')
     </div>
 </body>
 
