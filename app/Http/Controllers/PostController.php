@@ -62,10 +62,10 @@ class PostController extends Controller
     public function getpostdetails($id)
     {
         $post = Post::find($id);
-        $comment = Comment::all();
-        dd($post->comments);
-        // $comment = Comment::find($id);
+        // $comment = Comment::all();
+        $comment = $post->comments;
         // dd($comment);
+        // $comment = Comment::find($id);
         return view('posts.postdetails', ['post' => $post, 'comments' => $comment]);
     }
 

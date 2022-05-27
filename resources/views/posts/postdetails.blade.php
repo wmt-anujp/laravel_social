@@ -8,7 +8,7 @@
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
-    <div class="container mt-5">
+    <div class="container mt-5 mb-5">
         <div class="row mt-5">
             <div class="col-md-6 offset-md-3 mt-5">
                 <div class="card mb-3 mt-5" style="width: 540px;">
@@ -52,8 +52,11 @@
                 </div>
                 <div class="mt-4">
                     <h4 style="color: green">All Comments</h4>
-                    @foreach ($post as $pst)
-                        {{-- {{dd($post)}} --}}
+                    <hr>
+                    @foreach ($comments as $comment)
+                    <p><span style="color: green">Commented By: </span>{{$comment->user->name}}</p>
+                    <p>{{$comment->comment_body}}</p>
+                    <hr>
                     @endforeach
                 </div>
             </div>

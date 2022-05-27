@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
-<div class="container px-5">
+<div class="container px-5 mb-5">
     <div class="row px-5 mt-5">
         <div class="col-12 col-md-2 mt-5">
             <img src="{{Auth::user()->profile_photo}}" alt="User_profile" width="150" height="150" class="rounded-circle">
