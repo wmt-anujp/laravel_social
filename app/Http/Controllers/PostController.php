@@ -16,8 +16,22 @@ class PostController extends Controller
 {
     public function yourpost()
     {
-        $post = Post::orderBy('created_at', 'desc')->get()->where('user_id', Auth::user()->id);
-        return view('posts.yourpost', array('user' => Auth::user(), 'post' => $post));
+        $post = Post::orderBy('created_at', 'desc')->where('user_id', Auth::user()->id)->get();
+        // $post->last()->media_path;
+        // foreach ($post as $pst) {
+        //     $pst[0]->media_path;
+        // }
+        // dd($pst);
+        $path = $post[0]->media_path;
+        $tempextension = explode("/", $path);
+        $finalextension = explode('.', $tempextension[4]);
+        if ($finalextension[1] == "mp4" || $finalextension[1] == "ogg" || $finalextension[1] == "ogv" || $finalextension[1] == "avi" || $finalextension[1] == "mpeg" || $finalextension[1] == "mov" || $finalextension[1] == "wmv" || $finalextension[1] == "flv" || $finalextension[1] == "mkv") {
+            $media = 1;
+        } else {
+            $media = 2;
+        }
+        // dd($media_type);
+        return view('posts.yourpost', array('user' => Auth::user(), 'post' => $post, 'media' => $media));
     }
 
     public function addpostform()
@@ -85,11 +99,8 @@ class PostController extends Controller
     public function addComments(AddCommentRequest $request)
     {
         // dd('hello from comment');
-        // dd($post);
         $comment = new Comment();
-        // $comment = Post::find($id);
         // $comment['post_id'] = $this->Post::user()->id;
-        // $comment = $this->post()->id;
         $comment['post_id'] = $request['post_id'];
         $comment['user_id'] = Auth::user()->id;
         $comment['comment_body'] = $request->input('comment');

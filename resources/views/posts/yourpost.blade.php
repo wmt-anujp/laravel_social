@@ -43,12 +43,18 @@
         </div>
         @foreach ($post as $pst)
                 <div class="col-12 col-md-3">
-                    @if ()
-                        
+                    {{-- {{dd($media)}} --}}
+                    @if ($media=="1")
+                        <a href="{{route('getpostdetails',['pid'=>$pst->id])}}" class="show-post">
+                            <video autoplay loop muted width="200" height="200">
+                                {{-- src="{{$pst->media_path}}" --}}
+                                <source src="{{$pst->media_path}}">
+                            </video>
+                        </a>
                     @endif
-                    <a href="{{route('getpostdetails',['pid'=>$pst->id])}}"  class="show-post">
-                        <img src="{{$pst->media_path}}" alt="Posts" width="200" height="200">
-                    </a>
+                        <a href="{{route('getpostdetails',['pid'=>$pst->id])}}"  class="show-post">
+                            <img src="{{$pst->media_path}}" alt="Posts" width="200" height="200">
+                        </a>
                 </div>
         @endforeach
     </div> 

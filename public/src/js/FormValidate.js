@@ -209,7 +209,7 @@ $(document).ready(function () {
             post_image: {
                 required: "Please upload Profile Image",
                 extension:
-                    "Only image or video type jpg,jpeg,png,gif,mp4,ogg,ogv,avi,mpe?g,mov,wmv,flv,mkv is allowed!!",
+                    "Only image or video type jpg,jpeg,png,gif,mp4,ogg,ogv,avi,mpeg,mov,wmv,flv,mkv is allowed!!",
                 filesize: "File Size Must be less than 15MB",
             },
             post_country: {
