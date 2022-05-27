@@ -44,17 +44,27 @@
         @foreach ($post as $pst)
                 <div class="col-12 col-md-3">
                     {{-- {{dd($media)}} --}}
-                    @if ($media=="1")
+                    @php
+                    $path = $pst->media_path;
+                    $tempextension = explode("/", $path);
+                    $finalextension = explode('.', $tempextension[4]);
+                    if ($finalextension[1] == "mp4" || $finalextension[1] == "ogg" || $finalextension[1] == "ogv" ||$finalextension[1] == "avi" || $finalextension[1] == "mpeg" || $finalextension[1] == "mov" ||$finalextension[1] == "wmv" || $finalextension[1] == "flv" || $finalextension[1] == "mkv") {
+                        $media = 1;
+                    } else {
+                        $media = 2;
+                    }
+                    @endphp
+                    @if ($media==1)
                         <a href="{{route('getpostdetails',['pid'=>$pst->id])}}" class="show-post">
                             <video autoplay loop muted width="200" height="200">
-                                {{-- src="{{$pst->media_path}}" --}}
                                 <source src="{{$pst->media_path}}">
                             </video>
                         </a>
-                    @endif
+                    @else
                         <a href="{{route('getpostdetails',['pid'=>$pst->id])}}"  class="show-post">
                             <img src="{{$pst->media_path}}" alt="Posts" width="200" height="200">
                         </a>
+                    @endif
                 </div>
         @endforeach
     </div> 

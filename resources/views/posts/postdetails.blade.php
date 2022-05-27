@@ -23,14 +23,13 @@
                                     <p class="card-text"><span class="post-caption" style="color: green">Caption: </span>{{$post->post_caption}}</p>
                                     <p class="card-text"><span class="post-creation" style="color: green">Posted At: </span>{{$post->created_at->format('d/m/Y h:i:s A')}}</p>
                                     <div>
-                                        <span><a href="{{route('post_edit',['epid'=>$post->id])}}" class="btn btn-sm btn-primary me-3"><i class="fa-solid fa-pencil"></i></a></span>
+                                        <span><a href="{{route('post_edit',['epid'=>$post->id])}}" title="Edit" class="btn btn-sm btn-primary me-3"><i class="fa-solid fa-pencil"></i></a></span>
                                         {{-- <span><a href="{{route('delpost',['dpid'=>$post->id])}}" class="btn btn-sm btn-danger">Delete</a></span> --}}
                                         <form method="POST" action="{{route('delpost',['dpid'=>$post->id])}}" style="display:inline !important;">
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE" style="display: inline !important;">
                                             <button type="submit" class="btn btn-sm btn-danger me-3" style="display: inline !important;" data-toggle="tooltip" title='Delete'><i class="fa-solid fa-trash-can"></i></button>
                                         </form>
-                                        <a href="{{route('add_comment',['cid'=>$post->id])}}" class="btn btn-sm btn-secondary" id="comment" data-anuj={{$post->id}}><i class="fa-solid fa-comment"></i></a>
                                     </div>
                                     {{-- <div class="mt-3">
                                         <a href="" class="btn btn-sm btn-primary like">Like</a>
@@ -45,11 +44,17 @@
                         @csrf
                         <div class="form-group">
                             <input type="hidden" name="post_id" value="{{$post->id}}">
-                            <label for="comment">Comment</label>
+                            <label for="comment">Add Comment</label>
                             <textarea class="form-control" name="comment" id="comment" rows="2" placeholder="Comment Here"></textarea>
                             <button type="submit" class="btn btn-primary mt-2">Comment</button>
                         </div>
                     </form>
+                </div>
+                <div class="mt-4">
+                    <h4 style="color: green">All Comments</h4>
+                    @foreach ($post as $pst)
+                        {{-- {{dd($post)}} --}}
+                    @endforeach
                 </div>
             </div>
         </div>

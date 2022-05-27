@@ -22,16 +22,17 @@ class PostController extends Controller
         //     $pst[0]->media_path;
         // }
         // dd($pst);
-        $path = $post[0]->media_path;
-        $tempextension = explode("/", $path);
-        $finalextension = explode('.', $tempextension[4]);
-        if ($finalextension[1] == "mp4" || $finalextension[1] == "ogg" || $finalextension[1] == "ogv" || $finalextension[1] == "avi" || $finalextension[1] == "mpeg" || $finalextension[1] == "mov" || $finalextension[1] == "wmv" || $finalextension[1] == "flv" || $finalextension[1] == "mkv") {
-            $media = 1;
-        } else {
-            $media = 2;
-        }
+        // dd($post[0]);
+        // $path = $post->media_path;
+        // $tempextension = explode("/", $path);
+        // $finalextension = explode('.', $tempextension[4]);
+        // if ($finalextension[1] == "mp4" || $finalextension[1] == "ogg" || $finalextension[1] == "ogv" || $finalextension[1] == "avi" || $finalextension[1] == "mpeg" || $finalextension[1] == "mov" || $finalextension[1] == "wmv" || $finalextension[1] == "flv" || $finalextension[1] == "mkv") {
+        //     $media = 1;
+        // } else {
+        //     $media = 2;
+        // }
         // dd($media_type);
-        return view('posts.yourpost', array('user' => Auth::user(), 'post' => $post, 'media' => $media));
+        return view('posts.yourpost', array('user' => Auth::user(), 'post' => $post));
     }
 
     public function addpostform()
@@ -61,7 +62,11 @@ class PostController extends Controller
     public function getpostdetails($id)
     {
         $post = Post::find($id);
-        return view('posts.postdetails', ['post' => $post]);
+        $comment = Comment::all();
+        dd($post->comments);
+        // $comment = Comment::find($id);
+        // dd($comment);
+        return view('posts.postdetails', ['post' => $post, 'comments' => $comment]);
     }
 
     public function deletepost($id)
@@ -106,7 +111,7 @@ class PostController extends Controller
         $comment['comment_body'] = $request->input('comment');
         // dd($comment);
         $comment->save();
-        return redirect()->route('yourposts');
+        return back();
     }
 
     // public function getcomment($id)
