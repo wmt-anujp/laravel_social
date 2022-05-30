@@ -21,12 +21,13 @@ $(document).ready(function () {
         rules: {
             name: {
                 required: true,
+                maxlength: 50,
                 lettersonly: true,
             },
             username: {
                 required: true,
                 maxlength: 15,
-                // RegExp: "^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$",
+                RegExp: "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/s",
             },
             email: {
                 required: true,
@@ -37,7 +38,7 @@ $(document).ready(function () {
             },
             profile: {
                 required: true,
-                extension: "jpg|jpeg|png|gif",
+                extension: "jpg|jpeg|png|svg",
                 filesize: 3,
             },
             password: {
@@ -52,12 +53,13 @@ $(document).ready(function () {
         messages: {
             name: {
                 required: "Please Enter Name",
+                maxlength: "Maximum 50 characters are allowed",
                 lettersonly: "Name should be alphabets only",
             },
             username: {
                 required: "Please Enter Username",
                 maxlength: "Username must be less than 15 characters",
-                // RegExp: "Please follow the username format",
+                RegExp: "Please follow the username format",
             },
             email: {
                 required: "Please Enter Email",
@@ -68,7 +70,7 @@ $(document).ready(function () {
             },
             profile: {
                 required: "Please upload Profile Image",
-                extension: "Only jpg/png/jpeg/gif formats are allowed!!",
+                extension: "Only jpg/png/jpeg/svg formats are allowed!!",
                 filesize: "Image Size Must be less than 3MB",
             },
             password: {
@@ -145,8 +147,7 @@ $(document).ready(function () {
                 email: true,
             },
             profile: {
-                required: true,
-                extension: "jpg|jpeg|png|gif",
+                extension: "jpg|jpeg|png|svg",
                 filesize: 3,
             },
         },
@@ -164,7 +165,6 @@ $(document).ready(function () {
                 email: "Please Enter Valid Email",
             },
             profile: {
-                required: "Please upload Profile Image",
                 extension: "Only image type jpg/png/jpeg/gif is allowed!!",
                 filesize: "Image Size Must be less than 3MB",
             },

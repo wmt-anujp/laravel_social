@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
 class User extends Authenticatable
 {
     use HasFactory, HasApiTokens, Notifiable;
-
+    protected $fillable = [''];
     public function posts()
     {
         return $this->hasMany(Post::class);

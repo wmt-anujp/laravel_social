@@ -33,19 +33,19 @@ Route::get('logout', [UserController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     // dashboard
-    Route::get('dashboard', [UserController::class, 'getdashboard'])->name('dashboard');
+    // Route::get('dashboard', [UserController::class, 'getdashboard'])->name('dashboard');
 
     // user account details
     Route::get('useraccount', [UserController::class, 'getuseraccount'])->name('useraccount');
 
     // edit account page
-    Route::get('edit_account', [UserController::class, 'geteditaccountform'])->name('editaccountform');
+    Route::get('edit-profile', [UserController::class, 'geteditaccountform'])->name('editaccountform');
 
     // edit account in database
     Route::post('editaccount', [UserController::class, 'editaccount'])->name('editaccount');
 
     // your posts section
-    Route::get('your_post', [PostController::class, 'yourpost'])->name('yourposts');
+    Route::get('posts', [PostController::class, 'yourpost'])->name('yourposts');
 
     // add post form
     Route::get('add_post', [PostController::class, 'addpostform'])->name('add_post');

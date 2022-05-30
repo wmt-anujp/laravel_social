@@ -10,11 +10,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-5">
-                    <li class="nav-item me-4">
+                    {{-- <li class="nav-item me-4">
                         <a href="{{route('dashboard')}}" class="nav-link {{(request()->is('dashboard')) ? 'active' : '' }}">Dashboard</a>
-                    </li>
+                    </li> --}}
                     <li class="nav-item me-4">
-                        <a href="{{route('yourposts')}}" class="nav-link {{(request()->is('your_posts')) ? 'active' : ''}}">Your Posts</a>
+                        <a href="{{route('yourposts')}}" class="nav-link {{(request()->is('posts')) ? 'active' : ''}}">Posts</a>
                     </li>
                     <li class="nav-item me-4">
                         <a href="{{route('userfeed')}}" class="nav-link {{(request()->is('feed')) ? 'active' : ''}}">Feed</a>

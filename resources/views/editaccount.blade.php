@@ -4,14 +4,14 @@
 @endsection
 
 @section('content')
-<section class="row justify-content-center mt-5">
+<section class="row justify-content-center mt-5 mb-5">
     <div class="col-md-6 col-md-offset-3 mt-5">
         <header class="mt-3 text-center"><h3>Update Account</h3></header>
         <form action="{{route('editaccount')}}" method="POST" id="account" class="mt-5" enctype="multipart/form-data">
             @csrf
             <div class="form-group mb-4">
                 <label for="name">Name</label>
-                <input type="text" name="name" class="form-control" value="{{ $user->name }}" id="name">
+                <input type="text" name="name" class="form-control" value="{{ $user->name }}" id="name" maxlength="50">
                 @if ($errors->has('name'))
                     <span class="text-danger">*{{ $errors->first('name') }}</span>
                 @endif

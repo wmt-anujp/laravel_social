@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="row g-5 mt-5 justify-content-center">
+    <div class="row g-5 mt-5 justify-content-start">
         <div class="col-12">
             <form action="{{route('specificpost')}}" method="POST">
                 @csrf
@@ -57,7 +57,7 @@
                 @if ($pst->media_type==1)
                     <div class="col-12 col-md-3">
                         <a href="{{route('getpostdetails',['pid'=>$pst->id])}}" class="show-post">
-                            <video autoplay loop muted width="200" height="200">
+                            <video autoplay loop muted width="200" height="200" style="border: 4px solid black">
                                 <source src="{{$pst->media_path}}">
                             </video>
                         </a>
@@ -65,7 +65,7 @@
                 @elseif($pst->media_type==2)
                     <div class="col-12 col-md-3">
                         <a href="{{route('getpostdetails',['pid'=>$pst->id])}}"  class="show-post">
-                            <img src="{{$pst->media_path}}" alt="Posts" width="200" height="200">
+                            <img src="{{$pst->media_path}}" alt="Posts" width="200" height="200" style="border: 4px solid black">
                         </a>
                     </div>
                 @endif

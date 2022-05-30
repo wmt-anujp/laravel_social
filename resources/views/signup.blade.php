@@ -163,7 +163,7 @@ input:not(:placeholder-shown) + label {
                 <form class="login-form" action="{{route('usersignup')}}" method="POST" id="signup" enctype="multipart/form-data">
                     @csrf
                     <div class="field">
-                        <input type="text" class="form-control border-1" name="name" id="name" placeholder="Enter Your Name" value="{{old('name')}}">
+                        <input type="text" class="form-control border-1" name="name" id="name" placeholder="Enter Your Name" value="{{old('name')}}" maxlength="50">
                         @if ($errors->has('name'))
                             <span class="text-danger">*{{ $errors->first('name') }}</span>
                         @endif
@@ -181,7 +181,7 @@ input:not(:placeholder-shown) + label {
                         @endif
                     </div>
                     <div class="field">
-                        <input type="password" id="password" class="form-control border-1" name="password" placeholder="Password">
+                        <input type="password" id="password" class="form-control border-1" name="password" placeholder="Password" maxlength="100">
                         @if ($errors->has('password'))
                             <span class="text-danger">*{{ $errors->first('password') }}</span>
                         @endif
@@ -194,7 +194,7 @@ input:not(:placeholder-shown) + label {
                     </div>
                     <div class="field">
                         <label for="dob" class="form-label">Date of Birth</label>
-                        <input type="date" class="form-control border-1" id="dob" name="dob" min="1925-01-01" max="2005-01-01" value="{{old('dob')}}" .>
+                        <input type="date" class="form-control border-1" id="dob" name="dob" max="2022-05-31" value="{{old('dob')}}">
                         @if ($errors->has('dob'))
                             <span class="text-danger">*{{ $errors->first('dob') }}</span>
                         @endif
