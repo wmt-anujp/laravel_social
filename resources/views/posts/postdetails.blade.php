@@ -37,8 +37,8 @@
                                         </form>
                                     </div>
                                     <div class="mt-3">
-                                        <a href="" class="btn btn-sm btn-primary like" data-pid={{$post->id}} data-uid={{Auth::user()->id}} title="Like">Like</a>
-                                        <a href="" class="btn btn-secondary btn-sm like" title="Dislike">Dislike</a>
+                                        <a href="" class="btn btn-sm btn-primary like" data-pid={{$post->id}} data-uid={{Auth::user()->id}} title="Like">{{Auth::user()->likes()->where('post_id',$post->id)->first() ? Auth::user()->likes()->where('post_id',$post->id)->first()->like_dislike == 1 ? 'Liked':'Like': 'Like'}}</a>
+                                        <a href="" class="btn btn-secondary btn-sm like" title="Dislike">{{Auth::user()->likes()->where('post_id',$post->id)->first() ? Auth::user()->likes()->where('post_id',$post->id)->first()->like_dislike == 0 ? 'Disliked':'Dislike': 'Dislike'}}</a>
                                     </div>
                                 </div>
                             </div>

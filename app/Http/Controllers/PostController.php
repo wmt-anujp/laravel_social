@@ -8,6 +8,8 @@ use App\Http\Requests\EditPostFormRequest;
 use App\Models\Comment;
 use App\Models\Country;
 use App\Models\Post;
+use App\Models\Like;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -145,5 +147,60 @@ class PostController extends Controller
         // dd($comment);
         $comment->save();
         return back();
+    }
+
+    public function postlike(Request $request)
+    {
+        $post_id = $request['postId'];
+        $user_id = $request['userId'];
+        $is_like = $request['isLike'] === 'true';
+        $update = false;
+        $post = Post::find($post_id);
+        $user = User::find($user_id);
+        if (!$post) {
+            return null;
+        }
+        // $user = Auth::user()->id;
+        $like = Like::select('*')->where('post_id', $post_id)->where('user_id', $user_id)->first();
+        // dd($like);
+        $user = Like::updateOrCreate(['post_id' => $post_id, 'user_id' => $user_id], ['like_dislike' => $is_like]);
+        // dd($user);
+        return true;
+        if ($like) {
+            $already_like = $like->like_dislike;
+            $update = true;
+            if ($already_like == $is_like) {
+                $like->delete();
+                return null;
+            }
+        } else {
+            $like = new Like();
+        }
+        $like->user_id = $user->id;
+        $like->post_id = $post_id;
+        $like->like_dislike = $is_like;
+        if ($update) {
+            $like->update();
+        } else {
+            $like->save();
+        }
+        return null;
+    }
+
+    public function getuserfeed(Request $request)
+    {
+        $post = Post::with('country')->groupBy('country_id')->get();
+        if ($request->country == 'all') {
+            $posts = Post::all();
+        } else {
+            $posts = Post::all()->where('country_id', $request->country);
+        }
+        return view('posts.feed', array('post' => $post, 'posts' => $posts));
+    }
+
+    public function feedpostdetails(Request $request, $id)
+    {
+        $postss = Post::find($id);
+        return view('posts.feedpostdetails', ['postss' => $postss]);
     }
 }

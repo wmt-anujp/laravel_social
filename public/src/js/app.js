@@ -2,7 +2,7 @@ var postId = 0;
 var userId = 0;
 $(document).ready(function () {
     $(".like").click(function (event) {
-        event.preventDefault();
+        // event.preventDefault();
         postId = event.target.dataset["pid"];
         userId = event.target.dataset["uid"];
         var isLike = event.target.previousElementSibling == null;
