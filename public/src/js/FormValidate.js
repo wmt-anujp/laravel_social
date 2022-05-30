@@ -27,7 +27,7 @@ $(document).ready(function () {
             username: {
                 required: true,
                 maxlength: 15,
-                RegExp: "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/s",
+                RegExp: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})",
             },
             email: {
                 required: true,
@@ -70,7 +70,7 @@ $(document).ready(function () {
             },
             profile: {
                 required: "Please upload Profile Image",
-                extension: "Only jpg/png/jpeg/svg formats are allowed!!",
+                extension: "Only Images are allowed!!",
                 filesize: "Image Size Must be less than 3MB",
             },
             password: {

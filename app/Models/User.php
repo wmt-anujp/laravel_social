@@ -13,24 +13,25 @@ use Illuminate\Support\Facades\Storage;
 class User extends Authenticatable
 {
     use HasFactory, HasApiTokens, Notifiable;
-    protected $fillable = [''];
+    protected $fillable = ['name', 'username', 'email', 'password', 'dob', 'profile_photo'];
+
     public function posts()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Post::class, 'user_id', 'id');
     }
 
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->hasMany(Like::class, 'user_id', 'id');
     }
 
     public $profilephoto = "profile/";
 
     // MUTATORS
-    public function setProfilePhotoAttribute($image)
-    {
-        $this->attributes['profile_photo'] = $this->profilephoto . $image;
-    }
+    // public function setProfilePhotoAttribute($image)
+    // {
+    //     $this->attributes['profile_photo'] = $this->profilephoto . $image;
+    // }
 
     // Accessors
     public function getProfilePhotoAttribute($image)

@@ -52,25 +52,29 @@ class PostController extends Controller
 
     public function addnewpost(AddPostFormRequest $request)
     {
-        $post = new Post();
-        $post->user_id = Auth::user()->id;
-        $post->country_id = $request->post_country;
-        $post->post_caption = $request->input('caption');
+        $user_id = Auth::user()->id;
+        $country_id = $request->post_country;
+        $post_caption = $request->input('caption');
         $files = $request->file('post_image');
-        $folder = "public/posts/User-" . Auth::user()->id . "_" . Auth::user()->username . '/';
         $filename = $files->getClientOriginalName();
+        $folder = "public/posts/User-" . $user_id . "_" . Auth::user()->username;
         if (!Storage::exists($folder)) {
             Storage::makeDirectory($folder, 0775, true, true);
         }
-        $files->storeAs($folder, $filename);
-        $post->media_path = $filename;
+        $media_path = $files->storePubliclyAs($folder, $filename);
 
         if (substr($files->getMimeType(), 0, 5) == 'image') {
-            $post->media_type = 2;
+            $media_type = 2;
         } else {
-            $post->media_type = 1;
+            $media_type = 1;
         }
-        $post->save();
+        Post::create([
+            'user_id' => $user_id,
+            'country_id' => $country_id,
+            'post_caption' => $post_caption,
+            'media_path' => $media_path,
+            'media_type' => $media_type,
+        ]);
         return redirect()->route('yourposts')->with('success', 'Post Created Successfully');
     }
 
@@ -90,10 +94,10 @@ class PostController extends Controller
         if (isset($post)) {
             $old_post = $post->media_path;
             // dd($old_post);
-            $old_post_delete = explode("/", $old_post);
+            // $old_post_delete = explode("/", $old_post);
             // dd($old_post_delete);
-            if (Storage::exists('public/' . $old_post_delete[2] . "/" . $old_post_delete[3] . "/" . $old_post_delete[4])) {
-                Storage::delete('public/' . $old_post_delete[2] . "/" . $old_post_delete[3] . "/" . $old_post_delete[4]);
+            if (Storage::exists($old_post)) {
+                Storage::delete($old_post);
             }
         }
         $post->delete();
@@ -191,9 +195,9 @@ class PostController extends Controller
     {
         $post = Post::with('country')->groupBy('country_id')->get();
         if ($request->country == 'all') {
-            $posts = Post::all();
+            $posts = $post;
         } else {
-            $posts = Post::all()->where('country_id', $request->country);
+            $posts = $post->where('country_id', $request->country);
         }
         return view('posts.feed', array('post' => $post, 'posts' => $posts));
     }

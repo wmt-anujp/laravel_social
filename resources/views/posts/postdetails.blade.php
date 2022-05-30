@@ -33,7 +33,7 @@
                                         <form method="POST" action="{{route('delpost',['dpid'=>$post->id])}}" style="display:inline !important;">
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE" style="display: inline !important;">
-                                            <button type="submit" class="btn btn-sm btn-danger me-3" style="display: inline !important;" data-toggle="tooltip" title='Delete'><i class="fa-solid fa-trash-can"></i></button>
+                                            <button type="submit" class="btn btn-sm btn-danger me-3" style="display: inline !important;" data-toggle="tooltip" title='Delete'><i class="fa-solid fa-trash-can" onclick="alert('Are you sure you want to delete')"></i></button>
                                         </form>
                                     </div>
                                     <div class="mt-3">

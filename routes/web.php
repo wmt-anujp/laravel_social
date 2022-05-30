@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     // Route::get('dashboard', [UserController::class, 'getdashboard'])->name('dashboard');
 
     // user account details
-    Route::get('useraccount', [UserController::class, 'getuseraccount'])->name('useraccount');
+    Route::get('profile', [UserController::class, 'getuseraccount'])->name('useraccount');
 
     // edit account page
     Route::get('edit-profile', [UserController::class, 'geteditaccountform'])->name('editaccountform');
@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::get('posts', [PostController::class, 'yourpost'])->name('yourposts');
 
     // add post form
-    Route::get('add_post', [PostController::class, 'addpostform'])->name('add_post');
+    Route::get('add-post', [PostController::class, 'addpostform'])->name('add_post');
 
     // add new post database
     Route::post('addpost', [PostController::class, 'addnewpost'])->name('addnewpost');
@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::get('postdetails/{pid}', [PostController::class, 'getpostdetails'])->name('getpostdetails');
 
     // delete user post
-    Route::delete('deletepost/{dpid}', [PostController::class, 'deletepost'])->name('delpost');
+    Route::delete('delete-post/{dpid}', [PostController::class, 'deletepost'])->name('delpost');
 
     // edit post
     Route::get('post_edit/{epid}', [PostController::class, 'getpostedit'])->name('post_edit');

@@ -31,24 +31,28 @@ class UserController extends Controller
 
     public function usersignup(SignUpFormRequest $request)
     {
-        $user = new User();
-        $user->name = $request->input('name');
-        $user->username = $request->input('username');
-        $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password'));
-        $user->dob = $request->dob;
+        $name = $request->input('name');
+        $username = $request->input('username');
+        $email = $request->input('email');
+        $password = Hash::make($request->input('password'));
+        $dob = $request->dob;
         $files = $request->file('profile');
-        $folder = 'public/profile';
         $filename = $files->getClientOriginalName();
+        $folder = 'public/profile';
         if (!Storage::exists($folder)) {
             Storage::makeDirectory($folder, 0775, true, true);
         }
-        $files->storeAs($folder, $filename);
-        $user->profile_photo = $filename;
-        $user->save();
+        $filepath = $files->storePubliclyAs($folder, $filename);
+        $user = User::create([
+            'name' => $name,
+            'username' => $username,
+            'email' => $email,
+            'password' => $password,
+            'dob' => $dob,
+            'profile_photo' => $filepath,
+        ]);
         Auth::login($user);
-        return redirect()->route('dashboard')->with('success', 'Your account has been created successfully');
-        // dd($user);
+        return redirect()->route('yourposts')->with('success', 'Your account has been created successfully');
     }
 
     public function userlogin(LoginFormRequest $request)
@@ -84,17 +88,16 @@ class UserController extends Controller
     public function editaccount(EditAccountFormRequest $request)
     {
         $user = Auth::user();
+        dd($request->all());
         $user->name = $request->input('name');
         $user->username = $request->input('username');
         $user->email = $request->input('email');
         $files = $request->file('profile');
         $folder = 'public/profile';
         $old_file = Auth::user()->profile_photo;
-        // dd($old_file);
         $oldfiledelete = explode('/', $old_file);
-        // dd($oldfiledelete[2] . '/' . $oldfiledelete[3]);
-        if (Storage::exists('public/' . $oldfiledelete[2] . '/' . $oldfiledelete[3])) {
-            Storage::delete('public/' . $oldfiledelete[2] . '/' . $oldfiledelete[3]);
+        if (Storage::exists('public/' . $oldfiledelete[1] . '/' . $oldfiledelete[2])) {
+            Storage::delete('public/' . $oldfiledelete[1] . '/' . $oldfiledelete[2]);
         }
         $filename = $files->getClientOriginalName();
         if (Storage::exists($folder)) {

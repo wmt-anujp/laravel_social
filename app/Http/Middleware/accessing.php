@@ -18,7 +18,7 @@ class accessing
     public function handle(Request $request, Closure $next)
     {
         if (Session::has('logged')) {
-            return redirect()->route('dashboard');
+            return redirect()->route('yourposts');
         } else {
             return $next($request);
         }

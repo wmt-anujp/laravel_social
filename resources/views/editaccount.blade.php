@@ -27,7 +27,7 @@
 
             <div class="form-group mb-4">
                 <label for="email">Email</label>
-                <input type="email" name="email" class="form-control" value="{{ $user->email }}" id="email">
+                <input type="email" name="email" class="form-control" value="{{ $user->email }}" id="email" disabled>
                 @if ($errors->has('email'))
                     <span class="text-danger">*{{ $errors->first('email') }}</span>
                 @endif
@@ -49,5 +49,10 @@
         </form>
     </div>
 </section>
+@endsection
 
+@section('js')
+    <script>
+        $("#email").prop('disabled', true);
+    </script>
 @endsection

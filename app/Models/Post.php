@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Auth;
 class Post extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['user_id', 'country_id', 'post_caption', 'media_path', 'media_type'];
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class, 'post_id', 'id');
     }
 
     public function user()
@@ -23,7 +23,7 @@ class Post extends Model
 
     public function likes()
     {
-        return $this->hasMany(Like::class);
+        return $this->hasMany(Like::class, 'post_id', 'id');
     }
 
     public function country()
@@ -33,10 +33,10 @@ class Post extends Model
 
     public $userpost = "posts/";
     // Mutators
-    public function setMediaPathAttribute($post)
-    {
-        $this->attributes['media_path'] = $this->userpost . 'User-' . Auth::user()->id . "_" . Auth::user()->username . "/" . $post;
-    }
+    // public function setMediaPathAttribute($post)
+    // {
+    //     $this->attributes['media_path'] = $this->userpost . 'User-' . Auth::user()->id . "_" . Auth::user()->username . "/" . $post;
+    // }
 
     // Accessors
     public function getMediaPathAttribute($post)

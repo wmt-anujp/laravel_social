@@ -175,7 +175,7 @@ input:not(:placeholder-shown) + label {
                         @endif
                     </div>
                     <div class="field">
-                        <input type="email" name="email" id="email" class="form-control border-1" placeholder="Enter Your Email">
+                        <input type="email" name="email" id="email" class="form-control border-1" placeholder="Enter Your Email" value="{{old('email')}}">
                         @if ($errors->has('email'))
                             <span class="text-danger">*{{ $errors->first('email') }}</span>
                         @endif
