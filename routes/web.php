@@ -69,7 +69,10 @@ Route::middleware('auth')->group(function () {
     Route::post('comment', [PostController::class, 'addComments'])->name('comment');
 
     // specific post
-    Route::post('your_post', [PostController::class, 'specificpost'])->name('specificpost');
+    Route::post('posts', [PostController::class, 'specificpost'])->name('specificpost');
+
+    // specific country post
+    // Route::post('feed',[PostController::class,'specificcountrypost'])->name('specificcountrypost');
 
     // like dislike
     Route::post('like', [PostController::class, 'postlike'])->name('like');
@@ -78,5 +81,5 @@ Route::middleware('auth')->group(function () {
     Route::get('feed', [PostController::class, 'getuserfeed'])->name('userfeed');
 
     // feed post details
-    Route::get('feedpostdetails/{fpid}', [PostController::class, 'feedpostdetails'])->name('feedpostdetails');
+    Route::post('feedpostdetails/{fpid}', [PostController::class, 'feedpostdetails'])->name('feedpostdetails');
 });

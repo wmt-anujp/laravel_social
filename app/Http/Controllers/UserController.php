@@ -61,7 +61,7 @@ class UserController extends Controller
         $password = $request->input('password');
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             Session::put('logged', $email);
-            return redirect()->route('yourposts')->with('success', 'You are logged in successfully');
+            return redirect()->route('userfeed')->with('success', 'You are logged in successfully');
         }
         return redirect()->back()->with('error', 'Please enter valid credentials');
     }

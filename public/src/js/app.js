@@ -5,7 +5,7 @@ $(document).ready(function () {
         // event.preventDefault();
         postId = event.target.dataset["pid"];
         userId = event.target.dataset["uid"];
-        var isLike = event.target.previousElementSibling == null;
+        var isLike = event.target == null;
         console.log(isLike);
         $.ajax({
             method: "POST",

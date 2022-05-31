@@ -9,7 +9,7 @@
     <div class="row mt-5">
         <div class="col mt-5">
             <h3 class="text-center">Edit Post</h3>
-            <form action="{{route('postedit',['epid'=>$post->id])}}" method="POST" id="addpost" enctype="multipart/form-data">
+            <form action="{{route('postedit',['epid'=>$post->id])}}" method="POST" id="editpost" enctype="multipart/form-data">
                 @csrf
                 <div class="mb-3 mt-3">
                     <label for="caption" class="form-label">Caption</label>

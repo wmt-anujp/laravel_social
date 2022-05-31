@@ -11,7 +11,7 @@
             @csrf
             <div class="form-group mb-4">
                 <label for="name">Name</label>
-                <input type="text" name="name" class="form-control" value="{{ $user->name }}" id="name" maxlength="50">
+                <input type="text" name="name" class="form-control" value="{{ $user->name }}" id="name">
                 @if ($errors->has('name'))
                     <span class="text-danger">*{{ $errors->first('name') }}</span>
                 @endif

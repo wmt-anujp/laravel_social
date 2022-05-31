@@ -9,15 +9,14 @@
         <div class="row mt-5">
             <div class="mt-5">
                 <label for="country" class="mb-2 d-block">Select Country</label>
-                    <form action="{{route('userfeed')}}" method="POST">
-                        @csrf
+                    <form action="{{route('userfeed')}}" method="get">
+                        {{-- @csrf --}}
                         <div class="row">
                             <div class="col-2 me-4">
                                 <select class="form-select d-inline" style="width: 200px" name="country" id="country">
                                     <option value="all">All Country Posts</option>
-                                    @foreach ($post as $pst)
-                                            <option value="{{$pst->country->id}}">{{$pst->country->country_name}}
-                                            </option>
+                                    @foreach ($country as $q)
+                                        <option value="{{$q->id}}" @if($q->id == $params) selected @endif>{{$q->country_name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -27,24 +26,23 @@
                         </div>
                     </form>
             </div>
-            @foreach ($posts as $pt)
-                @if ($pt->media_type == 2)
-                    <div class="col-3 mt-5">
+            @foreach ($allpost as $pt)
+                @if ($pt->media_type===2)
+                    <div class="col-3 col-md-3 mt-5">
                         <div>
                             <p><span style="color: green">Caption: </span>{{ $pt->post_caption }}</p>
                         </div>
-                        <a class="show-post">
-                            <img src="{{$pt->media_path}}"
-                            alt="post-images" class="imgpost1" width="200" height="200" style="border: 4px solid lightblue">
+                        <a>
+                            <img src="{{$pt->media_path}}" alt="post-images" width="200" height="200" style="border: 4px solid lightblue">
                         </a>
                         <div><small><span style="color: green">Posted By: </span>{{$pt->user->name}} {!!'<br>On '.$pt->created_at->format('d-m-Y h:i:s A')!!}</small></div>
                     </div>
-                @elseif ($pt->media_type == 1)
+                @elseif ($pt->media_type === 1)
                     <div class="col-3 mt-5">
                         <div>
                             <p><span style="color: green">Caption: </span>{{ $pt->post_caption }}</p>
                         </div>
-                        <a class="show-post">
+                        <a>
                             <video autoplay loop muted width="200" height="200" style="border: 4px solid lightblue">
                                 <source src="{{$pt->media_path}}">
                             </video>

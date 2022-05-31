@@ -24,16 +24,7 @@ class PostController extends Controller
 
     public function specificpost(Request $request)
     {
-        // dd($id);
-        // $post = Post::orderBy('created_at', 'desc')->where('user_id', Auth::user()->id)->get();
-        // $post = Post::all('media_path');
-        // foreach ($post as $pst) {
-        //     dd($pst->media_path);
-        //     if ($id == 2) {
-        //     }
-        // }
         $user = Auth::user();
-
         if ($request->filter == 'all') {
             $post = Post::orderBy('created_at', 'desc')->where('user_id', $user->id)->get();
         } elseif ($request->filter == "image") {
@@ -43,6 +34,31 @@ class PostController extends Controller
         }
         return view('posts.yourpost', array('user' => Auth::user(), 'post' => $post));
     }
+
+     public function getuserfeed(Request $request)
+    {
+        // $allpost = Post::with('country')->groupBy('country_id')->get();
+        $allpost = Post::all();
+        // dd($request->all());
+        // dd($allpost);
+        if (isset($request->country) && $request->country ==='all') {
+            $allpost = $allpost;
+        } else if(isset($request->country)) {
+            $allpost = $allpost->where('country_id', $request->country);
+        }
+
+        $country=Country::all();
+        return view('posts.feed', array('allpost' => $allpost,'country'=>$country,'params'=>$request->country));
+    }
+
+    // public function specificcountrypost(Request $request)
+    // {
+    //     $countrypost=Post::with('country')->groupBy('country_id')->get();
+    //     if ($request->country !== 'all') {
+    //         $postss = $countrypost->where('country_id', $request->country);
+    //     }
+    //     return view('posts.feed',array('allpost'=>$postss, 'countrypost'=>$countrypost));
+    // }    
 
     public function addpostform()
     {
@@ -142,14 +158,15 @@ class PostController extends Controller
 
     public function addComments(AddCommentRequest $request)
     {
-        // dd('hello from comment');
-        $comment = new Comment();
         // $comment['post_id'] = $this->Post::user()->id;
-        $comment['post_id'] = $request['post_id'];
-        $comment['user_id'] = Auth::user()->id;
-        $comment['comment_body'] = $request->input('comment');
-        // dd($comment);
-        $comment->save();
+        $post_id = $request['post_id'];
+        $user_id = Auth::user()->id;
+        $comment_body = $request->input('comment');
+        Comment::create([
+            'user_id' => $user_id,
+            'post_id' => $post_id,
+            'comment_body' => $comment_body,
+        ]);
         return back();
     }
 
@@ -164,11 +181,8 @@ class PostController extends Controller
         if (!$post) {
             return null;
         }
-        // $user = Auth::user()->id;
         $like = Like::select('*')->where('post_id', $post_id)->where('user_id', $user_id)->first();
-        // dd($like);
         $user = Like::updateOrCreate(['post_id' => $post_id, 'user_id' => $user_id], ['like_dislike' => $is_like]);
-        // dd($user);
         return true;
         if ($like) {
             $already_like = $like->like_dislike;
@@ -188,19 +202,10 @@ class PostController extends Controller
         } else {
             $like->save();
         }
-        return null;
+        return "anuj";
     }
 
-    public function getuserfeed(Request $request)
-    {
-        $post = Post::with('country')->groupBy('country_id')->get();
-        if ($request->country == 'all') {
-            $posts = $post;
-        } else {
-            $posts = $post->where('country_id', $request->country);
-        }
-        return view('posts.feed', array('post' => $post, 'posts' => $posts));
-    }
+   
 
     public function feedpostdetails(Request $request, $id)
     {

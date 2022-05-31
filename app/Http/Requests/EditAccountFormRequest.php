@@ -24,9 +24,9 @@ class EditAccountFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|regex:/^[\pL\s\-]+$/u|max:50',
-            'username' => 'required|max:15|regex:[(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})]',
-            'email' => 'email|',
+            'name' => 'required|max:50|regex:/^[\pL\s\-]+$/u/',
+            'username' => 'required|max:15|unique:users|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/',
+            'email' => 'email',
             'profile' => 'image|mimes:jpg,png,jpeg,svg|max:3000',
         ];
     }
@@ -39,7 +39,7 @@ class EditAccountFormRequest extends FormRequest
             'name.max' => "Maximum 50 characters are allowed",
             'username.required' => 'Please Enter Username',
             'username.max' => 'Username must be less than 15 characters',
-            'username.regex' => '',
+            'username.regex' => 'Username should only have lower,upper,.,numbers,_',
             'email.email' => 'Please Enter Valid Email',
             'profile.image' => 'Please upload valid Image',
             'profile.mimes' => 'Only jpg,png,jpeg,svg formats are allowed',

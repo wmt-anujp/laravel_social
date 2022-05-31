@@ -24,11 +24,11 @@ class SignUpFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|regex:/^[\pL\s\-]+$/u|max:50',
-            'username' => 'required|max:15|unique:users|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/',
-            'email' => 'required|email|unique:users|regex:/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/',
-            'password' => 'required|min:8|max:100',
-            'dob' => 'required|max:2022/12/31',
+            'name' => 'required|max: 50|regex: /^[\pL\s\-]+$/u/',
+            'username' => 'required|max: 15|regex: /^[a-zA-Z0-9_\.]+$/|unique: users',
+            'email' => 'required|email|unique:users|regex: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/',
+            'password' => 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/',
+            'dob' => 'required',
             'profile' => 'required|image|mimes:jpg,png,jpeg,svg|max:3000',
             'cpassword' => 'required|same:password|min:8',
         ];
@@ -38,19 +38,18 @@ class SignUpFormRequest extends FormRequest
     {
         return [
             'name.required' => 'Please Enter Name',
-            'name.regex' => 'Name must be in letters only',
             'name.max' => 'Maximum 50 characters are allowed',
+            'name.regex' => 'Name must be in letters only',
             'username.required' => 'Please Enter Username',
-            'username.max' => 'Username must be less than 15 characters',
+            'username.max' => 'Maximum 15 characters are allowed',
+            'username.regex' => 'Username should contain lower,upper,_,.,numbers',
             'username.unique' => 'Username already exists!!',
-            'username.regex' => 'Please Enter Valid Username',
             'email.required' => 'Please Enter Email',
             'email.email' => 'Please Enter Valid Email',
             'email.unique' => 'Email already exists',
             'email.regex' => 'Please Enter valid Email',
             'password.required' => 'Please Enter Password',
-            'password.min' => 'Password must be 8 characters long',
-            'password.max' => 'Maximum 100 character are allowed',
+            'password.regex' => 'Password must containe lower,upper,numbers,special characters and should be 8 characters long',
             'dob.required' => 'Please Choose Date of Birth',
             'dob.max' => 'Please enter date less than 31/12/2022',
             'profile.required' => 'Please Upload Profile Image',

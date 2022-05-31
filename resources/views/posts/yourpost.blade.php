@@ -29,7 +29,6 @@
                 @csrf
                 <div class="row">
                     <div class="col-2">
-                        {{-- <a href="{{route('specificpost')}}" class="btn btn-sm btn-secondary" type="submit">Videos</a> --}}
                         <select name="filter" id="filter" class="form-select" style="width: 150px">
                             <option value="all">All Post</option>
                             <option value="image">Image</option>
@@ -53,23 +52,23 @@
                         $media = 2;
                     }
                     @endphp --}}
-        @foreach ($post as $pst)
-                @if ($pst->media_type==1)
+            @foreach ($post as $pst)
+                @if ($pst->media_type===1)
                     <div class="col-12 col-md-3">
-                        <a href="{{route('getpostdetails',['pid'=>$pst->id])}}" class="show-post">
+                        <a href="{{route('getpostdetails',['pid'=>$pst->id])}}">
                             <video autoplay loop muted width="200" height="200" style="border: 4px solid black">
                                 <source src="{{$pst->media_path}}">
                             </video>
                         </a>
                     </div>
-                @elseif($pst->media_type==2)
+                @elseif($pst->media_type===2)
                     <div class="col-12 col-md-3">
-                        <a href="{{route('getpostdetails',['pid'=>$pst->id])}}"  class="show-post">
+                        <a href="{{route('getpostdetails',['pid'=>$pst->id])}}">
                             <img src="{{$pst->media_path}}" alt="Posts" width="200" height="200" style="border: 4px solid black">
                         </a>
                     </div>
                 @endif
-        @endforeach
+            @endforeach
     </div> 
 </div>
 @endsection

@@ -24,14 +24,6 @@
                         <div class="card-body">
                             <p class="card-text"><span class="post-caption">Caption: {{ $postss->post_caption }}</span></p>
                             <p class="card-text"><span class="post-creation">Posted On: {{ $postss->created_at->format('d/m/Y h:i:s A') }}</span></p>
-                            {{-- <div class="d-flex flex-row justify-content-start">
-                                @if($post->is_liked_by_auth_user())
-                                    <a href="{{route('reply.dislike',['id'=>$post->id])}}" class="fa-solid fa-thumbs-down text-decoration-none  text-dark mt-2 ms-1 me-1" style="font-size:20px"></a>
-                                @else
-                                    <a href="{{route('reply.like',['id'=>$post->id])}}" class="fa-solid fa-thumbs-up text-decoration-none  text-dark mt-2 ms-1 me-1" style="font-size:20px"></a>
-                                @endif
-                                <a href="{{route('showcommentform',['cid'=>$post->id])}}" class="btn ms-3"><i class="fa-solid fa-comments"></i></a>
-                            </div> --}}
                         </div>
                     </div>
                 </div>

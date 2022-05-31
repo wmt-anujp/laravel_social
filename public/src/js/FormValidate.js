@@ -17,6 +17,15 @@ $(document).ready(function () {
         "File size must be less than {0} MB"
     );
 
+    $.validator.addMethod(
+        "regex",
+        function(value, element, regexp) {
+          var re = new RegExp(regexp);
+          return this.optional(element) || re.test(value);
+        },
+        "Please check your input."
+      );
+
     $("#signup").validate({
         rules: {
             name: {
@@ -27,11 +36,14 @@ $(document).ready(function () {
             username: {
                 required: true,
                 maxlength: 15,
-                RegExp: "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})",
+                regex: "^[a-zA-Z0-9_.]+$",
+                // RegExp:"^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$"
+                // RegExp:"^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
             },
             email: {
                 required: true,
                 email: true,
+                RegExp: "/^w+@[a-zA-Z_]+?.[a-zA-Z]{2,3}$/",
             },
             dob: {
                 required: true,
@@ -44,6 +56,7 @@ $(document).ready(function () {
             password: {
                 required: true,
                 minlength: 8,
+                RegExp: "/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/",
             },
             cpassword: {
                 required: true,
@@ -58,12 +71,13 @@ $(document).ready(function () {
             },
             username: {
                 required: "Please Enter Username",
-                maxlength: "Username must be less than 15 characters",
-                RegExp: "Please follow the username format",
+                maxlength: "Maximum 15 characters are allowed",
+                RegExp: "Username should contain lower,upper,_,.,numbers",
             },
             email: {
                 required: "Please Enter Email",
                 email: "Please Enter Valid Email",
+                RegExp: "Email should contain @,should have alphbets after .",
             },
             dob: {
                 required: "Please choose Date of Birth",
@@ -75,7 +89,8 @@ $(document).ready(function () {
             },
             password: {
                 required: "Please Enter Password",
-                minlength: "Password must be 8 characters long",
+                minlength:"Minimum 8 character are required",
+                RegExp: "Password must contain lower,upper,numbers,special characters and should be 8 characters long",
             },
             cpassword: {
                 required: "Please Enter Password Again",
@@ -98,6 +113,7 @@ $(document).ready(function () {
             form.submit();
         },
     });
+    // login
     $("#login").validate({
         rules: {
             username: {
@@ -132,6 +148,7 @@ $(document).ready(function () {
             $(element).addClass("is-valid").removeClass("is-invalid");
         },
     });
+    //account
     $("#account").validate({
         rules: {
             name: {
@@ -185,7 +202,57 @@ $(document).ready(function () {
             form.submit();
         },
     });
+    // new post
     $("#addpost").validate({
+        rules: {
+            caption: {
+                required: true,
+                maxlength: 300,
+            },
+            post_image: {
+                required: true,
+                extension:
+                    "jpg|jpeg|png|gif|mp4|ogg|ogv|avi|mpeg|mov|wmv|flv|mkv",
+                filesize: 15,
+            },
+            post_country: {
+                required: true,
+            },
+        },
+        messages: {
+            caption: {
+                required: "Please Enter Description",
+                maxlength: "Maximum 300 characters allowed",
+            },
+            post_image: {
+                required: "Please upload Profile Image",
+                extension:
+                    "Only image or video type jpg,jpeg,png,gif,mp4,ogg,ogv,avi,mpeg,mov,wmv,flv,mkv is allowed!!",
+                filesize: "File Size Must be less than 15MB",
+            },
+            post_country: {
+                required: "Please select Post Country",
+            },
+        },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+            // Add the `invalid-feedback` class to the error element
+            error.insertAfter(element);
+            error.addClass("invalid-feedback");
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        },
+        submitHandler: function (form) {
+            form.submit();
+        },
+    });
+
+    // edit post
+    $("#editpost").validate({
         rules: {
             caption: {
                 required: true,

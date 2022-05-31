@@ -163,13 +163,13 @@ input:not(:placeholder-shown) + label {
                 <form class="login-form" action="{{route('usersignup')}}" method="POST" id="signup" enctype="multipart/form-data">
                     @csrf
                     <div class="field">
-                        <input type="text" class="form-control border-1" name="name" id="name" placeholder="Enter Your Name" value="{{old('name')}}" maxlength="50">
+                        <input type="text" class="form-control border-1" name="name" id="name" placeholder="Enter Your Name" value="{{old('name')}}">
                         @if ($errors->has('name'))
                             <span class="text-danger">*{{ $errors->first('name') }}</span>
                         @endif
                     </div>
                     <div class="field">
-                        <input id="username" type="text" class="form-control border-1" name="username" placeholder="Enter Username" value="{{old('username')}}">
+                        <input id="username" type="text" class="form-control border-1" id="username" name="username" placeholder="Enter Username" value="{{old('username')}}">
                         @if ($errors->has('username'))
                             <span class="text-danger">*{{ $errors->first('username') }}</span>
                         @endif

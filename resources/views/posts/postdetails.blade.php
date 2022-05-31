@@ -33,12 +33,12 @@
                                         <form method="POST" action="{{route('delpost',['dpid'=>$post->id])}}" style="display:inline !important;">
                                             @csrf
                                             <input name="_method" type="hidden" value="DELETE" style="display: inline !important;">
-                                            <button type="submit" class="btn btn-sm btn-danger me-3" style="display: inline !important;" data-toggle="tooltip" title='Delete'><i class="fa-solid fa-trash-can" onclick="alert('Are you sure you want to delete')"></i></button>
+                                            <button type="submit" class="btn btn-sm btn-danger me-3" style="display: inline !important;" data-toggle="tooltip" title='Delete' onclick="confirm('Are you sure you want to delete?');return false;"><i class="fa-solid fa-trash-can"></i></button>
                                         </form>
                                     </div>
                                     <div class="mt-3">
                                         <a href="" class="btn btn-sm btn-primary like" data-pid={{$post->id}} data-uid={{Auth::user()->id}} title="Like">{{Auth::user()->likes()->where('post_id',$post->id)->first() ? Auth::user()->likes()->where('post_id',$post->id)->first()->like_dislike == 1 ? 'Liked':'Like': 'Like'}}</a>
-                                        <a href="" class="btn btn-secondary btn-sm like" title="Dislike">{{Auth::user()->likes()->where('post_id',$post->id)->first() ? Auth::user()->likes()->where('post_id',$post->id)->first()->like_dislike == 0 ? 'Disliked':'Dislike': 'Dislike'}}</a>
+                                        {{-- <a href="" class="btn btn-secondary btn-sm like" title="Dislike">{{Auth::user()->likes()->where('post_id',$post->id)->first() ? Auth::user()->likes()->where('post_id',$post->id)->first()->like_dislike == 0 ? 'Disliked':'Dislike': 'Dislike'}}</a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -99,4 +99,4 @@
         var urlcomment='{{route('comment')}}'
         var urllike='{{route('like')}}'
     </script>
-@endsection
+@endsection1
