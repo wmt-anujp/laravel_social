@@ -46,7 +46,6 @@ class PostController extends Controller
         } else if(isset($request->country)) {
             $allpost = $allpost->where('country_id', $request->country);
         }
-
         $country=Country::all();
         return view('posts.feed', array('allpost' => $allpost,'country'=>$country,'params'=>$request->country));
     }

@@ -15,8 +15,8 @@
                             <div class="col-2 me-4">
                                 <select class="form-select d-inline" style="width: 200px" name="country" id="country">
                                     <option value="all">All Country Posts</option>
-                                    @foreach ($country as $q)
-                                        <option value="{{$q->id}}" @if($q->id == $params) selected @endif>{{$q->country_name}}</option>
+                                    @foreach ($country as $cntry)
+                                        <option value="{{$cntry->id}}" @if($cntry->id == $params) selected @endif>{{$cntry->country_name}}</option>
                                     @endforeach
                                 </select>
                             </div>

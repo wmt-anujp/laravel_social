@@ -24,8 +24,8 @@ class EditAccountFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:50|regex:/^[\pL\s\-]+$/u/',
-            'username' => 'required|max:15|unique:users|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/',
+            'name' => 'required|max:50|regex:/^[\pL\s\-]+$/u',
+            'username' => 'required|max:15|regex:/^[a-zA-Z0-9_\.]+$/|unique:users',
             'email' => 'email',
             'profile' => 'image|mimes:jpg,png,jpeg,svg|max:3000',
         ];

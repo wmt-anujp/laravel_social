@@ -327,4 +327,63 @@ $(document).ready(function () {
             form.submit();
         },
     });
+
+    // edit account
+    $("#editaccount").validate({
+        rules: {
+            name: {
+                required: true,
+                maxlength: 50,
+                lettersonly: true,
+            },
+            username: {
+                required: true,
+                maxlength: 15,
+                regex: "^[a-zA-Z0-9_.]+$",
+            },
+            email: {
+                required: false,
+                email: true,
+            },
+            profile: {
+                extension: "jpg|jpeg|png|svg",
+                filesize: 3,
+            },
+        },
+        messages: {
+            name: {
+                required: "Please Enter Name",
+                maxlength: "Maximum 50 characters are allowed",
+                lettersonly: "Name should be alphabets only",
+            },
+            username: {
+                required: "Please Enter Username",
+                maxlength: "Maximum 15 characters are allowed",
+                RegExp: "Username should contain lower,upper,_,.,numbers",
+            },
+            email: {
+                required: "Please Enter Email",
+                email: "Email should contain @,should have alphabets after .",
+            },
+            profile: {
+                extension: "Only Images are allowed!!",
+                filesize: "Image Size Must be less than 3MB",
+            },
+        },
+        errorElement: "em",
+        errorPlacement: function (error, element) {
+            // Add the `invalid-feedback` class to the error element
+            error.insertAfter(element);
+            error.addClass("invalid-feedback");
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid").removeClass("is-valid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-valid").removeClass("is-invalid");
+        },
+        submitHandler: function (form) {
+            form.submit();
+        },
+    });
 });

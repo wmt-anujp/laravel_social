@@ -29,7 +29,13 @@
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="/opt/lampp/htdocs/laravelproject/Instagram/jqueryui/jquery-ui.css">
+    <link rel="stylesheet" href="/opt/lampp/htdocs/laravelproject/Instagram/jqueryui/jquery-ui.structure.css">
+    <link rel="stylesheet" href="/opt/lampp/htdocs/laravelproject/Instagram/jqeuryui/jquery-ui.theme.css">
+    <script src="/opt/lampp/htdocs/laravelproject/Instagram/jqueryui/jquery-ui.js"></script>
+
     <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/2048px-Instagram_icon.png">
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js" integrity="sha256-hlKLmzaRlE8SCJC1Kw8zoUbU8BxA+8kR3gseuKfMjxA=" crossorigin="anonymous"></script>
     <script src="{{URL::to('src/js/app.js')}}"></script>
     <script src="{{URL::to('src/js/FormValidate.js')}}"></script>
 </head>

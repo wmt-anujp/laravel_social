@@ -88,11 +88,15 @@ class UserController extends Controller
     public function editaccount(EditAccountFormRequest $request)
     {
         $user = Auth::user();
-        dd($request->all());
+        // dd($request->all());
+        dd($request->file('profile'));
         $user->name = $request->input('name');
         $user->username = $request->input('username');
         $user->email = $request->input('email');
         $files = $request->file('profile');
+        if($files!==null){
+            
+        }
         $folder = 'public/profile';
         $old_file = Auth::user()->profile_photo;
         $oldfiledelete = explode('/', $old_file);
