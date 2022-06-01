@@ -192,9 +192,10 @@ input:not(:placeholder-shown) + label {
                           <span class="text-danger">*{{ $errors->first('cpassword') }}</span>
                       @endif
                     </div>
-                    <div class="field">
+
+                    <div class="field" id="dateofbirth">
                         <label for="dob" class="form-label">Date of Birth</label>
-                        <input type="date" class="form-control border-1" id="dob" name="dob" max="2022-05-31" value="{{old('dob')}}">
+                        <input type="date" class="form-control border-1" id="dob" name="dob" value="{{old('dob')}}">
                         @if ($errors->has('dob'))
                             <span class="text-danger">*{{ $errors->first('dob') }}</span>
                         @endif

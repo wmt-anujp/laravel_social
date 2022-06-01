@@ -23,8 +23,41 @@ $(document).ready(function () {
           var re = new RegExp(regexp);
           return this.optional(element) || re.test(value);
         },
-        "Please check your input."
-      );
+        "Username should contain lower,upper,_,.,numbers"
+    );
+
+    $.validator.addMethod(
+        "regularex",
+        function(value, element, regexp) {
+          var re = new RegExp(regexp);
+          return this.optional(element) || re.test(value);
+        },
+        "password"
+    );
+
+    // $.validator.addMethod("CheckDOB", function (value, element) {
+    //     var  minDate = Date.parse("01/01/1990");
+    //      var today=new Date();
+    //      var DOB = Date.parse(value);
+    //      if((DOB <= today && DOB >= minDate)) {
+    //          return true;
+    //      }
+    //      return false;
+    //  }, "NotValid");
+    
+    $.validator.addMethod("CheckDOB", function (value, element) {
+        // checking whether the date entered is in correct format
+        var isValid = value.match(/^\d\d?\/\d\d?\/\d\d\d\d$/);
+        if(isValid){
+            var minDate = Date.parse("01/01/1990");
+            var today = new Date();
+            var DOB = Date.parse(value);
+            if ((DOB >= today || DOB <= minDate)) {
+                isValid =  false;
+            }
+            return isValid;
+        }
+    }, "NotValid");
 
     $("#signup").validate({
         rules: {
@@ -37,13 +70,10 @@ $(document).ready(function () {
                 required: true,
                 maxlength: 15,
                 regex: "^[a-zA-Z0-9_.]+$",
-                // RegExp:"^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$"
-                // RegExp:"^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"
             },
             email: {
                 required: true,
                 email: true,
-                RegExp: "/^w+@[a-zA-Z_]+?.[a-zA-Z]{2,3}$/",
             },
             dob: {
                 required: true,
@@ -55,8 +85,7 @@ $(document).ready(function () {
             },
             password: {
                 required: true,
-                minlength: 8,
-                RegExp: "/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/",
+                regularex: "/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/",
             },
             cpassword: {
                 required: true,
@@ -76,8 +105,7 @@ $(document).ready(function () {
             },
             email: {
                 required: "Please Enter Email",
-                email: "Please Enter Valid Email",
-                RegExp: "Email should contain @,should have alphbets after .",
+                email: "Email should contain @,should have alphabets after .",
             },
             dob: {
                 required: "Please choose Date of Birth",
@@ -89,8 +117,7 @@ $(document).ready(function () {
             },
             password: {
                 required: "Please Enter Password",
-                minlength:"Minimum 8 character are required",
-                RegExp: "Password must contain lower,upper,numbers,special characters and should be 8 characters long",
+                regularex: "Password must contain lower,upper,numbers,special characters and should be 8 characters long",
             },
             cpassword: {
                 required: "Please Enter Password Again",
@@ -119,6 +146,7 @@ $(document).ready(function () {
             username: {
                 required: true,
                 maxlength: 15,
+                regex: "^[a-zA-Z0-9_.]+$",
             },
             password: {
                 required: true,

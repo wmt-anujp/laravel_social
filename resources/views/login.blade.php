@@ -189,7 +189,8 @@ input:not(:placeholder-shown) {
                   <span class="text-danger">*{{ $errors->first('password') }}</span>
                 @endif
             </div>
-            <button class="login-button" title="Log In">Log In</button>
+            <button type="submit" class="login-button" title="Log In" id="login" 
+            onclick="this.disabled=true;this.value='Submitting...'; this.form.submit();">Log In</button>
         </form>
     </div>
     <div class="box">
