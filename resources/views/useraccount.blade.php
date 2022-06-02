@@ -13,7 +13,7 @@
             </div>
             <div class="row g-0">
                 <div class="col-12 col-md-5 d-flex justify-content-center  justify-content-sm-start">
-                    <img src="{{asset(Auth::user()->profile_photo)}}" alt="Profile Image" class="mt-3 mt-sm-0 img-fluid" width='250' height='100'>
+                    <img src="{{$user->profile_photo}}" alt="Profile Image" class="mt-3 mt-sm-0 img-fluid" width='250' height='100'>
                 </div>
                 <div class="col-12 col-md-7">
                     <div class="card-body mt-2  d-flex flex-column justify-content-center align-items-center align-items-sm-start  justify-content-sm-start">

@@ -88,28 +88,24 @@ class UserController extends Controller
     public function editaccount(EditAccountFormRequest $request)
     {
         $user = Auth::user();
-        // dd($request->all());
-        dd($request->file('profile'));
-        $user->name = $request->input('name');
-        $user->username = $request->input('username');
-        $user->email = $request->input('email');
         $files = $request->file('profile');
-        if($files!==null){
-            
+        if (isset($files)) {
+            $folder = 'profile';
+            // dd($user->profile_photo);
+            // if (Storage::exists($user->profile_photo)) {
+            //     Storage::delete($user->profile_photo);
+            // }
+
+            Storage::disk('public')->delete($user->profile_photo);
+            $filename = $files->getClientOriginalName();
+            $filepath = $files->storePubliclyAs($folder, $filename, 'public');
         }
-        $folder = 'public/profile';
-        $old_file = Auth::user()->profile_photo;
-        $oldfiledelete = explode('/', $old_file);
-        if (Storage::exists('public/' . $oldfiledelete[1] . '/' . $oldfiledelete[2])) {
-            Storage::delete('public/' . $oldfiledelete[1] . '/' . $oldfiledelete[2]);
-        }
-        $filename = $files->getClientOriginalName();
-        if (Storage::exists($folder)) {
-            Storage::makeDirectory($folder, 0775, true, true);
-        }
-        $files->storeAs($folder, $filename);
-        $user->profile_photo = $filename;
-        $user->update();
+        User::where('id', $user->id)->update([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $user->email,
+            'profile_photo' => $filepath,
+        ]);
         return redirect()->route('useraccount')->with('success', 'Profile Updated');
     }
 }
