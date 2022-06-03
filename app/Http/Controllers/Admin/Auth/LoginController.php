@@ -24,12 +24,17 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         // dd($request->all());
-        if (Auth::guard('admin')->attempt($request->only('email', 'password'), $request->filled('remember'))) {
+        if (Auth::guard('admin')->attempt($request->only('email', 'password'))) {
             return redirect()
                 ->intended(route('admin.home'))
                 ->with('status', 'You are Logged in as Admin!');
         }
         dd("fail");
+    }
+
+    public function home()
+    {
+        return view('home');
     }
 
     /**
@@ -96,10 +101,5 @@ class LoginController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function home()
-    {
-        return view('home');
     }
 }

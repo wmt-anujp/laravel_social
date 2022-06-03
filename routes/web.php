@@ -96,7 +96,7 @@ Route::get('/', function () {
 
 Route::namespace('Admin')->group(function () {
     Route::namespace('Auth')->middleware('guest')->group(function () {
-        Route::get('/login', 'LoginController@index');
+        Route::get('login', 'LoginController@index');
         Route::post('/admin/login', 'LoginController@login')->name('admin.login');
     });
 
