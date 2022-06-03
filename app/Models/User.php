@@ -34,8 +34,8 @@ class User extends Authenticatable
     // }
 
     // Accessors
-    public function getProfilePhotoAttribute($image)
-    {
-        return Storage::disk('local')->url($image);
-    }
+    // public function getProfilePhotoAttribute($image)
+    // {
+    //     return Storage::disk('local')->url($image);
+    // }
 }

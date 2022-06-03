@@ -35,19 +35,19 @@ class PostController extends Controller
         return view('posts.yourpost', array('user' => Auth::user(), 'post' => $post));
     }
 
-     public function getuserfeed(Request $request)
+    public function getuserfeed(Request $request)
     {
         // $allpost = Post::with('country')->groupBy('country_id')->get();
         $allpost = Post::all();
         // dd($request->all());
         // dd($allpost);
-        if (isset($request->country) && $request->country ==='all') {
+        if (isset($request->country) && $request->country === 'all') {
             $allpost = $allpost;
-        } else if(isset($request->country)) {
+        } else if (isset($request->country)) {
             $allpost = $allpost->where('country_id', $request->country);
         }
-        $country=Country::all();
-        return view('posts.feed', array('allpost' => $allpost,'country'=>$country,'params'=>$request->country));
+        $country = Country::all();
+        return view('posts.feed', array('allpost' => $allpost, 'country' => $country, 'params' => $request->country));
     }
 
     // public function specificcountrypost(Request $request)
@@ -67,56 +67,62 @@ class PostController extends Controller
 
     public function addnewpost(AddPostFormRequest $request)
     {
-        $user_id = Auth::user()->id;
-        $country_id = $request->post_country;
-        $post_caption = $request->input('caption');
-        $files = $request->file('post_image');
-        $filename = $files->getClientOriginalName();
-        $folder = "public/posts/User-" . $user_id . "_" . Auth::user()->username;
-        if (!Storage::exists($folder)) {
-            Storage::makeDirectory($folder, 0775, true, true);
-        }
-        $media_path = $files->storePubliclyAs($folder, $filename);
+        try {
+            $user_id = Auth::user()->id;
+            $country_id = $request->post_country;
+            $post_caption = $request->input('caption');
+            $files = $request->file('post_image');
+            $filename = $files->getClientOriginalName();
+            $folder = "public/posts/User-" . $user_id . "_" . Auth::user()->username;
+            if (!Storage::exists($folder)) {
+                Storage::makeDirectory($folder, 0775, true, true);
+            }
+            $media_path = $files->storePubliclyAs($folder, $filename);
 
-        if (substr($files->getMimeType(), 0, 5) == 'image') {
-            $media_type = 2;
-        } else {
-            $media_type = 1;
+            if (substr($files->getMimeType(), 0, 5) == 'image') {
+                $media_type = 2;
+            } else {
+                $media_type = 1;
+            }
+            Post::create([
+                'user_id' => $user_id,
+                'country_id' => $country_id,
+                'post_caption' => $post_caption,
+                'media_path' => $media_path,
+                'media_type' => $media_type,
+            ]);
+            return redirect()->route('yourposts')->with('success', 'Post Created Successfully');
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('error', 'Temprory server error.');
         }
-        Post::create([
-            'user_id' => $user_id,
-            'country_id' => $country_id,
-            'post_caption' => $post_caption,
-            'media_path' => $media_path,
-            'media_type' => $media_type,
-        ]);
-        return redirect()->route('yourposts')->with('success', 'Post Created Successfully');
     }
 
     public function getpostdetails($id)
     {
         $post = Post::find($id);
-        // $comment = Comment::all();
         $comment = $post->comments;
-        // dd($comment);
         // $comment = Comment::find($id);
         return view('posts.postdetails', ['post' => $post, 'comments' => $comment]);
     }
 
     public function deletepost($id)
     {
-        $post = Post::find($id);
-        if (isset($post)) {
-            $old_post = $post->media_path;
-            // dd($old_post);
-            // $old_post_delete = explode("/", $old_post);
-            // dd($old_post_delete);
-            if (Storage::exists($old_post)) {
-                Storage::delete($old_post);
+        try {
+            $post = Post::find($id);
+            if (isset($post)) {
+                $old_post = $post->media_path;
+                // dd($old_post);
+                // $old_post_delete = explode("/", $old_post);
+                // dd($old_post_delete);
+                if (Storage::exists($old_post)) {
+                    Storage::delete($old_post);
+                }
             }
+            $post->delete();
+            return redirect()->route('yourposts')->with('success', "Post Deleted");
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('error', 'Temprory server error.');
         }
-        $post->delete();
-        return redirect()->route('yourposts')->with('success', "Post Deleted");
     }
 
     public function getpostedit($id)
@@ -128,45 +134,52 @@ class PostController extends Controller
 
     public function postedit(EditPostFormRequest $request, $id)
     {
-        $post = Post::find($id);
-        $post->post_caption = $request->input('caption');
-        $post->country_id = $request->post_country;
-        $files = $request->file('post_image');
-        $folder = "public/posts/User-" . Auth::user()->id . "_" . Auth::user()->username . '/';
-        $filename = $files->getClientOriginalName();
-        if (!Storage::exists($folder)) {
-            Storage::makeDirectory($folder, 0775, true, true);
+        try {
+            $post = Post::find($id);
+            $post->post_caption = $request->input('caption');
+            $post->country_id = $request->post_country;
+            $files = $request->file('post_image');
+            $folder = "public/posts/User-" . Auth::user()->id . "_" . Auth::user()->username . '/';
+            $filename = $files->getClientOriginalName();
+            if (!Storage::exists($folder)) {
+                Storage::makeDirectory($folder, 0775, true, true);
+            }
+            $old_post = $post->media_path;
+            // dd($old_post);
+            $old_post_delete = explode("/", $old_post);
+            // dd($old_post_delete);
+            if (Storage::exists('public/' . $old_post_delete[2] . "/" . $old_post_delete[3] . "/" . $old_post_delete[4])) {
+                Storage::delete('public/' . $old_post_delete[2] . "/" . $old_post_delete[3] . "/" . $old_post_delete[4]);
+            }
+            $files->storeAs($folder, $filename);
+            if (substr($files->getMimeType(), 0, 5) == 'image') {
+                $post->media_type = 2;
+            } else {
+                $post->media_type = 1;
+            }
+            $post->media_path = $filename;
+            $post->update();
+            return redirect()->route('getpostdetails', ['pid' => $post->id])->with('success', 'Post was Updated');
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('error', 'Temprory server error.');
         }
-        $old_post = $post->media_path;
-        // dd($old_post);
-        $old_post_delete = explode("/", $old_post);
-        // dd($old_post_delete);
-        if (Storage::exists('public/' . $old_post_delete[2] . "/" . $old_post_delete[3] . "/" . $old_post_delete[4])) {
-            Storage::delete('public/' . $old_post_delete[2] . "/" . $old_post_delete[3] . "/" . $old_post_delete[4]);
-        }
-        $files->storeAs($folder, $filename);
-        if (substr($files->getMimeType(), 0, 5) == 'image') {
-            $post->media_type = 2;
-        } else {
-            $post->media_type = 1;
-        }
-        $post->media_path = $filename;
-        $post->update();
-        return redirect()->route('getpostdetails', ['pid' => $post->id])->with('success', 'Post was Updated');
     }
 
     public function addComments(AddCommentRequest $request)
     {
-        // $comment['post_id'] = $this->Post::user()->id;
-        $post_id = $request['post_id'];
-        $user_id = Auth::user()->id;
-        $comment_body = $request->input('comment');
-        Comment::create([
-            'user_id' => $user_id,
-            'post_id' => $post_id,
-            'comment_body' => $comment_body,
-        ]);
-        return back();
+        try {
+            $post_id = $request['post_id'];
+            $user_id = Auth::user()->id;
+            $comment_body = $request->input('comment');
+            Comment::create([
+                'user_id' => $user_id,
+                'post_id' => $post_id,
+                'comment_body' => $comment_body,
+            ]);
+            return back();
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('error', 'Temprory server error.');
+        }
     }
 
     public function postlike(Request $request)
@@ -204,7 +217,7 @@ class PostController extends Controller
         return "anuj";
     }
 
-   
+
 
     public function feedpostdetails(Request $request, $id)
     {
