@@ -98,7 +98,6 @@ class UserController extends Controller
         try {
             $user = Auth::user();
             $files = $request->file('profile');
-            dd($user->profile_photo);
             if (isset($files)) {
                 $folder = 'profile';
                 Storage::disk('public')->delete($user->profile_photo);
