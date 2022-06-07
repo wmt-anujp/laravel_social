@@ -22,5 +22,5 @@ Route::get('/', function () {
 Route::get('display', [countryController::class, 'getData'])->name('getcountries');
 
 Route::get('convert-to-json', function () {
-    return Country::paginate(20);
+    return Country::paginate(10);
 });

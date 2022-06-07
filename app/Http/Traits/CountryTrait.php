@@ -12,8 +12,3 @@ trait CountryTrait
         return view('display', array('country' => $country));
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="en">
-
-</html>

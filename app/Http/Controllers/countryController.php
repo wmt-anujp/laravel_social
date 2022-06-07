@@ -19,8 +19,8 @@ class countryController extends Controller
 
     public function getData()
     {
-        $country = Country::paginate(10);
-        dd($country);
+        $country = Country::paginate(6)->withQueryString();
+        // dd($country);
         // $country->appends(['sort' => 'country_name']);
         return view('display', array('country' => $country));
     }
