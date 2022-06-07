@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Country;
 use App\Models\Image;
-use App\Traits\ImageTrait;
+use App\Http\Traits\ImageTrait;
 use Illuminate\Http\Request;
 
 class CountryController extends Controller
@@ -24,7 +24,6 @@ class CountryController extends Controller
     public function getData()
     {
         $country = Country::paginate(6);
-        // dd($country);
         // $country->appends(['sort' => 'country_name']);
         return view('display', array('country' => $country));
     }
@@ -45,17 +44,33 @@ class CountryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function test()
+    {
+        return "some";
+    }
+
     public function store(Request $request)
     {
+        // try {
+        //     $input = $request->all();
+        //     $input['image'] = $this->verifyAndUpload($request, 'image', 'images');
+        //     // dd($input['image']);
+        //     Image::create($input);
+        //     return redirect()->route('welomes')->with('success', 'record created successfully.');
+        // } catch (\Exception $exception) {
+        //     return redirect()->back()->with('error', 'Temprory server error.');
+        // }
         try {
-            Image::create([
-                'filename' => $request->image
-            ]);
-            return back()->with('success', 'record created successfully.');
+            $input = $request->all();
+            $input['filename'] = $this->verifyAndUpload($request, "abc");
+            Image::create($input);
+            return redirect()->route('welcomes')->with('success', 'record created successfully.');
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', 'Temprory server error.');
         }
     }
+
+
 
     /**
      * Display the specified resource.
@@ -65,7 +80,7 @@ class CountryController extends Controller
      */
     public function show($id)
     {
-        //
+        $this->test();
     }
 
     /**

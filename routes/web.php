@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welomes');
+
 Route::resource('display', CountryController::class);
 Route::get('display', [CountryController::class, 'getData'])->name('getcountries');
 
