@@ -6,9 +6,9 @@ use App\Models\Country;
 
 trait CountryTrait
 {
-    public function index()
-    {
-        $country = Country::all();
-        return view('display', array('country' => $country));
-    }
+    // public function getData()
+    // {
+    //     $country = Country::all();
+    //     return view('display', array('country' => $country));
+    // }
 }

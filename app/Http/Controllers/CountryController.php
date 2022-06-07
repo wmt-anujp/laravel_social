@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Country;
+use App\Models\Image;
+use App\Traits\ImageTrait;
 use Illuminate\Http\Request;
 
-class countryController extends Controller
+class CountryController extends Controller
 {
+    use ImageTrait;
+
     /**
      * Display a listing of the resource.
      *
@@ -19,11 +23,12 @@ class countryController extends Controller
 
     public function getData()
     {
-        $country = Country::paginate(6)->withQueryString();
+        $country = Country::paginate(6);
         // dd($country);
         // $country->appends(['sort' => 'country_name']);
         return view('display', array('country' => $country));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -31,7 +36,7 @@ class countryController extends Controller
      */
     public function create()
     {
-        //
+        return view('image');
     }
 
     /**
@@ -42,7 +47,14 @@ class countryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            Image::create([
+                'filename' => $request->image
+            ]);
+            return back()->with('success', 'record created successfully.');
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('error', 'Temprory server error.');
+        }
     }
 
     /**

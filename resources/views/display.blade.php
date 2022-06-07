@@ -23,6 +23,6 @@
           </table>
     </div>
     <div class="d-flex justify-content-center">
-      {!! $country->onEachSide(2)->links('vendor.pagination.customlink') !!}
+      {!! $country->links('vendor.pagination.customlink') !!}
     </div>
 @endsection

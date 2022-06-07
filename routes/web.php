@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\countryController;
+use App\Http\Controllers\CountryController;
 use App\Models\Country;
 use Illuminate\Support\Facades\Route;
 
@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-// Route::resource('display',countryController::class);
-Route::get('display', [countryController::class, 'getData'])->name('getcountries');
+Route::resource('display', CountryController::class);
+Route::get('display', [CountryController::class, 'getData'])->name('getcountries');
 
 Route::get('convert-to-json', function () {
     return Country::paginate(10);
