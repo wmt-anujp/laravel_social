@@ -25,12 +25,12 @@
                         <div class="row align-items-center justify-content-center">
                             {{-- @foreach ($user as $image) --}}
                             <div class="col-4">
-                                <img src="{{'storage/'.$user->profile_photo}}" id="myimage" alt="Profile Photo" class="img-responsive rounded-circle" width='50' height='50'>
+                                <img src="{{'storage/'.Auth::user()->profile_photo}}" id="myimage" alt="Profile Photo" class="img-responsive rounded-circle" width='50' height='50'>
                             </div>
                             {{-- @endforeach --}}
                             <div class="col-8">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{$user->name}}</a>
+                                    {{Auth::user()->name}}</a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="{{route('useraccount')}}">Account</a></li>
                                     <li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
