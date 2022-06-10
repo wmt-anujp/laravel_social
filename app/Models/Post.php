@@ -31,7 +31,7 @@ class Post extends Model
         return $this->belongsTo(Country::class, 'country_id');
     }
 
-    public $userpost = "posts/";
+    // public $userpost = "posts/";
     // Mutators
     // public function setMediaPathAttribute($post)
     // {

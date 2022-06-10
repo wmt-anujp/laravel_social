@@ -37,10 +37,7 @@ class PostController extends Controller
 
     public function getuserfeed(Request $request)
     {
-        // $allpost = Post::with('country')->groupBy('country_id')->get();
         $allpost = Post::all();
-        // dd($request->all());
-        // dd($allpost);
         if (isset($request->country) && $request->country === 'all') {
             $allpost = $allpost;
         } else if (isset($request->country)) {
@@ -101,7 +98,6 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $comment = $post->comments;
-        // $comment = Comment::find($id);
         return view('posts.postdetails', ['post' => $post, 'comments' => $comment]);
     }
 
@@ -111,9 +107,6 @@ class PostController extends Controller
             $post = Post::find($id);
             if (isset($post)) {
                 $old_post = $post->media_path;
-                // dd($old_post);
-                // $old_post_delete = explode("/", $old_post);
-                // dd($old_post_delete);
                 if (Storage::exists($old_post)) {
                     Storage::delete($old_post);
                 }
@@ -145,9 +138,7 @@ class PostController extends Controller
                 Storage::makeDirectory($folder, 0775, true, true);
             }
             $old_post = $post->media_path;
-            // dd($old_post);
             $old_post_delete = explode("/", $old_post);
-            // dd($old_post_delete);
             if (Storage::exists('public/' . $old_post_delete[2] . "/" . $old_post_delete[3] . "/" . $old_post_delete[4])) {
                 Storage::delete('public/' . $old_post_delete[2] . "/" . $old_post_delete[3] . "/" . $old_post_delete[4]);
             }
@@ -214,10 +205,8 @@ class PostController extends Controller
         } else {
             $like->save();
         }
-        return "anuj";
+        return "null";
     }
-
-
 
     public function feedpostdetails(Request $request, $id)
     {

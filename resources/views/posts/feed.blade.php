@@ -10,7 +10,6 @@
             <div class="mt-5">
                 <label for="country" class="mb-2 d-block">Select Country</label>
                     <form action="{{route('userfeed')}}" method="get">
-                        {{-- @csrf --}}
                         <div class="row">
                             <div class="col-2 me-4">
                                 <select class="form-select d-inline" style="width: 200px" name="country" id="country">
