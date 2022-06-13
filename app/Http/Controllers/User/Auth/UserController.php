@@ -49,7 +49,7 @@ class UserController extends Controller
 
     public function userFeed(Request $request)
     {
-        $likes = Like::select('post_Likes')->where('user_id', Auth::guard('user')->user()->id)->get();
+        $likes = Like::all()->where('user_id', Auth::guard('user')->user()->id);
         // dd($likes);
         $allposts = Post::paginate(8);
         if ($request->sorting === "created_at") {

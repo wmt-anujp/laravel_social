@@ -36,9 +36,9 @@
                         <p>
                             <span style="color: green">Posted By: </span>{{$posts->user->name}} {!!'<br>On '.$posts->created_at->format('d-m-Y h:i:s A')!!}<br>
                             {{-- ---------------------------Like------------------------------------- --}}
-                            {{dd($like[0]->post_Likes)}}
-                            {{-- <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-class" type="checkbox" data-onstyle="primary" data-offstyle="danger" data-toggle="toggle" data-on="Like" data-off="Unlike" {{ $like[0]->post_Likes ? 'checked' : '' }}> --}}
-                            <input data-user="{{$user->id}}" data-post={{$posts->id}} class="toggle-class" type="checkbox" data-onstyle="primary" data-offstyle="danger" data-toggle="toggle" data-on="Like" data-off="Unlike" {{ $like[0]->post_Likes ? 'checked' : '' }}>
+                            {{dd($like[1]->post_Likes)}}
+                            
+                            <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-class" type="checkbox" data-onstyle="primary" data-offstyle="danger" data-toggle="toggle" data-on="Like" data-off="Unlike" {{ $like[0]->post_Likes ? 'checked' : '' }}>
 
                             {{-- ---------------------------Like------------------------------------- --}}
                             <a href="" data-post={{$posts->id}} data-user={{$user->id}} class="btn btn-secondary commentbtn">Comment</a>
