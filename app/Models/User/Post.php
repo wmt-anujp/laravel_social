@@ -26,6 +26,11 @@ class Post extends Model
         return $this->hasMany(Comment::class, 'post_id', 'id');
     }
 
+    public function UserLikes()
+    {
+        return $this->belongsToMany(User::class, Like::class, 'post_id', 'user_id')->withPivot('post_Likes');
+    }
+
     public function getMediaPathAttribute($posts)
     {
         return Storage::disk('local')->url($posts);

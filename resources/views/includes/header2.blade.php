@@ -1,7 +1,7 @@
 <header>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="">
+            <a class="navbar-brand" href="{{route('user.Feed')}}">
                 <i class="fa-brands fa-instagram ms-5 me-2"></i>Instagram</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -25,26 +25,6 @@
                             <a href="{{(Auth::guard('admin')->check() ? route('admin.Logout'): route('user.Logout') )}}" class="nav-link btn btn-sm btn-danger" style="color: white">Logout</a>
                         </li>
                 </ul>
-                    {{-- @if (Auth::guard('admin')->check())
-                    <li class="nav-item dropdown">
-                        <div class="row align-items-center justify-content-center">
-                            <div class="col-8">
-                                <a class="btn btn-sm btn-danger" href="{{route('admin.Logout')}}">Logout</a>
-                            </div>
-                        </div>
-                    </li>
-                    @elseif(Auth::guard('user')->check())
-                        <li class="nav-item dropdown">
-                            <div class="row align-items-center justify-content-center">
-                                <div class="col-8">
-                                    <a class="btn btn-sm btn-danger" href="{{route('user.Logout')}}">Logout</a>
-                                </div>
-                            </div>
-                        </li>
-                    @endif --}}
-                    {{-- @auth('user') --}}
-                        
-                    {{-- @endauth --}}
             </div>
         </div>
     </nav>

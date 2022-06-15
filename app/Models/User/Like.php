@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Like extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'post_id', 'like'];
+    protected $table = "likes";
+    protected $fillable = ['user_id', 'post_id', 'post_Likes'];
 
     public function user()
     {
@@ -17,6 +18,6 @@ class Like extends Model
 
     public function post()
     {
-        return $this->belongsTo('post');
+        return $this->belongsTo(Post::class);
     }
 }

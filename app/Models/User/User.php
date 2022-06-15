@@ -4,6 +4,7 @@ namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
@@ -23,8 +24,18 @@ class User extends Authenticatable
         return $this->hasMany(Like::class, 'user_id', 'id');
     }
 
+    public function PostLikes()
+    {
+        return $this->belongsToMany(Post::class, Like::class, 'post_id');
+    }
+
     public function getProfilePhotoAttribute($profile)
     {
-        return Storage::disk('local')->url($profile);
+        // dd($profile);
+        if ($profile !== null) {
+            return Storage::disk('local')->url($profile);
+        } else {
+            return null;
+        }
     }
 }

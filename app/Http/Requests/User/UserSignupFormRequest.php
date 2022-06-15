@@ -25,7 +25,7 @@ class UserSignupFormRequest extends FormRequest
     {
         return [
             'name' => 'required|max: 50',
-            'username' => 'required|max: 15|regex:/^[A-Za-z][a-z0-9_]{7,29}$/|unique:users',
+            'username' => 'required|max: 15|regex:/^[A-Za-z][a-z0-9_.]{7,29}$/|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/',
             'cpassword' => 'required|same:password|min:8',

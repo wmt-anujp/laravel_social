@@ -15,8 +15,8 @@
                         <div class="col-2 me-4">
                             <select class="form-select d-inline" style="width: 200px" name="sorting" id="sorting">
                                 <option disabled selected>Select Sorting</option>
-                                    <option value="created_at" @if ("created_at"===$params) selected @endif>Created At
-                                    </option>
+                                    <option value="created_at_accending" @if ("created_at_accending"===$params) selected @endif>Created By Ascending order</option>
+                                    <option value="created_at_descending" @if ("created_at_descending"===$params) selected @endif>Created By Descending order</option>
                             </select>
                         </div>
                         <div class="col-2">
@@ -25,23 +25,28 @@
                     </div>
                 </form>
         </div>
-        @if (count($allpost)>0)
-            @foreach ($allpost as $posts)
+        {{-- @if (count($allpost)>0) --}}
+        {{-- {{dd($allpost)}} --}}
+        @foreach ($allpost as $posts)
+            @foreach($posts->UserLikes as $p)
+                {{-- {{dd($p->pivot->post_id)}} --}}
+            @endforeach
                 @if ($posts->media_type===2)
                     <div class="col-12 col-md-3 mt-5 postBox">
+                        
                         <span style="color: green">Caption: </span>{{ $posts->post_caption }}
                         <a href="{{route('post.show',['post'=>$posts->id])}}">
                             <img src="{{$posts->media_path}}" alt="post-images" width="200" height="200" style="border: 4px solid lightblue">
                         </a>
                         <p>
                             <span style="color: green">Posted By: </span>{{$posts->user->name}} {!!'<br>On '.$posts->created_at->format('d-m-Y h:i:s A')!!}<br>
-                            {{-- ---------------------------Like------------------------------------- --}}
-                            {{dd($like[1]->post_Likes)}}
+                            {{-- ---------------------------Like starts------------------------------------ --}}
                             
-                            <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-class" type="checkbox" data-onstyle="primary" data-offstyle="danger" data-toggle="toggle" data-on="Like" data-off="Unlike" {{ $like[0]->post_Likes ? 'checked' : '' }}>
+                            <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="primary" data-offstyle="danger" data-toggle="toggle" data-on="Like" data-off="Unlike" @foreach ($posts->UserLikes as $p)
+                             {{ $p->pivot->post_id ? 'checked' : '' }} @endforeach>
 
-                            {{-- ---------------------------Like------------------------------------- --}}
-                            <a href="" data-post={{$posts->id}} data-user={{$user->id}} class="btn btn-secondary commentbtn">Comment</a>
+                            {{-- ---------------------------Like  ends------------------------------------- --}}
+                            <a data-post={{$posts->id}} data-user={{$user->id}} class="btn btn-secondary commentbtn">Comment</a>
                         </p>
                     </div>
                 @elseif($posts->media_type===1)
@@ -54,22 +59,23 @@
                         </a>
                         <p>
                             <span style="color: green">Posted By: </span>{{$posts->user->name}} {!!'<br>On '.$posts->created_at->format('d-m-Y h:i:s A')!!}<br>
-                            {{-- ---------------------------Like------------------------------------- --}}
+                            {{-- ---------------------------Like starts------------------------------------- --}}
 
-                            <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-class" type="checkbox" data-onstyle="primary" data-offstyle="danger" data-toggle="toggle" data-on="Like" data-off="Unlike" {{ $like[0]->post_Likes ? 'checked' : '' }}>
+                            <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="primary" data-offstyle="danger" data-toggle="toggle" data-on="Like" data-off="Unlike" @foreach ($posts->UserLikes as $p)
+                            {{ $p->pivot->post_id ? 'checked' : '' }} @endforeach>
 
-                            {{-- ---------------------------Like------------------------------------- --}}
+                            {{-- ---------------------------Like ends------------------------------------- --}}
                             <a href="" data-post={{$posts->id}} data-user={{$user->id}} class="btn btn-secondary commentbtn" >Comment</a>
                         </p>
                     </div>
                 @endif
             @endforeach
-        @endif
+        {{-- @endif --}}
     </div>
     <div class="row">
-        @if(count($allpost)>0)
-        <p class="text-center mt-4 mb-5"><button class="load-more btn btn-dark" data-totalResult="{{ App\Models\User\Post::count() }}">Load More</button></p>
-        @endif
+        {{-- @if(count($allpost)>0) --}}
+        {{-- <p class="text-center mt-4 mb-5"><button class="load-more btn btn-dark" data-totalResult="{{ App\Models\User\Post::count() }}">Load More</button></p> --}}
+        {{-- @endif --}}
     </div>
 </div>
     {{-- comment modal starts--}}
@@ -105,28 +111,26 @@
     </script>
     <script>
         var like, userId, postId;
-        $('.toggle-class').change(function(){
+        $('.toggle-classs').change(function(){
             like=$(this).prop('checked')===true?0:1
-            // like=$(this).val();
-            console.log(like);
             userId= $(this).data('user');
             postId=$(this).data('post');
             $.ajax({
-                type:"GET",
-                dataType:"json",
+                type:"post",
+                // dataType:"json",
                 url:"{{route('add.Like')}}",
                 data:{
-                    like:like,
                     userId:userId,
                     postId:postId,
+                    like:like,
                 },
                 success: function(data){
                     console.log(data);
-                    // alert('Liked post');
+                    alert('Liked this post');
                 },
                 error:function(error){
                     console.log(error);
-                    // alert('Didn\'t liked this post');
+                    alert('Didn\'t liked this post');
                 }
             });
         });

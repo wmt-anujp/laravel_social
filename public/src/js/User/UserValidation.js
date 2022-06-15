@@ -28,7 +28,7 @@ $(document).ready(function () {
             username: {
                 required: true,
                 maxlength: 15,
-                regex: "[A-Za-z][a-z0-9_]{7,29}$",
+                regex: "[A-Za-z][a-z0-9_.]{7,29}$",
             },
             email: {
                 required: true,
@@ -57,7 +57,7 @@ $(document).ready(function () {
             username: {
                 required: "Please Enter Username",
                 maxlength: "Maximum 15 characters are allowed",
-                regex: "Only lower,upper,_,and numbers are allowed",
+                regex: "Only lower,upper,_,., and numbers are allowed",
             },
             email: {
                 required: "Please Enter Email",
@@ -135,7 +135,7 @@ $(document).ready(function () {
             username: {
                 required: true,
                 maxlength: 15,
-                regex: "[A-Za-z][a-z0-9_]{7,29}$",
+                regex: "[A-Za-z][a-z0-9_.]{7,29}$",
             },
             profile: {
                 extension: "jpg|jpeg|png|svg|webp",
@@ -151,7 +151,7 @@ $(document).ready(function () {
             username: {
                 required: "Please Enter Username",
                 maxlength: "Maximum 15 characters are allowed",
-                regex: "Only lower,upper,_,and numbers are allowed",
+                regex: "Only lower,upper,_,., and numbers are allowed",
             },
             profile: {
                 extension:

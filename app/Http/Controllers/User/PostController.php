@@ -99,14 +99,18 @@ class PostController extends Controller
     public function userLike(Request $request)
     {
         try {
-            // dd("enter");
-            Like::create([
+            Like::updateOrCreate(['user_id' => $request->userId, 'post_id' => $request->postId], [
                 'user_id' => $request->userId,
                 'post_id' => $request->postId,
                 'post_Likes' => $request->like,
             ]);
-            return back()->with('success', 'Post liked');
+            return response()->json(['success', 'Liked this post']);
+
+            // $user = User::where('id', 1)->first();
+
+            // $user->PostLikes()->sync(['post_id' => 3, 'post_Likes' => 1]);
         } catch (\Exception $exception) {
+            // dd($exception->getMessage());
             return redirect()->back()->with('error', 'Like Not added.');
         }
     }

@@ -49,12 +49,21 @@ class UserController extends Controller
 
     public function userFeed(Request $request)
     {
-        $likes = Like::all()->where('user_id', Auth::guard('user')->user()->id);
-        // dd($likes);
-        $allposts = Post::paginate(8);
-        if ($request->sorting === "created_at") {
-            $allposts = Post::orderBy('created_at', 'desc')->get();
+        // $allposts = Post::paginate(8);
+        // if ($request->sorting === "created_at_accending") {
+        //     $allposts = Post::orderBy('created_at', 'ASC')->get();
+        // } elseif ($request->sorting === "created_at_descending") {
+        //     $allposts = Post::orderBy('created_at', 'desc')->get();
+        // }
+        $likes = Like::where('user_id', Auth::guard('user')->user()->id)->get();
+        $allposts = Post::with('UserLikes');
+        if ($request->sorting === "created_at_accending") {
+            $allposts->orderBy('created_at', 'ASC');
+        } elseif ($request->sorting === "created_at_descending") {
+            $allposts->orderBy('created_at', 'desc');
         }
+        $allposts = $allposts->get();
+        // dd($allposts);
         return view('user.userFeed', ['allpost' => $allposts, 'like' => $likes, 'params' => $request->sorting, 'user' => Auth::guard('user')->user()]);
     }
 
@@ -124,19 +133,24 @@ class UserController extends Controller
         try {
             $user = Auth::guard('user')->user();
             $profilephoto = $this->imageUpload($request, 'profile', 'profile');
-            if (isset($profilephoto)) {
-                Storage::disk('public')->delete($user->profile_photo);
-            } else {
-                $profilephoto = $user->profile_photo;
-            }
-            User::where('id', $user->id)->update([
+
+            $user = User::where('id', $user->id)->first();
+            $user->update([
                 'name' => $request->name,
                 'username' => $request->username,
                 'email' => $user->email,
-                'profile_photo' => $profilephoto,
             ]);
+
+            if (isset($profilephoto)) {
+                $user->update([
+                    'profile_photo' => $profilephoto,
+                ]);
+                Storage::disk('public')->delete($user->profile_photo);
+            }
+
             return redirect()->route('user.Account')->with('success', 'Profile was updated');
         } catch (\Exception $exception) {
+            dd($exception->getMessage());
             return redirect()->back()->with('error', 'Temporary Server Error.');
         }
     }

@@ -25,7 +25,7 @@ Route::namespace('Admin')->middleware('backbutton')->group(function () {
     });
     Route::middleware('auth:admin')->group(function () {
         Route::get('admin-dashboard', [AdminController::class, 'getadminDashboard'])->name('admin.Dashboard');
-        Route::get('user-status', [AdminController::class, 'userStatus'])->name('user.Status');
+        Route::post('user-status', [AdminController::class, 'userStatus'])->name('user.Status');
     });
 });
 
@@ -46,6 +46,6 @@ Route::namespace('User')->middleware('backbutton')->group(function () {
         Route::get('user-posts', [UserController::class, 'userPosts'])->name('user.Post');
         Route::get('user-account', [UserController::class, 'getAccount'])->name('user.Account');
         Route::post('comment', [PostController::class, 'newComment'])->name('add.Comment');
-        Route::get('like', [PostController::class, 'userLike'])->name('add.Like');
+        Route::post('like', [PostController::class, 'userLike'])->name('add.Like');
     });
 });

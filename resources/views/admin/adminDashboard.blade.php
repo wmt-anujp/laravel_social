@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="col-2 me-4">
                             <select class="form-select d-inline" style="width: 200px" name="sorting" id="sorting">
-                                <option selected disabled>Select Sorting</option>
+                                <option selected disabled>Select Filter</option>
                                     <option value="active" @if ("active"===$params)
                                         selected
                                     @endif>Active</option>
@@ -25,7 +25,7 @@
                             </select>
                         </div>
                         <div class="col-2">
-                            <button type="submit" class="btn btn-primary">Sort</button>
+                            <button type="submit" class="btn btn-primary">Filter</button>
                         </div>
                     </div>
                 </form>
@@ -74,7 +74,7 @@
             console.log (status);
             userId= $(this).data('user');
             $.ajax({
-                type:"GET",
+                type:"POST",
                 dataType:"json",
                 url:"{{route('user.Status')}}",
                 data:{
