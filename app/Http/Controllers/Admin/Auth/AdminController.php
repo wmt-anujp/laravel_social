@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\AdminLoginFormRequest;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\DataTables;
 
 class AdminController extends Controller
 {
@@ -41,12 +42,26 @@ class AdminController extends Controller
     public function getadminDashboard(Request $request)
     {
         $user = User::all();
-        if ($request->sorting === "active") {
+        // if ($request->ajax()) {
+        //     return DataTables::of($user);
+        // }
+        if ($request->sorting === "all") {
+            $user;
+        } elseif ($request->sorting === "active") {
             $user = $user->where('active_status', 1);
         } elseif ($request->sorting === "inactive") {
             $user = $user->where('active_status', 0);
         }
         return view('admin.adminDashboard', ['users' => $user, 'params' => $request->sorting]);
+    }
+
+    public function getdatatable()
+    {
+        $data = User::select('*');
+        return Datatables::of($data)->addColumn('action', function ($row) {
+            $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+            return $btn;
+        })->rawColumns(['action'])->make(true);
     }
 
     public function adminLogout()

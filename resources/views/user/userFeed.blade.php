@@ -72,8 +72,8 @@
     </div>
     <div class="text-center m-3">
         {{-- @if(count($allpost)>0) --}}
-        <button class="btn btn-dark" id="load-more" data-paginate="2">Load More</button>
-        <p class="invisible">No more posts...</p>
+        {{-- <button class="btn btn-dark" id="load-more" data-paginate="2">Load More</button>
+        <p class="invisible">No more posts...</p> --}}
         {{-- @endif --}}
     </div>
 </div>
@@ -102,7 +102,11 @@
         </div>
     </div>
     {{-- comment modal ends --}}
+    <div class="d-flex justify-content-center">
+        {!! $allpost->links('vendor.pagination.customlink') !!}
+    </div>
 @endsection
+
 @section('js')
     <script>
         var token="{{csrf_token()}}";
