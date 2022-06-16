@@ -28,12 +28,8 @@
         {{-- @if (count($allpost)>0) --}}
         {{-- {{dd($allpost)}} --}}
         @foreach ($allpost as $posts)
-            @foreach($posts->UserLikes as $p)
-                {{-- {{dd($p->pivot->post_id)}} --}}
-            @endforeach
                 @if ($posts->media_type===2)
                     <div class="col-12 col-md-3 mt-5 postBox">
-                        
                         <span style="color: green">Caption: </span>{{ $posts->post_caption }}
                         <a href="{{route('post.show',['post'=>$posts->id])}}">
                             <img src="{{$posts->media_path}}" alt="post-images" width="200" height="200" style="border: 4px solid lightblue">
@@ -42,8 +38,7 @@
                             <span style="color: green">Posted By: </span>{{$posts->user->name}} {!!'<br>On '.$posts->created_at->format('d-m-Y h:i:s A')!!}<br>
                             {{-- ---------------------------Like starts------------------------------------ --}}
                             
-                            <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="primary" data-offstyle="danger" data-toggle="toggle" data-on="Like" data-off="Unlike" @foreach ($posts->UserLikes as $p)
-                             {{ $p->pivot->post_id ? 'checked' : '' }} @endforeach>
+                            <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="danger" data-offstyle="primary" data-toggle="toggle" data-on="Unlike" data-off="Like" @foreach ($posts->UserLikes as $p) {{ $p->pivot->post_Likes ? 'checked' : '' }} @endforeach>
 
                             {{-- ---------------------------Like  ends------------------------------------- --}}
                             <a data-post={{$posts->id}} data-user={{$user->id}} class="btn btn-secondary commentbtn">Comment</a>
@@ -61,8 +56,7 @@
                             <span style="color: green">Posted By: </span>{{$posts->user->name}} {!!'<br>On '.$posts->created_at->format('d-m-Y h:i:s A')!!}<br>
                             {{-- ---------------------------Like starts------------------------------------- --}}
 
-                            <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="primary" data-offstyle="danger" data-toggle="toggle" data-on="Like" data-off="Unlike" @foreach ($posts->UserLikes as $p)
-                            {{ $p->pivot->post_id ? 'checked' : '' }} @endforeach>
+                            <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="danger" data-offstyle="primary" data-toggle="toggle" data-on="Unlike" data-off="Like" @foreach ($posts->UserLikes as $p) {{ $p->pivot->post_Likes ? 'checked' : '' }} @endforeach>
 
                             {{-- ---------------------------Like ends------------------------------------- --}}
                             <a href="" data-post={{$posts->id}} data-user={{$user->id}} class="btn btn-secondary commentbtn" >Comment</a>
@@ -112,7 +106,7 @@
     <script>
         var like, userId, postId;
         $('.toggle-classs').change(function(){
-            like=$(this).prop('checked')===true?0:1
+            like=$(this).prop('checked') === true ? 1 : 0;
             userId= $(this).data('user');
             postId=$(this).data('post');
             $.ajax({
@@ -126,7 +120,6 @@
                 },
                 success: function(data){
                     console.log(data);
-                    alert('Liked this post');
                 },
                 error:function(error){
                     console.log(error);

@@ -105,9 +105,7 @@ class PostController extends Controller
                 'post_Likes' => $request->like,
             ]);
             return response()->json(['success', 'Liked this post']);
-
             // $user = User::where('id', 1)->first();
-
             // $user->PostLikes()->sync(['post_id' => 3, 'post_Likes' => 1]);
         } catch (\Exception $exception) {
             // dd($exception->getMessage());

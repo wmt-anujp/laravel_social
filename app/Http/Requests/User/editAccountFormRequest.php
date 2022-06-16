@@ -25,7 +25,7 @@ class editAccountFormRequest extends FormRequest
     {
         return [
             'name' => 'required|max:50',
-            'username' => 'required|max: 15|regex:/^[A-Za-z][a-z0-9_]{7,29}$/|unique:users',
+            'username' => 'required|max: 15|regex:/^[A-Za-z][a-z0-9_]{7,29}$/',
             'profile' => 'image|mimes:jpg,webp,png,jpeg,svg|max:10000',
         ];
     }

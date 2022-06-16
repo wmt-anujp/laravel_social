@@ -133,21 +133,18 @@ class UserController extends Controller
         try {
             $user = Auth::guard('user')->user();
             $profilephoto = $this->imageUpload($request, 'profile', 'profile');
-
             $user = User::where('id', $user->id)->first();
             $user->update([
                 'name' => $request->name,
                 'username' => $request->username,
                 'email' => $user->email,
             ]);
-
             if (isset($profilephoto)) {
+                Storage::disk('public')->delete($user->profile_photo);
                 $user->update([
                     'profile_photo' => $profilephoto,
                 ]);
-                Storage::disk('public')->delete($user->profile_photo);
             }
-
             return redirect()->route('user.Account')->with('success', 'Profile was updated');
         } catch (\Exception $exception) {
             dd($exception->getMessage());
