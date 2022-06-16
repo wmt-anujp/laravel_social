@@ -28,7 +28,6 @@ Route::namespace('Admin')->middleware('backbutton')->group(function () {
         Route::post('user-status', [AdminController::class, 'userStatus'])->name('user.Status');
     });
 });
-
 Route::resource('post', PostController::class)->middleware(['userauth:user']);
 Route::resource('user', UserController::class)->middleware(['userauth:user']);
 Route::namespace('User')->middleware('backbutton')->group(function () {

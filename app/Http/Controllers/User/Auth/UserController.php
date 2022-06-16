@@ -49,12 +49,6 @@ class UserController extends Controller
 
     public function userFeed(Request $request)
     {
-        // $allposts = Post::paginate(8);
-        // if ($request->sorting === "created_at_accending") {
-        //     $allposts = Post::orderBy('created_at', 'ASC')->get();
-        // } elseif ($request->sorting === "created_at_descending") {
-        //     $allposts = Post::orderBy('created_at', 'desc')->get();
-        // }
         $likes = Like::where('user_id', Auth::guard('user')->user()->id)->get();
         $allposts = Post::with('UserLikes');
         if ($request->sorting === "created_at_accending") {
@@ -62,8 +56,25 @@ class UserController extends Controller
         } elseif ($request->sorting === "created_at_descending") {
             $allposts->orderBy('created_at', 'desc');
         }
-        $allposts = $allposts->get();
+        $allposts = $allposts->paginate(4);
         // dd($allposts);
+        // if ($request->ajax()) {
+        //     $html = '';
+        //     foreach ($allposts as $posts) {
+        //         $html .= '<div class="col-12 col-md-3 mt-5 postBox">
+        //         <span style="color: green">Caption: </span>' . $posts->post_caption . '
+        //         <a href=' . "{{route('post.show',['post'=>$posts->id])}}" . '>
+        //             <img src=' . "$posts->media_path" . ' alt="post-images" width="200" height="200" style="border: 4px solid lightblue">
+        //         </a>
+        //         <p>
+        //             <span style="color: green">Posted By: </span>' . $posts->user->name . ' {<br>On' . $posts->created_at->format("d-m-Y h:i:s A") . '!!}<br>
+        //             <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="danger" data-offstyle="primary" data-toggle="toggle" data-on="Unlike" data-off="Like" @foreach ($posts->UserLikes as $p) {{ $p->pivot->post_Likes ? "checked" : "" }} @endforeach>
+        //             <a data-post={{$posts->id}} data-user={{$user->id}} class="btn btn-secondary commentbtn">Comment</a>
+        //         </p>
+        //     </div>';
+        //     }
+        //     return $html;
+        // }
         return view('user.userFeed', ['allpost' => $allposts, 'like' => $likes, 'params' => $request->sorting, 'user' => Auth::guard('user')->user()]);
     }
 
@@ -104,6 +115,7 @@ class UserController extends Controller
 
     public function getAccount()
     {
+        dd(Auth::guard('user')->user()->profile_photo);
         return view('user.userAccount', ['user' => Auth::guard('user')->user()]);
     }
 
@@ -139,6 +151,7 @@ class UserController extends Controller
                 'username' => $request->username,
                 'email' => $user->email,
             ]);
+            // dd($user->profile_photo);
             if (isset($profilephoto)) {
                 Storage::disk('public')->delete($user->profile_photo);
                 $user->update([
@@ -147,7 +160,7 @@ class UserController extends Controller
             }
             return redirect()->route('user.Account')->with('success', 'Profile was updated');
         } catch (\Exception $exception) {
-            dd($exception->getMessage());
+            // dd($exception->getMessage());
             return redirect()->back()->with('error', 'Temporary Server Error.');
         }
     }

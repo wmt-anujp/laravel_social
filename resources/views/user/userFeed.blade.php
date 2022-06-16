@@ -26,10 +26,11 @@
                 </form>
         </div>
         {{-- @if (count($allpost)>0) --}}
-        {{-- {{dd($allpost)}} --}}
+        <div class="d-flex flex-wrap">
+            {{-- {{dd($allpost)}} --}}
         @foreach ($allpost as $posts)
                 @if ($posts->media_type===2)
-                    <div class="col-12 col-md-3 mt-5 postBox">
+                    <div class="col-12 col-md-3 mt-5 postBox" id="postdiv">
                         <span style="color: green">Caption: </span>{{ $posts->post_caption }}
                         <a href="{{route('post.show',['post'=>$posts->id])}}">
                             <img src="{{$posts->media_path}}" alt="post-images" width="200" height="200" style="border: 4px solid lightblue">
@@ -65,10 +66,14 @@
                 @endif
             @endforeach
         {{-- @endif --}}
+        </div>
     </div>
-    <div class="row">
+    <div id="morePosts">
+    </div>
+    <div class="text-center m-3">
         {{-- @if(count($allpost)>0) --}}
-        {{-- <p class="text-center mt-4 mb-5"><button class="load-more btn btn-dark" data-totalResult="{{ App\Models\User\Post::count() }}">Load More</button></p> --}}
+        <button class="btn btn-dark" id="load-more" data-paginate="2">Load More</button>
+        <p class="invisible">No more posts...</p>
         {{-- @endif --}}
     </div>
 </div>
@@ -102,8 +107,6 @@
     <script>
         var token="{{csrf_token()}}";
         var urlComment="{{route('add.Comment')}}";
-    </script>
-    <script>
         var like, userId, postId;
         $('.toggle-classs').change(function(){
             like=$(this).prop('checked') === true ? 1 : 0;
@@ -127,7 +130,18 @@
                 }
             });
         });
+
+        // load more
+        $("#postdiv").slice(0,3).show();
+        $("#load-more").on("click",function(){
+            $("#postdiv:hidden").slice(0,3).show();
+            if($("#postdiv:hidden").length==0)
+            {
+                $("#load-more").fadeOut();
+            }
+        });
     </script>
     <script src="{{URL::to('src/js/User/commentModal.js')}}"></script>
+    <script src="{{URL::to('src/js/User/loadMore.js')}}"></script>
     <script src="{{URL::to('src/js/User/loadMoreData.js')}}"></script>
 @endsection

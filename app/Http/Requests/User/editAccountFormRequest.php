@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class editAccountFormRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class editAccountFormRequest extends FormRequest
     {
         return [
             'name' => 'required|max:50',
-            'username' => 'required|max: 15|regex:/^[A-Za-z][a-z0-9_]{7,29}$/',
+            'username' => 'required|max:15|regex:/^[A-Za-z][a-z0-9_]{7,29}$/|unique:users,email,' . Auth::guard('user')->user()->id,
             'profile' => 'image|mimes:jpg,webp,png,jpeg,svg|max:10000',
         ];
     }
@@ -38,6 +39,7 @@ class editAccountFormRequest extends FormRequest
             'username.required' => 'Please Enter Username',
             'username.max' => 'Maximum 15 characters are allowed',
             'username.regex' => 'Username should contain lower,upper,_,.,numbers',
+            'username.unique' => 'Username already taken',
             'profile.mimes' => 'Only jpg,webp,png,jpeg,svg image extension are allowed',
             'profile.max' => 'Image should be less than 10MB',
         ];
