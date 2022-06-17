@@ -42,15 +42,14 @@ class getUserData extends Command
         //     ['Name', 'Email', 'Username', 'Profile'],
         //     User::all(['name', 'email', 'username', 'profile_photo'])
         // );
-        // $users = $this->withProgressBar(User::all(), function ($user) {
-        //     $this->performTask($user);
-        // });
-        // echo $users;
+
+        $users = $this->withProgressBar(User::all(), function ($user) {
+            $this->performTask($user);
+        });
+        echo $users;
         $users = User::all();
         $bar = $this->output->createProgressBar(count($users));
-
         $bar->start();
-
         foreach ($users as $user) {
             $this->performTask($user);
             $bar->advance();

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Auth\AdminController;
 use App\Http\Controllers\User\Auth\UserController;
 use App\Http\Controllers\User\PostController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,7 +43,9 @@ Route::namespace('User')->middleware('backbutton')->group(function () {
         Route::get('user-logout', [UserController::class, 'userLogout'])->withoutMiddleware('guest')->name('user.Logout');
     });
     Route::middleware('userauth:user')->group(function () {
-        Route::get('user-feed', [UserController::class, 'userFeed'])->name('user.Feed');
+        Artisan::call('checkAge', function () {
+            Route::get('user-feed', [UserController::class, 'userFeed'])->name('user.Feed');
+        });
         Route::get('user-posts', [UserController::class, 'userPosts'])->name('user.Post');
         Route::get('user-account', [UserController::class, 'getAccount'])->name('user.Account');
         Route::post('comment', [PostController::class, 'newComment'])->name('add.Comment');
