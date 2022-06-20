@@ -16,7 +16,7 @@ class NewMail extends Mailable
      *
      * @return void
      */
-    public $user;
+    protected $user;
 
     public function __construct($user)
     {
@@ -32,6 +32,6 @@ class NewMail extends Mailable
     {
         return $this->from('ahp.pzz2000@gmail.com', 'Anuj Panchal')
             ->subject('This is first testing mail')
-            ->view('emails.test');
+            ->view('emails.test')->with(['user' => $this->user]);
     }
 }

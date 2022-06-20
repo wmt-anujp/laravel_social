@@ -28,8 +28,7 @@ class EmailDemo extends Mailable
      */
     public function build()
     {
-        return $this->from('umangp@webmobtech.com', 'Umang')
-            ->subject('email demo')
-            ->markdown('emails.demoEmail');
+        return $this->subject('email demo')
+            ->markdown('emails.demoEmail')->with(['mailData' => $this->mailData]);
     }
 }
