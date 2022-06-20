@@ -115,7 +115,6 @@ class UserController extends Controller
 
     public function getAccount()
     {
-        dd(Auth::guard('user')->user()->profile_photo);
         return view('user.userAccount', ['user' => Auth::guard('user')->user()]);
     }
 
