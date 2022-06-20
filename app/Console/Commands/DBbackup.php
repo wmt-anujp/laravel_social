@@ -2,25 +2,23 @@
 
 namespace App\Console\Commands;
 
-use App\Models\User;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
 
-class DemoCron extends Command
+class DBbackup extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'create:generate-users';
+    protected $signature = 'db:backup';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Adds dummy user data in DB';
+    protected $description = 'Taking backup of database';
 
     /**
      * Create a new command instance.
@@ -39,10 +37,8 @@ class DemoCron extends Command
      */
     public function handle()
     {
-        // $userData = $this->argument('usercount');
-        for ($i = 0; $i < 20; $i++) {
-            User::factory()->create();
-        }
-        // Log::info("message");
+        $filename = "backup_" . strtotime(now()) . ".sql";
+        $command = "mysqldump --user=" . env('DB_USERNAME') . " --password=" . env('DB_PASSWORD') . " --host=" . env('DB_HOST') . " " . env('DB_DATABASE') . " > " . storage_path() . "/app/backup/" . $filename;
+        exec($command);
     }
 }
