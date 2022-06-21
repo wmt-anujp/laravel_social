@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\Auth;
 
+use App\Events\UserloggedIn;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\editAccountFormRequest;
 use App\Http\Requests\User\UserLoginFormRequest;
@@ -93,6 +94,7 @@ class UserController extends Controller
         try {
             if (Auth::guard('user')->attempt($request->only('email', 'password'))) {
                 $userstatus = Auth::guard('user')->user()->active_status;
+                event(new UserloggedIn(Auth::guard('user')->user()));
                 if ($userstatus === 1) {
                     return redirect()->route('user.Feed')->with('success', 'Login Successful');
                 } else {
