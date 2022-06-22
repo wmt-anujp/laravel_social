@@ -2,9 +2,12 @@
 
 namespace App\Observers;
 
+use App\Jobs\SendEmailJob;
+use App\Jobs\tempJob;
 use App\Mail\signupMail;
 use App\Mail\upadteMail;
 use App\Models\User\User;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
@@ -32,9 +35,16 @@ class UserObserver
     public function updated(User $user)
     {
         Log::info('User data updated');
-        // dd($user);
-        // find($user->id);
-        Mail::to($user->email)->send(new upadteMail($user));
+        // SendEmailJob::dispatch($user)->onQueue('processing');
+        SendEmailJob::dispatch($user);
+        // SendEmailJob::dispatch($user)->delay(now()->addMinutes(5));
+        // SendEmailJob::dispatchAfterResponse($user);
+        // Bus::chain([
+        //     new SendEmailJob($user),
+        // ])->catch(function (\Exception $exception) {
+        //     dd($exception);
+        // })->dispatch();
+        // Mail::to($user->email)->send(new upadteMail($user));
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\UserloggedIn;
+use App\Jobs\SendEmailJob;
 use App\Mail\loginMail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -30,8 +31,8 @@ class SendEmail
      */
     public function handle(UserloggedIn $event)
     {
-        // dd($event->someData);
-        Log::info('user logged into instagram');
-        Mail::to($event->mailData->email)->send(new loginMail($event));
+        Log::info('User logged into instagram');
+        // dispatch(new SendEmailJob($event));
+        // Mail::to($event->mailData->email)->send(new loginMail($event));
     }
 }
