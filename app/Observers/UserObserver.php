@@ -35,15 +35,17 @@ class UserObserver
     public function updated(User $user)
     {
         Log::info('User data updated');
-        // SendEmailJob::dispatch($user)->onQueue('processing');
         SendEmailJob::dispatch($user);
         // SendEmailJob::dispatch($user)->delay(now()->addMinutes(5));
         // SendEmailJob::dispatchAfterResponse($user);
+        // SendEmailJob::dispatch($user)->onQueue('processing');
+
         // Bus::chain([
         //     new SendEmailJob($user),
         // ])->catch(function (\Exception $exception) {
         //     dd($exception);
         // })->dispatch();
+
         // Mail::to($user->email)->send(new upadteMail($user));
     }
 

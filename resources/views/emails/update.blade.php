@@ -3,7 +3,7 @@
 
 Your Account info has been updated.
 
-@component('mail::button', ['url' => route('user.Account'),'color'=>'success'])
+@component('mail::button', ['url' => route("user.Account"),'color'=>'success'])
 View Account
 @endcomponent
 
