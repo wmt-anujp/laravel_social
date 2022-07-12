@@ -12,4 +12,7 @@ return [
     'Accounttitle' => 'Account',
     'Sort' => "Sort",
     'Comment' => 'Comment',
+    'Logout' => 'Logout',
+    'Like' => 'Like',
+    'Unlike' => 'Unlike'
 ];

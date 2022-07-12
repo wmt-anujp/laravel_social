@@ -22,7 +22,7 @@
                         </li>
                     @endif
                         <li class="nav-item me-4">
-                            <a href="{{(Auth::guard('admin')->check() ? route('admin.Logout'): route('user.Logout') )}}" class="nav-link btn btn-sm btn-danger" style="color: white">Logout</a>
+                            <a href="{{(Auth::guard('admin')->check() ? route('admin.Logout'): route('user.Logout') )}}" class="nav-link btn btn-sm btn-danger" style="color: white">{{__('message.Logout')}}</a>
                         </li>
                 </ul>
             </div>

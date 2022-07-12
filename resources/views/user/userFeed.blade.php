@@ -38,7 +38,7 @@
                             <span style="color: green">Posted By: </span>{{$posts->user->name}} {!!'<br>On '.$posts->created_at->format('d-m-Y h:i:s A')!!}<br>
                             {{-- ---------------------------Like starts------------------------------------ --}}
                             
-                            <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="danger" data-offstyle="primary" data-toggle="toggle" data-on="Unlike" data-off="Like" @foreach ($posts->UserLikes as $p) {{ $p->pivot->post_Likes ? 'checked' : '' }} @endforeach>
+                            <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="danger" data-offstyle="primary" data-toggle="toggle" data-on={{__("message.Unlike")}} data-off={{__("message.Like")}} @foreach ($posts->UserLikes as $p) {{ $p->pivot->post_Likes ? 'checked' : '' }} @endforeach>
 
                             {{-- ---------------------------Like  ends------------------------------------- --}}
                             <a data-post={{$posts->id}} data-user={{$user->id}} class="btn btn-secondary commentbtn">{{__('message.Comment')}}</a>
@@ -56,7 +56,7 @@
                             <span style="color: green">Posted By: </span>{{$posts->user->name}} {!!'<br>On '.$posts->created_at->format('d-m-Y h:i:s A')!!}<br>
                             {{-- ---------------------------Like starts------------------------------------- --}}
 
-                            <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="danger" data-offstyle="primary" data-toggle="toggle" data-on="Unlike" data-off="Like" @foreach ($posts->UserLikes as $p) {{ $p->pivot->post_Likes ? 'checked' : '' }} @endforeach>
+                            <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="danger" data-offstyle="primary" data-toggle="toggle" data-on={{__("message.Unlike")}} data-off={{__("message.Like")}} @foreach ($posts->UserLikes as $p) {{ $p->pivot->post_Likes ? 'checked' : '' }} @endforeach>
 
                             {{-- ---------------------------Like ends------------------------------------- --}}
                             <a href="" data-post={{$posts->id}} data-user={{$user->id}} class="btn btn-secondary commentbtn" >{{__('message.Comment')}}</a>
