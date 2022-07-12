@@ -21,6 +21,17 @@
                             <a href="{{route('user.Account')}}" class="nav-link {{(request()->is('user-account')) ? 'active' : ''}}">{{__('message.Accounttitle')}}</a>
                         </li>
                     @endif
+                    <ul class="navbar-nav  ms-auto me-5 mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Choose Language
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a href="{{route('langChange',['locale'=>'hi'])}}" class="dropdown-item">Hindi</a></li>
+                            <li><a href="{{route('langChange',['locale'=>'en'])}}" class="dropdown-item">English</a></li>
+                            </ul>
+                      </li>
+                    </ul>
                         <li class="nav-item me-4">
                             <a href="{{(Auth::guard('admin')->check() ? route('admin.Logout'): route('user.Logout') )}}" class="nav-link btn btn-sm btn-danger" style="color: white">{{__('message.Logout')}}</a>
                         </li>

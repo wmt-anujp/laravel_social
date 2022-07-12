@@ -24,6 +24,11 @@ class User extends Authenticatable
         return $this->hasMany(Like::class, 'user_id', 'id');
     }
 
+    public function languages()
+    {
+        return $this->belongsTo(Language::class, 'lang_id', 'id');
+    }
+
     public function PostLikes()
     {
         return $this->belongsToMany(Post::class, Like::class, 'post_id');

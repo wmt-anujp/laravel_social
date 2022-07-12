@@ -30,13 +30,11 @@
                   <span class="text-danger">*{{ $errors->first('password') }}</span>
                 @endif
             </div>
-            <button type="submit" class="login-button" title="Log In" id="login">Log In</button>
+            <button type="submit" class="login-button" title="Log In" id="login">{{__('message.Login')}}</button>
         </form>
     </div>
     <div class="box">
       <p>{{__('message.Account')}} <a href="{{route('user.Register')}}">{{__('message.Signup')}}</a></p>
-      {{-- <a href="{{route('langChange',['locale'=>'hi'])}}">Hindi</a>
-      <a href="{{route('langChange',['locale'=>'en'])}}">English</a> --}}
     </div>
 </div>
 @endsection

@@ -2,7 +2,7 @@
 
 return [
     'title' => 'User Login',
-    'Login' => 'Login Successfull',
+    'Loginsuccess' => 'Login Successfull',
     'Comment' => 'Comment Added',
     'Post' => 'Posted Successfully',
     'Account' => 'Dont have an Account?',
@@ -14,5 +14,6 @@ return [
     'Comment' => 'Comment',
     'Logout' => 'Logout',
     'Like' => 'Like',
-    'Unlike' => 'Unlike'
+    'Unlike' => 'Unlike',
+    'Login' => 'Login',
 ];

@@ -86,7 +86,7 @@ class UserController extends Controller
                 $userstatus = Auth::guard('user')->user()->active_status;
                 event(new UserloggedIn(Auth::guard('user')->user()));
                 if ($userstatus === 1) {
-                    return redirect()->route('user.Feed')->with('success', __('message.Login'));
+                    return redirect()->route('user.Feed')->with('success', __('message.Loginsuccess'));
                 } else {
                     Auth::guard('user')->logout();
                     return redirect()->route('user.Login')->with('error', 'Your account is Inactive');
