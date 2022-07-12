@@ -12,6 +12,7 @@ use App\Models\User\Like;
 use App\Models\User\Post;
 use App\Models\User\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -28,6 +29,13 @@ class UserController extends Controller
     public function getSignup()
     {
         return view('user.userRegister');
+    }
+
+    public function lang($locale)
+    {
+        App::setLocale($locale);
+        session()->put('locale', $locale);
+        return redirect()->back();
     }
 
     public function userSignup(UserSignupFormRequest $request)
@@ -58,24 +66,6 @@ class UserController extends Controller
             $allposts->orderBy('created_at', 'desc');
         }
         $allposts = $allposts->paginate(4);
-        // dd($allposts);
-        // if ($request->ajax()) {
-        //     $html = '';
-        //     foreach ($allposts as $posts) {
-        //         $html .= '<div class="col-12 col-md-3 mt-5 postBox">
-        //         <span style="color: green">Caption: </span>' . $posts->post_caption . '
-        //         <a href=' . "{{route('post.show',['post'=>$posts->id])}}" . '>
-        //             <img src=' . "$posts->media_path" . ' alt="post-images" width="200" height="200" style="border: 4px solid lightblue">
-        //         </a>
-        //         <p>
-        //             <span style="color: green">Posted By: </span>' . $posts->user->name . ' {<br>On' . $posts->created_at->format("d-m-Y h:i:s A") . '!!}<br>
-        //             <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="danger" data-offstyle="primary" data-toggle="toggle" data-on="Unlike" data-off="Like" @foreach ($posts->UserLikes as $p) {{ $p->pivot->post_Likes ? "checked" : "" }} @endforeach>
-        //             <a data-post={{$posts->id}} data-user={{$user->id}} class="btn btn-secondary commentbtn">Comment</a>
-        //         </p>
-        //     </div>';
-        //     }
-        //     return $html;
-        // }
         return view('user.userFeed', ['allpost' => $allposts, 'like' => $likes, 'params' => $request->sorting, 'user' => Auth::guard('user')->user()]);
     }
 
@@ -96,7 +86,7 @@ class UserController extends Controller
                 $userstatus = Auth::guard('user')->user()->active_status;
                 event(new UserloggedIn(Auth::guard('user')->user()));
                 if ($userstatus === 1) {
-                    return redirect()->route('user.Feed')->with('success', 'Login Successful');
+                    return redirect()->route('user.Feed')->with('success', __('message.Login'));
                 } else {
                     Auth::guard('user')->logout();
                     return redirect()->route('user.Login')->with('error', 'Your account is Inactive');

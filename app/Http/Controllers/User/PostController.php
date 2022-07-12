@@ -59,7 +59,7 @@ class PostController extends Controller
                 'media_path' => $media,
                 'media_type' => $media_type,
             ]);
-            return redirect()->route('user.Post')->with('success', 'Posted Successfully');
+            return redirect()->route('user.Post')->with('success', __('message.Post'));
         } catch (\Exception $exception) {
             // dd($exception);
             return redirect()->back()->with('error', 'Temprary Server Error.');
@@ -77,7 +77,7 @@ class PostController extends Controller
                 'post_id' => $request->postId,
                 'comment' => $request->comment,
             ]);
-            return redirect()->back()->with('success', 'Comment Added');
+            return redirect()->back()->with('success', __('message.Comment'));
         } catch (\Exception $exception) {
             return redirect()->back()->with('error', 'Comment Not added.');
         }

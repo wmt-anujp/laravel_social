@@ -12,13 +12,13 @@
                 <ul class="navbar-nav ms-auto me-5 mb-2 mb-lg-0">
                     @if (Auth::guard('user')->check())
                         <li class="nav-item me-4">
-                            <a href="{{route('user.Post')}}" class="nav-link {{(request()->is('user-posts','post')) ? 'active' : ''}}">Posts</a>
+                            <a href="{{route('user.Post')}}" class="nav-link {{(request()->is('user-posts','post')) ? 'active' : ''}}">{{__('message.Posttitle')}}</a>
                         </li>
                         <li class="nav-item me-4">
-                            <a href="{{route('user.Feed')}}" class="nav-link {{(request()->is('user-feed')) ? 'active' : ''}}">Feed</a>
+                            <a href="{{route('user.Feed')}}" class="nav-link {{(request()->is('user-feed')) ? 'active' : ''}}">{{__('message.Feedtitle')}}</a>
                         </li>
                         <li class="nav-item me-4">
-                            <a href="{{route('user.Account')}}" class="nav-link {{(request()->is('user-account')) ? 'active' : ''}}">Account</a>
+                            <a href="{{route('user.Account')}}" class="nav-link {{(request()->is('user-account')) ? 'active' : ''}}">{{__('message.Accounttitle')}}</a>
                         </li>
                     @endif
                         <li class="nav-item me-4">

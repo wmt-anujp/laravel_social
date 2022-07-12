@@ -3,8 +3,10 @@
 use App\Http\Controllers\Admin\Auth\AdminController;
 use App\Http\Controllers\User\Auth\UserController;
 use App\Http\Controllers\User\PostController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,10 +32,13 @@ Route::namespace('Admin')->middleware('backbutton')->group(function () {
         Route::post('user-status', [AdminController::class, 'userStatus'])->name('user.Status');
     });
 });
+
 Route::resource('post', PostController::class)->middleware(['userauth:user']);
 Route::resource('user', UserController::class)->middleware(['userauth:user']);
+
 Route::namespace('User')->middleware('backbutton')->group(function () {
     Route::namespace('Auth')->middleware('guest')->group(function () {
+        Route::get('lang/{locale}', [UserController::class, 'lang'])->name('langChange');
         Route::get('/', function () {
             return view('user.userLogin');
         })->name('user.Login');

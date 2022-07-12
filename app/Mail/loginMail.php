@@ -18,7 +18,6 @@ class loginMail extends Mailable
      */
     public function __construct($loginData)
     {
-        // dd($loginData);
         $this->loginData = $loginData;
     }
 

@@ -15,7 +15,7 @@
 <div class="container">
     <div class="box">
         <div class="heading"></div>
-        <h5 class="mb-1">User Login</h5>
+        <h5 class="mb-1">{{__('message.title')}}</h5>
         <form class="login-form mb-3" action="{{route('user.Logins')}}" method="POST" id="userlogin">
           {{@csrf_field()}}
             <div class="field">
@@ -34,7 +34,9 @@
         </form>
     </div>
     <div class="box">
-      <p>Don't have an Account? <a href="{{route('user.Register')}}">Sign Up</a></p>
+      <p>{{__('message.Account')}} <a href="{{route('user.Register')}}">{{__('message.Signup')}}</a></p>
+      {{-- <a href="{{route('langChange',['locale'=>'hi'])}}">Hindi</a>
+      <a href="{{route('langChange',['locale'=>'en'])}}">English</a> --}}
     </div>
 </div>
 @endsection

@@ -10,7 +10,6 @@
     <div class="row mt-5 justify-content-start">
         <div class="mt-5">
                 <form action="{{route('user.Feed')}}" method="get">
-                    {{-- @csrf --}}
                     <div class="row">
                         <div class="col-2 me-4">
                             <select class="form-select d-inline" style="width: 200px" name="sorting" id="sorting">
@@ -20,7 +19,7 @@
                             </select>
                         </div>
                         <div class="col-2">
-                            <button type="submit" class="btn btn-primary">Sort</button>
+                            <button type="submit" class="btn btn-primary">{{__('message.Sort')}}</button>
                         </div>
                     </div>
                 </form>
@@ -42,7 +41,7 @@
                             <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="danger" data-offstyle="primary" data-toggle="toggle" data-on="Unlike" data-off="Like" @foreach ($posts->UserLikes as $p) {{ $p->pivot->post_Likes ? 'checked' : '' }} @endforeach>
 
                             {{-- ---------------------------Like  ends------------------------------------- --}}
-                            <a data-post={{$posts->id}} data-user={{$user->id}} class="btn btn-secondary commentbtn">Comment</a>
+                            <a data-post={{$posts->id}} data-user={{$user->id}} class="btn btn-secondary commentbtn">{{__('message.Comment')}}</a>
                         </p>
                     </div>
                 @elseif($posts->media_type===1)
@@ -60,7 +59,7 @@
                             <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="danger" data-offstyle="primary" data-toggle="toggle" data-on="Unlike" data-off="Like" @foreach ($posts->UserLikes as $p) {{ $p->pivot->post_Likes ? 'checked' : '' }} @endforeach>
 
                             {{-- ---------------------------Like ends------------------------------------- --}}
-                            <a href="" data-post={{$posts->id}} data-user={{$user->id}} class="btn btn-secondary commentbtn" >Comment</a>
+                            <a href="" data-post={{$posts->id}} data-user={{$user->id}} class="btn btn-secondary commentbtn" >{{__('message.Comment')}}</a>
                         </p>
                     </div>
                 @endif
