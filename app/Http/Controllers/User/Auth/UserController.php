@@ -59,6 +59,7 @@ class UserController extends Controller
     public function userFeed(Request $request)
     {
         $likes = Like::where('user_id', Auth::guard('user')->user()->id)->get();
+        $userdata = User::with('languages')->where('id', Auth::guard('user')->user()->id)->get();
         $allposts = Post::with('UserLikes');
         if ($request->sorting === "created_at_accending") {
             $allposts->orderBy('created_at', 'ASC');
@@ -66,7 +67,7 @@ class UserController extends Controller
             $allposts->orderBy('created_at', 'desc');
         }
         $allposts = $allposts->paginate(4);
-        return view('user.userFeed', ['allpost' => $allposts, 'like' => $likes, 'params' => $request->sorting, 'user' => Auth::guard('user')->user()]);
+        return view('user.userFeed', ['allpost' => $allposts, 'like' => $likes, 'params' => $request->sorting, 'user' => $userdata]);
     }
 
     public function userLogout()

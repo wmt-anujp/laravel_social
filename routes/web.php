@@ -38,7 +38,6 @@ Route::resource('user', UserController::class)->middleware(['userauth:user']);
 Route::get('lang/{locale}', [UserController::class, 'lang'])->name('langChange');
 Route::namespace('User')->middleware('backbutton')->group(function () {
     Route::namespace('Auth')->middleware('guest')->group(function () {
-
         Route::get('/', function () {
             return view('user.userLogin');
         })->name('user.Login');

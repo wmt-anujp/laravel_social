@@ -24,9 +24,10 @@
                     </div>
                 </form>
         </div>
-        {{-- @if (count($allpost)>0) --}}
         <div class="d-flex flex-wrap">
-            {{-- {{dd($allpost)}} --}}
+            {{-- @foreach ($user as $item)
+                {{dd($item->id)}}
+            @endforeach --}}
         @foreach ($allpost as $posts)
                 @if ($posts->media_type===2)
                     <div class="col-12 col-md-3 mt-5 postBox" id="postdiv">
@@ -38,10 +39,10 @@
                             <span style="color: green">Posted By: </span>{{$posts->user->name}} {!!'<br>On '.$posts->created_at->format('d-m-Y h:i:s A')!!}<br>
                             {{-- ---------------------------Like starts------------------------------------ --}}
                             
-                            <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="danger" data-offstyle="primary" data-toggle="toggle" data-on={{__("message.Unlike")}} data-off={{__("message.Like")}} @foreach ($posts->UserLikes as $p) {{ $p->pivot->post_Likes ? 'checked' : '' }} @endforeach>
+                            <input @foreach ($user as $users) data-user={{$users->id}} @endforeach  data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="danger" data-offstyle="primary" data-toggle="toggle" data-on={{__("message.Unlike")}} data-off={{__("message.Like")}} @foreach ($posts->UserLikes as $p) {{ $p->pivot->post_Likes ? 'checked' : '' }} @endforeach>
 
                             {{-- ---------------------------Like  ends------------------------------------- --}}
-                            <a data-post={{$posts->id}} data-user={{$user->id}} class="btn btn-secondary commentbtn">{{__('message.Comment')}}</a>
+                            <a @foreach ($user as $users) data-user={{$users->id}} @endforeach data-post={{$posts->id}} class="btn btn-secondary commentbtn">{{__('message.Comment')}}</a>
                         </p>
                     </div>
                 @elseif($posts->media_type===1)
@@ -56,15 +57,14 @@
                             <span style="color: green">Posted By: </span>{{$posts->user->name}} {!!'<br>On '.$posts->created_at->format('d-m-Y h:i:s A')!!}<br>
                             {{-- ---------------------------Like starts------------------------------------- --}}
 
-                            <input data-user={{$user->id}} data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="danger" data-offstyle="primary" data-toggle="toggle" data-on={{__("message.Unlike")}} data-off={{__("message.Like")}} @foreach ($posts->UserLikes as $p) {{ $p->pivot->post_Likes ? 'checked' : '' }} @endforeach>
+                            <input @foreach ($user as $users) data-user={{$users->id}} @endforeach data-post={{$posts->id}} class="toggle-classs" type="checkbox" data-onstyle="danger" data-offstyle="primary" data-toggle="toggle" data-on={{__("message.Unlike")}} data-off={{__("message.Like")}} @foreach ($posts->UserLikes as $p) {{ $p->pivot->post_Likes ? 'checked' : '' }} @endforeach>
 
                             {{-- ---------------------------Like ends------------------------------------- --}}
-                            <a href="" data-post={{$posts->id}} data-user={{$user->id}} class="btn btn-secondary commentbtn" >{{__('message.Comment')}}</a>
+                            <a href="" data-post={{$posts->id}} @foreach ($user as $users) data-user={{$users->id}} @endforeach class="btn btn-secondary commentbtn" >{{__('message.Comment')}}</a>
                         </p>
                     </div>
                 @endif
             @endforeach
-        {{-- @endif --}}
         </div>
     </div>
     <div id="morePosts">
