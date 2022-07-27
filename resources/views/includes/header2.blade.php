@@ -27,12 +27,12 @@
                             Choose Language
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @foreach ($user as $ps)
+                                {{-- @foreach ($user as $ps) --}}
                                 {{-- {{dd($user->languages->language)}} --}}
                                     {{-- @foreach ($ps as $item)
                                         <li><a href="{{route('langChange',['locale'=>'hi'])}}" class="dropdown-item">{{$item->languages->language}}</a></li>        
                                     @endforeach --}}
-                                @endforeach
+                                {{-- @endforeach --}}
                                 {{-- {{dd($user->languages->language)}} --}}
                             {{-- <li><a href="{{route('langChange',['locale'=>'en'])}}" class="dropdown-item">English</a></li> --}}
                             </ul>
