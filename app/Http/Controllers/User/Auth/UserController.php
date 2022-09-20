@@ -143,7 +143,6 @@ class UserController extends Controller
                 'username' => $request->username,
                 'email' => $user->email,
             ]);
-            // dd($user->profile_photo);
             if (isset($profilephoto)) {
                 Storage::disk('public')->delete($user->profile_photo);
                 $user->update([
@@ -152,7 +151,6 @@ class UserController extends Controller
             }
             return redirect()->route('user.Account')->with('success', 'Profile was updated');
         } catch (\Exception $exception) {
-            // dd($exception->getMessage());
             return redirect()->back()->with('error', 'Temporary Server Error.');
         }
     }
