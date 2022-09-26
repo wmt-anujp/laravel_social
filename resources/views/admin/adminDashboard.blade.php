@@ -65,63 +65,46 @@
     </div>
 @endsection
 @section('js')
-    <script type="text/javascript">
-            // $(function () {
-            // var table = $('#usertable').DataTable({
-            //     processing: true,
-            //     serverSide: true,
-            //     ajax: "{{ route('admin.Dashboard') }}",
-            //     type:'get',
-            //     columns: [
-            //         {data: 'id', name: 'id'},
-            //         {data: 'name', name: 'name'},
-            //         {data: 'username', name: 'username'},
-            //         {data: 'email', name: 'email'},
-            //         {data: 'active_status', name: 'active_status', orderable: false, searchable: false},
-            //     ]
-            //     });
-            // });
-            $(function () {
-    
-    var table = $('#usertable').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ route('admin.datatable') }}",
-        columns: [
-            {data: 'id', name: 'id'},
-            {data: 'name', name: 'name'},
-            {data: 'username', name: 'username'},
-            {data: 'email', name: 'email'},
-            {data: 'active_status', name: 'active_status', orderable: false, searchable: false},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
-        ]
+<script type="text/javascript">
+    $(function () {
+        var table = $('#usertable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('admin.datatable') }}",
+            columns: [
+                {data: 'id', name: 'id'},
+                {data: 'name', name: 'name'},
+                {data: 'username', name: 'username'},
+                {data: 'email', name: 'email'},
+                {data: 'active_status', name: 'active_status', orderable: false, searchable: false},
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+            ]
+        });
     });
-    
-  });
-        // user status
-        var status=0;
-        var userId=0;
-            $('.toggle-class').change(function(){
-                status=$(this).prop('checked')===true ? 1 : 0;
-                console.log (status);
-                userId= $(this).data('user');
-                $.ajax({
-                    type:"POST",
-                    dataType:"json",
-                    url:"{{route('user.Status')}}",
-                    data:{
-                        status:status,
-                        userId:userId,
-                    },
-                    success: function(data){
-                        console.log(data);
-                        alert('User status Changed');
-                    },
-                    error:function(error){
-                        console.log(error);
-                        alert('User Status Not Changed');
-                    }
-                });
-            });
-    </script>
+    // user status
+    var status=0;
+    var userId=0;
+    $('.toggle-class').change(function(){
+        status=$(this).prop('checked')===true ? 1 : 0;
+        console.log (status);
+        userId= $(this).data('user');
+        $.ajax({
+            type:"POST",
+            dataType:"json",
+            url:"{{route('user.Status')}}",
+            data:{
+                status:status,
+                userId:userId,
+            },
+            success: function(data){
+                console.log(data);
+                alert('User status Changed');
+            },
+            error:function(error){
+                console.log(error);
+                alert('User Status Not Changed');
+            }
+        });
+    });
+</script>
 @endsection
